@@ -12,7 +12,7 @@
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.MVVM</Title>
-    <Description>Simple Core MVVM class library for .Net</Description>
+    <Description>Simple Core MVVM class library for .NetStandard</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
