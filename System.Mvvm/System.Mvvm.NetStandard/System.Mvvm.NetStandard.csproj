@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageId>System.Mvvm</PackageId>
+    <PackageId>System.Mvvm.NetStandard</PackageId>
     <PackageVersion>1.0</PackageVersion>
     <Authors>newky2k</Authors>
     <PackageLicenseUrl>https://raw.githubusercontent.com/newky2k/system.mvvm/master/Licence</PackageLicenseUrl>
@@ -12,10 +12,18 @@
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.MVVM</Title>
-    <Description>Core MVVM library for .Net</Description>
+    <Description>Simple Core MVVM class library for .Net</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.1.248" />
+    <Compile Include="..\System.Mvvm\DelegateCommand.cs" Link="DelegateCommand.cs" />
+    <Compile Include="..\System.Mvvm\ViewModel.cs" Link="ViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library" Version="1.6.1" />
   </ItemGroup>
 </Project>
