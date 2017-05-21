@@ -11,11 +11,14 @@
     <PackageProjectUrl>https://github.com/newky2k/system.mvvm</PackageProjectUrl>
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
-    <Title>System.MVVM</Title>
+    <Title>System.Mvvm.NetStandard</Title>
     <Description>Simple Core MVVM class library for .NetStandard</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <AssemblyName>System.Mvvm</AssemblyName>
+    <RootNamespace>System.Mvvm</RootNamespace>
+    <Product>System.Mvvm.NetStandard</Product>
   </PropertyGroup>
 
   <ItemGroup>
