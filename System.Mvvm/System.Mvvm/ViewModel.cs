@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace System.Mvvm
 {
-	public class ViewModel : INotifyPropertyChanged
+	public class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 	{
         #region Fields
-        private bool mDataHasChanged;
-        private bool mIsLoaded;
-        private bool mIsBusy;
-        private bool disableIsBusyChanged;
+        private bool _dataHasChanged;
+        private bool _isLoaded;
+        private bool _isBusy;
+        private bool _disableIsBusyChanged;
+        private Dictionary<string, string> _errors = new Dictionary<string, string>();
+        private Dictionary<string, Func<string>> _validators = new Dictionary<string, Func<string>>();
+
         #endregion
 
         #region Events
@@ -25,7 +32,16 @@ namespace System.Mvvm
         /// </summary>
         public event EventHandler<bool> OnIsBusyChanged = delegate { };
 
+        /// <summary>
+        /// Occurs when then IsLoaded Changes
+        /// </summary>
         public event EventHandler<bool> OnLoadedChanged = delegate { };
+
+        /// <summary>
+        /// Occurs when the validation errors have changed for a property or for the entire
+        //     entity.
+        /// </summary>
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = delegate { };
 
         #endregion
 
@@ -39,12 +55,12 @@ namespace System.Mvvm
         /// </value>
         public bool DataHasChanged
         {
-            get { return mDataHasChanged; }
+            get { return _dataHasChanged; }
             set
             {
-                if (mDataHasChanged != value)
+                if (_dataHasChanged != value)
                 {
-                    mDataHasChanged = value;
+                    _dataHasChanged = value;
                 }
             }
         }
@@ -57,12 +73,12 @@ namespace System.Mvvm
         /// </value>
         public bool IsLoaded
         {
-            get { return mIsLoaded; }
+            get { return _isLoaded; }
             set
             {
-                if (mIsLoaded != value)
+                if (_isLoaded != value)
                 {
-                    mIsLoaded = value;
+                    _isLoaded = value;
 
                     NotifyLoadedChanged(value);
                 }
@@ -77,12 +93,12 @@ namespace System.Mvvm
         /// </value>
         public bool IsBusy
         {
-            get { return mIsBusy; }
+            get { return _isBusy; }
             set
             {
-                if (mIsBusy != value)
+                if (_isBusy != value)
                 {
-                    mIsBusy = value;
+                    _isBusy = value;
 
                     if (!DisableIsBusyChanged)
                     {
@@ -104,8 +120,8 @@ namespace System.Mvvm
         /// <value><c>true</c> if [disable is busy changed]; otherwise, <c>false</c>.</value>
         public bool DisableIsBusyChanged
         {
-            get { return disableIsBusyChanged; }
-            set { disableIsBusyChanged = value; }
+            get { return _disableIsBusyChanged; }
+            set { _disableIsBusyChanged = value; }
         }
 
         /// <summary>
@@ -122,6 +138,8 @@ namespace System.Mvvm
             }
         }
 
+
+
         #endregion
 
         public ViewModel()
@@ -134,7 +152,7 @@ namespace System.Mvvm
         /// Notifies the property changed.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
-        protected void NotifyPropertyChanged(string propertyName, Boolean hasChanged = true)
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
         {
             if (hasChanged == true)
                 DataHasChanged = true;
@@ -166,6 +184,111 @@ namespace System.Mvvm
         private void NotifyLoadedChanged(bool value)
         {
             OnLoadedChanged(this, value);
+        }
+
+
+        #endregion
+
+        #region Error Handling
+
+        /// <summary>
+        /// Gets a value that indicates whether the entity has validation errors.
+        /// </summary>
+        public bool HasErrors => _errors.Count > 0;
+
+        /// <summary>
+        /// Gets the validation errors for a specified property or for the entire entity.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public IEnumerable GetErrors(string propertyName)
+        {
+            if (_errors.ContainsKey(propertyName))
+            {
+                return _errors[propertyName];
+            }
+
+            return string.Empty;
+        }
+
+
+        public void AddValidator(string propertyName, Func<string> validator)
+        {
+            if (_validators.ContainsKey(propertyName))
+            {
+                _validators[propertyName] = validator;
+            }
+            else
+            {
+                _validators.Add(propertyName, validator);
+            }
+        }
+
+        public void RemoveValidator(string propertyName)
+        {
+            if (_validators.ContainsKey(propertyName))
+            {
+                _validators.Remove(propertyName);
+                
+            }
+
+            if (_errors.ContainsKey(propertyName))
+                _errors.Remove(propertyName);
+
+        }
+
+
+        /// <summary>
+        /// Validate the property
+        /// </summary>
+        /// <param name="propertyName">property name</param>
+        /// <param name="message">Error message to show</param>
+        /// <param name="validator">validate function</param>
+        public void ValidateProperty([CallerMemberName] string propertyName = null)
+        {
+            //if there is no validator then ignore
+            if (!_validators.ContainsKey(propertyName))
+                return;
+
+            var validator = _validators[propertyName];
+
+            var result = validator();
+
+            if (string.IsNullOrWhiteSpace(result))
+            { 
+                if (_errors.ContainsKey(propertyName))
+                {
+                    _errors.Remove(propertyName);
+
+                    NotifyErrorChanged(propertyName);
+                }
+
+            }
+            else
+            {
+                if (!_errors.ContainsKey(propertyName))
+                {
+                    _errors[propertyName] = result;
+
+                    NotifyErrorChanged(propertyName);
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// This will validate all properties with registered validators
+        /// </summary>
+        public void ValidateAllProperties()
+        {
+            var properties = _validators.Keys.ToList();
+
+            properties.ForEach(x => ValidateProperty(x));
+
+        }
+        public void NotifyErrorChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
         #endregion
 
