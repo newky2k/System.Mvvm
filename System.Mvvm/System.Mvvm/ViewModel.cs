@@ -211,7 +211,6 @@ namespace System.Mvvm
             return string.Empty;
         }
 
-
         public void AddValidator(string propertyName, Func<string> validator)
         {
             if (_validators.ContainsKey(propertyName))
@@ -286,6 +285,7 @@ namespace System.Mvvm
             properties.ForEach(x => ValidateProperty(x));
 
         }
+
         public void NotifyErrorChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));

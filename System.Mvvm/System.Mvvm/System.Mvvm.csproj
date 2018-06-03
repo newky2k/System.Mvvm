@@ -16,7 +16,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>- Updated to use .net standard instead of PCL
-- 
+- Added support for INotifyDataErrorInfo
     
     
     
