@@ -160,10 +160,10 @@ namespace System.Mvvm
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
         /// <summary>
         /// All Properties Changed (ie the Model changed).
         /// </summary>
-        /// <param name="Name">The name.</param>
         public void NotifyAllPropertiesDidChange()
         {
             DataHasChanged = true;
@@ -186,6 +186,17 @@ namespace System.Mvvm
             OnLoadedChanged(this, value);
         }
 
+        /// <summary>
+        /// Notify that the property has changed and validate the new value at the same time
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <param name="hasChanged"></param>
+        protected void NotifyAndValidateProperty([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
+        {
+            NotifyPropertyChanged(propertyName, hasChanged);
+
+            ValidateProperty(propertyName);
+        }
 
         #endregion
 
@@ -211,6 +222,11 @@ namespace System.Mvvm
             return string.Empty;
         }
 
+        /// <summary>
+        /// Add a validator
+        /// </summary>
+        /// <param name="propertyName">The name of the property to validate</param>
+        /// <param name="validator">Function returning an error message if validation fails</param>
         public void AddValidator(string propertyName, Func<string> validator)
         {
             if (_validators.ContainsKey(propertyName))
@@ -223,6 +239,10 @@ namespace System.Mvvm
             }
         }
 
+        /// <summary>
+        /// Remove the validator
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void RemoveValidator(string propertyName)
         {
             if (_validators.ContainsKey(propertyName))
@@ -235,7 +255,6 @@ namespace System.Mvvm
                 _errors.Remove(propertyName);
 
         }
-
 
         /// <summary>
         /// Validate the property
@@ -286,7 +305,8 @@ namespace System.Mvvm
 
         }
 
-        public void NotifyErrorChanged(string propertyName)
+
+        private void NotifyErrorChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }

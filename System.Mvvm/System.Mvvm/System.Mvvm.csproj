@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>System.Mvvm</PackageId>
-    <PackageVersion>1.1.0</PackageVersion>
+    <PackageVersion>1.1.2</PackageVersion>
     <Authors>newky2k</Authors>
     <PackageLicenseUrl>https://github.com/newky2k/system.mvvm/blob/master/Licence</PackageLicenseUrl>
     <Owners>newky2k</Owners>
@@ -15,21 +15,22 @@
     <Description>Simple Core MVVM class library for .Net</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Updated to use .net standard instead of PCL
-- Added support for INotifyDataErrorInfo
-    
-    
-    
+    <PackageReleaseNotes>- Added strong naming of the assembly
+- Added NotifyAndValidateProperty method
 </PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <Version>1.1.0</Version>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <Version>1.1.2.0</Version>
+    <FileVersion>1.1.2.0</FileVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>dsoftkey.pfx</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <RepositoryUrl />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Update="NETStandard.Library" Version="1.6.1" />
+    <PackageReference Update="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 </Project>
