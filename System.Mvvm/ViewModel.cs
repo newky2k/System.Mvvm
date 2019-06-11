@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace System.Mvvm
@@ -13,10 +14,9 @@ namespace System.Mvvm
         private bool _dataHasChanged;
         private bool _isLoaded;
         private bool _isBusy;
-        private bool _disableIsBusyChanged;
-        private Dictionary<string, string> _errors = new Dictionary<string, string>();
-        private Dictionary<string, Func<string>> _validators = new Dictionary<string, Func<string>>();
+        private bool _isEditable;
 
+        private Validator _validator;
         #endregion
 
         #region Events
@@ -36,6 +36,11 @@ namespace System.Mvvm
         /// Occurs when then IsLoaded Changes
         /// </summary>
         public event EventHandler<bool> OnLoadedChanged = delegate { };
+
+        /// <summary>
+        /// Occurs when the workflow is complete, such as to close a window or view
+        /// </summary>
+        public event EventHandler<bool> OnComplete = delegate { };
 
         /// <summary>
         /// Occurs when the validation errors have changed for a property or for the entire
@@ -112,16 +117,14 @@ namespace System.Mvvm
             }
         }
 
-
-
         /// <summary>
         /// Gets or sets value to disable the IsBusyChanged Notification
         /// </summary>
         /// <value><c>true</c> if [disable is busy changed]; otherwise, <c>false</c>.</value>
         public bool DisableIsBusyChanged
         {
-            get { return _disableIsBusyChanged; }
-            set { _disableIsBusyChanged = value; }
+            get { return DisableIsBusyChanged1; }
+            set { DisableIsBusyChanged1 = value; }
         }
 
         /// <summary>
@@ -138,14 +141,94 @@ namespace System.Mvvm
             }
         }
 
+        public virtual Validator Validator
+        {
+            get
+            {
+                if (_validator == null)
+                {
+                    _validator = new EmptyValidator();
+                    _validator.NotificationAction = NotifyErrorChanged;
+                }
 
+                return _validator;
+            }
+            set
+            {
+                _validator = value;
+                _validator.NotificationAction = NotifyErrorChanged;
+            }
+        }
 
+        public bool IsValid
+        {
+            get { return !this.Validator.HasErrors; }
+
+        }
+
+        public bool HasErrors
+        {
+            get { return (Validator.Errors.Count > 0); }
+        }
+
+        public Dictionary<string, List<string>> Errors
+        {
+            get
+            {
+                return Validator.Errors;
+            }
+        }
+
+        public string ErrorMessages
+        {
+            get
+            {
+                return Validator.ErrorMessages;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is editable.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is editable; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsEditable
+        {
+            get { return _isEditable; }
+            set
+            {
+                _isEditable = value;
+
+                NotifyPropertyChanged("IsEditable");
+                NotifyPropertyChanged("IsEditableReversed");
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is editable reversed.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is editable reversed; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsEditableReversed
+        {
+            get
+            {
+                return !IsEditable;
+            }
+        }
+
+        public bool DisableIsBusyChanged1 { get; set; }
         #endregion
 
+        #region Constructors
         public ViewModel()
 		{
 
 		}
+
+        #endregion
 
         #region Methods
         /// <summary>
@@ -178,7 +261,12 @@ namespace System.Mvvm
         /// <param name="ex">The ex.</param>
         protected void NotifyErrorOccured(Exception ex, string title = null)
         {
-            OnErrorOccured(this, ex);
+            IsBusy = false;
+
+            if (string.IsNullOrWhiteSpace(title))
+                OnErrorOccured(this, ex);
+            else
+                OnErrorOccured(this, new TitledException(title, ex));
         }
 
         private void NotifyLoadedChanged(bool value)
@@ -198,14 +286,14 @@ namespace System.Mvvm
             ValidateProperty(propertyName);
         }
 
+        protected void NotifyOnComplete(bool value)
+        {
+            this.OnComplete?.Invoke(this, value);
+        }
+
         #endregion
 
         #region Error Handling
-
-        /// <summary>
-        /// Gets a value that indicates whether the entity has validation errors.
-        /// </summary>
-        public bool HasErrors => _errors.Count > 0;
 
         /// <summary>
         /// Gets the validation errors for a specified property or for the entire entity.
@@ -214,12 +302,7 @@ namespace System.Mvvm
         /// <returns></returns>
         public IEnumerable GetErrors(string propertyName)
         {
-            if (_errors.ContainsKey(propertyName))
-            {
-                return _errors[propertyName];
-            }
-
-            return string.Empty;
+            return Validator.GetErrors(propertyName);
         }
 
         /// <summary>
@@ -227,16 +310,10 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="propertyName">The name of the property to validate</param>
         /// <param name="validator">Function returning an error message if validation fails</param>
-        public void AddValidator(string propertyName, Func<string> validator)
+        public void AddValidator(string propertyName, string errorMessage, Func<bool> validator)
         {
-            if (_validators.ContainsKey(propertyName))
-            {
-                _validators[propertyName] = validator;
-            }
-            else
-            {
-                _validators.Add(propertyName, validator);
-            }
+            Validator.AddValidation(propertyName, errorMessage, validator);
+
         }
 
         /// <summary>
@@ -245,14 +322,15 @@ namespace System.Mvvm
         /// <param name="propertyName"></param>
         public void RemoveValidator(string propertyName)
         {
-            if (_validators.ContainsKey(propertyName))
+
+            if (Validator.Validators.ContainsKey(propertyName))
             {
-                _validators.Remove(propertyName);
+                Validator.Validators.Remove(propertyName);
                 
             }
 
-            if (_errors.ContainsKey(propertyName))
-                _errors.Remove(propertyName);
+            if (Errors.ContainsKey(propertyName))
+                Errors.Remove(propertyName);
 
         }
 
@@ -264,34 +342,7 @@ namespace System.Mvvm
         /// <param name="validator">validate function</param>
         public void ValidateProperty([CallerMemberName] string propertyName = null)
         {
-            //if there is no validator then ignore
-            if (!_validators.ContainsKey(propertyName))
-                return;
-
-            var validator = _validators[propertyName];
-
-            var result = validator();
-
-            if (string.IsNullOrWhiteSpace(result))
-            { 
-                if (_errors.ContainsKey(propertyName))
-                {
-                    _errors.Remove(propertyName);
-
-                    NotifyErrorChanged(propertyName);
-                }
-
-            }
-            else
-            {
-                if (!_errors.ContainsKey(propertyName))
-                {
-                    _errors[propertyName] = result;
-
-                    NotifyErrorChanged(propertyName);
-                }
-            }
-
+            Validator.ValidateProperty(propertyName);
         }
 
         /// <summary>
@@ -299,7 +350,7 @@ namespace System.Mvvm
         /// </summary>
         public void ValidateAllProperties()
         {
-            var properties = _validators.Keys.ToList();
+            var properties = Validator.Validators.Keys.ToList();
 
             foreach (var aProp in properties)
                 ValidateProperty(aProp);
@@ -310,6 +361,41 @@ namespace System.Mvvm
         private void NotifyErrorChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        }
+
+        public void Validate()
+        {
+            Errors.Clear();
+
+            DataHasChanged = true;
+            NotifyAllPropertiesDidChange();
+
+            var props = this.GetType().GetRuntimeProperties().Where(prop => prop.GetCustomAttributes<ValidatedAttribute>().Count() > 0);
+
+            var propNames = props.Select(x => x.Name).ToList();
+
+            foreach (var aProp in propNames)
+            {
+                Validator.ValidateProperty(aProp);
+            }
+
+        }
+
+        public void Validate(List<string> properties)
+        {
+            Errors.Clear();
+            DataHasChanged = true;
+            NotifyAllPropertiesDidChange();
+
+
+
+            foreach (var aProp in properties)
+            {
+                Validator.ValidateProperty(aProp);
+
+            }
+
+
         }
         #endregion
 
