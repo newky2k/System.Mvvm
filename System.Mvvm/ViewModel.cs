@@ -301,7 +301,8 @@ namespace System.Mvvm
         {
             var properties = _validators.Keys.ToList();
 
-            properties.ForEach(x => ValidateProperty(x));
+            foreach (var aProp in properties)
+                ValidateProperty(aProp);
 
         }
 
