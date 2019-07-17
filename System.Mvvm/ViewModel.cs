@@ -8,14 +8,15 @@ using System.Runtime.CompilerServices;
 
 namespace System.Mvvm
 {
-	public class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
+	public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 	{
         #region Fields
         private bool _dataHasChanged;
         private bool _isLoaded;
         private bool _isBusy;
         private bool _isEditable;
-
+        private bool _disableIsBusyChanged;
+        private Dictionary<string, Action> _propertyChangeActions = new Dictionary<string, Action>();
         private Validator _validator;
         #endregion
 
@@ -58,7 +59,7 @@ namespace System.Mvvm
         /// <value>
         ///   <c>true</c> if [data has changed]; otherwise, <c>false</c>.
         /// </value>
-        public bool DataHasChanged
+        public virtual bool DataHasChanged
         {
             get { return _dataHasChanged; }
             set
@@ -76,7 +77,7 @@ namespace System.Mvvm
         /// <value>
         ///   <c>true</c> if this instance is loaded; otherwise, <c>false</c>.
         /// </value>
-        public bool IsLoaded
+        public virtual bool IsLoaded
         {
             get { return _isLoaded; }
             set
@@ -96,7 +97,7 @@ namespace System.Mvvm
         /// <value>
         ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
         /// </value>
-        public bool IsBusy
+        public virtual bool IsBusy
         {
             get { return _isBusy; }
             set
@@ -121,10 +122,10 @@ namespace System.Mvvm
         /// Gets or sets value to disable the IsBusyChanged Notification
         /// </summary>
         /// <value><c>true</c> if [disable is busy changed]; otherwise, <c>false</c>.</value>
-        public bool DisableIsBusyChanged
+        public virtual bool DisableIsBusyChanged
         {
-            get { return DisableIsBusyChanged1; }
-            set { DisableIsBusyChanged1 = value; }
+            get { return _disableIsBusyChanged; }
+            set { _disableIsBusyChanged = value; }
         }
 
         /// <summary>
@@ -133,7 +134,7 @@ namespace System.Mvvm
         /// <value>
         /// <c>true</c> if IsBusy reversed; otherwise, <c>false</c>.
         /// </value>
-        public bool IsBusyReversed
+        public virtual bool IsBusyReversed
         {
             get
             {
@@ -160,18 +161,18 @@ namespace System.Mvvm
             }
         }
 
-        public bool IsValid
+        public virtual bool IsValid
         {
             get { return !this.Validator.HasErrors; }
 
         }
 
-        public bool HasErrors
+        public virtual bool HasErrors
         {
             get { return (Validator.Errors.Count > 0); }
         }
 
-        public Dictionary<string, List<string>> Errors
+        public virtual Dictionary<string, List<string>> Errors
         {
             get
             {
@@ -179,7 +180,7 @@ namespace System.Mvvm
             }
         }
 
-        public string ErrorMessages
+        public virtual string ErrorMessages
         {
             get
             {
@@ -193,7 +194,7 @@ namespace System.Mvvm
         /// <value>
         /// <c>true</c> if this instance is editable; otherwise, <c>false</c>.
         /// </value>
-        public bool IsEditable
+        public virtual bool IsEditable
         {
             get { return _isEditable; }
             set
@@ -211,7 +212,7 @@ namespace System.Mvvm
         /// <value>
         /// <c>true</c> if this instance is editable reversed; otherwise, <c>false</c>.
         /// </value>
-        public bool IsEditableReversed
+        public virtual bool IsEditableReversed
         {
             get
             {
@@ -219,7 +220,7 @@ namespace System.Mvvm
             }
         }
 
-        public bool DisableIsBusyChanged1 { get; set; }
+        
         #endregion
 
         #region Constructors
@@ -241,6 +242,9 @@ namespace System.Mvvm
                 DataHasChanged = true;
 
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+
+            if (_propertyChangeActions.ContainsKey(propertyName))
+                _propertyChangeActions[propertyName]?.Invoke();
         }
 
 
@@ -252,6 +256,13 @@ namespace System.Mvvm
             DataHasChanged = true;
 
             PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
+
+            foreach (var prop in _propertyChangeActions.Keys)
+            {
+                _propertyChangeActions[prop]?.Invoke();
+
+            }
+
         }
 
 
@@ -291,6 +302,33 @@ namespace System.Mvvm
             this.OnComplete?.Invoke(this, value);
         }
 
+        /// <summary>
+        /// When the specified property changes execute the specified action
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="propchangedAction">The action to perform</param>
+        protected void WhenPropertyChanged(string propertyName, Action actionToPerform)
+        {
+            if (_propertyChangeActions.ContainsKey(propertyName))
+            {
+                if (actionToPerform != null)
+                {
+                    _propertyChangeActions[propertyName] = actionToPerform;
+                }
+                else
+                {
+                    _propertyChangeActions.Remove(propertyName);
+                }
+            }
+            else
+            {
+                if (actionToPerform != null)
+                {
+                    _propertyChangeActions.Add(propertyName, actionToPerform);
+                }
+
+            }
+        }
         #endregion
 
         #region Error Handling

@@ -30,7 +30,7 @@ namespace System.Mvvm
         /// Gets or sets the selected items.
         /// </summary>
         /// <value>The selected items.</value>
-        public T2 SelectedItems
+        public virtual T2 SelectedItems
         {
             get
             {
@@ -70,7 +70,7 @@ namespace System.Mvvm
             }
         }
 
-        public string ItemCount
+        public virtual string ItemCount
         {
             get
             {

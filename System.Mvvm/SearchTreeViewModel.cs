@@ -9,7 +9,7 @@ namespace System.Mvvm
 
         #region Properties
 
-        public IReadOnlyCollection<T2> TreePath
+        public virtual IReadOnlyCollection<T2> TreePath
         {
             get
             {
@@ -30,7 +30,7 @@ namespace System.Mvvm
         /// <param name="searchText">The search text.</param>
         public SearchTreeViewModel(string searchText = null) : base(searchText)
         {
-
+            WhenPropertyChanged(nameof(Items), () => NotifyPropertyChanged("TreePath"));
         }
         #endregion
 

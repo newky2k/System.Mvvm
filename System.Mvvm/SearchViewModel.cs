@@ -51,7 +51,7 @@ namespace System.Mvvm
         /// <value>
         /// The search text.
         /// </value>
-        public String SearchText
+        public virtual string SearchText
         {
             get { return searchText; }
             set
