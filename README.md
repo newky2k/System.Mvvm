@@ -7,7 +7,16 @@ Base Model View View Model classes for .NET
 - Implements INotifyPropertyChanged
 - Implements INotifyDataErrorInfo
 - Events for handling and detecting changes
+- Additional properties for 
+  - IsLoaded
+  - IsBusy
+  - IsBusyReveresed
+  - IsValid
+  - IsEditable
+  - IsEditableReversed
 - Data Validation 
+- Notification extension actions
+    - Rather than overriding a property, add an action when it changes
 - Base View Models for
     - Forms
     - Lists
