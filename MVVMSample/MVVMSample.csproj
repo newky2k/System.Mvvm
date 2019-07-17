@@ -55,12 +55,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\CarModel.cs" />
+    <Compile Include="Repository\CarRepository.cs" />
+    <Compile Include="ViewModels\ListWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SearchListWindowViewModel.cs" />
+    <Compile Include="ViewModels\TreeSearchListWindowViewModel.cs" />
     <Compile Include="Views\ListWindow.xaml.cs">
       <DependentUpon>ListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchListWindow.xaml.cs">
       <DependentUpon>SearchListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TreeSearchListWindow.xaml.cs">
+      <DependentUpon>TreeSearchListWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SearchListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TreeSearchListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,5 +127,6 @@
       <Name>System.Mvvm</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
