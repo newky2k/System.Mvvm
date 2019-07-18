@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Mvvm;
+using System.Mvvm.Model;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,9 +48,10 @@ namespace MVVMSample.ViewModels
             return data.Where(x => x.Make.ToLower().Contains(SearchText.ToLower()) || x.Model.ToLower().Contains(SearchText.ToLower())).ToObservable();
         }
 
-        protected override IReadOnlyCollection<IEnumerable<CarModel>> BuildTreePath(IEnumerable<CarModel> data)
+        protected override IReadOnlyCollection<TreeViewObject> BuildTreePath(IEnumerable<CarModel> data)
         {
-            throw new NotImplementedException();
+            return BuildPath(data, new [] { "Make", "Model", "Year"});
+
         }
     }
 }

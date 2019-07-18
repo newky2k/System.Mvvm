@@ -35,17 +35,18 @@ namespace MVVMSample.Repository
         {
             _cars = new ObservableCollection<CarModel>()
             {
-                new CarModel() {Make="Ford", Model="Mustang"},
-                new CarModel() {Make="Ford", Model="Kuga"},
-                new CarModel() {Make="Ford", Model="Focus"},
-                new CarModel() {Make="Ford", Model="Mondeo"},
-                new CarModel() {Make="BMW", Model="5 Series"},
-                new CarModel() {Make="BMW", Model="3 Series"},
-                new CarModel() {Make="BMW", Model="i8"},
-                new CarModel() {Make="Tesla", Model="Model 3"},
-                new CarModel() {Make="Tesla", Model="Model X"},
-                new CarModel() {Make="Ferrari", Model="F40"},
-                new CarModel() {Make="Ferrari", Model="F50"},
+                new CarModel() {Make="Ford", Model="Mustang", Year="1968"},
+                new CarModel() {Make="Ford", Model="Mustang",Year="1978"},
+                new CarModel() {Make="Ford", Model="Kuga", Year="1968"},
+                new CarModel() {Make="Ford", Model="Focus", Year="1968"},
+                new CarModel() {Make="Ford", Model="Mondeo", Year="1968"},
+                new CarModel() {Make="BMW", Model="5 Series", Year="1968"},
+                new CarModel() {Make="BMW", Model="3 Series", Year="1968"},
+                new CarModel() {Make="BMW", Model="i8", Year="1968"},
+                new CarModel() {Make="Tesla", Model="Model 3", Year="1968"},
+                new CarModel() {Make="Tesla", Model="Model X", Year="1968"},
+                new CarModel() {Make="Ferrari", Model="F40", Year="1968"},
+                new CarModel() {Make="Ferrari", Model="F50", Year="1968"},
             };
         }
 

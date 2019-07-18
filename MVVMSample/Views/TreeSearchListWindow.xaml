@@ -16,6 +16,15 @@
             <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">Search:</TextBlock>
             <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Width="150" />
         </StackPanel>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" CanUserAddRows="False" SelectionMode="Single" AlternatingRowBackground="AliceBlue"/>
+        <TreeView x:Name="tView" Grid.Row="1" Margin="0,2,0,2" ItemsSource="{Binding TreePath}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal" Margin="1">
+                        <!--<Image Width="16" Height="16" Margin="3,0" Source="/Titan.Shared.Time.UI.Wpf;component/Resources/folder_24x24.png" />-->
+                        <TextBlock FontSize="12" Text="{Binding Name}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>
