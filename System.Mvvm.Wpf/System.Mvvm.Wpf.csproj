@@ -4,19 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{790A7BC2-CE43-4E0A-90E4-9430DE1C926F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>MVVMSample</RootNamespace>
-    <AssemblyName>MVVMSample</AssemblyName>
+    <ProjectGuid>{0F9AC8E3-2772-418E-8CE1-A4F0AD515BFE}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>System.Mvvm.Wpf</RootNamespace>
+    <AssemblyName>System.Mvvm.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,59 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Models\CarModel.cs" />
-    <Compile Include="Repository\CarRepository.cs" />
-    <Compile Include="ViewModels\AddCarDialogViewModel.cs" />
-    <Compile Include="ViewModels\ListWindowViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\SearchListWindowViewModel.cs" />
-    <Compile Include="ViewModels\TreeSearchListWindowViewModel.cs" />
-    <Compile Include="Views\AddCarDialog.xaml.cs">
-      <DependentUpon>AddCarDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ListWindow.xaml.cs">
-      <DependentUpon>ListWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SearchListWindow.xaml.cs">
-      <DependentUpon>SearchListWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TreeSearchListWindow.xaml.cs">
-      <DependentUpon>TreeSearchListWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\AddCarDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ListWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SearchListWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TreeSearchListWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="MvvmManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -127,18 +72,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\System.Mvvm.Wpf\System.Mvvm.Wpf.csproj">
-      <Project>{0f9ac8e3-2772-418e-8ce1-a4f0ad515bfe}</Project>
-      <Name>System.Mvvm.Wpf</Name>
-    </ProjectReference>
     <ProjectReference Include="..\System.Mvvm\System.Mvvm.csproj">
       <Project>{e5d6aa6e-a16a-4258-a872-1557e4ed4827}</Project>
       <Name>System.Mvvm</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
