@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMSample.Views"
         mc:Ignorable="d"
-        Title="TreeSearchListWindow" Height="450" Width="800">
+                    Title="SearchTreeListWindow" Height="480" Width="320" Loaded="OnLoaded" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" Margin="5" Orientation="Horizontal">
+            <Button Margin="0,0,5,0" Content="New" Command="{Binding AddCarCommand}" Width="75"/>
+            <TextBlock Margin="0,0,5,0" VerticalAlignment="Center">Search:</TextBlock>
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Width="150" />
+        </StackPanel>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" CanUserAddRows="False" SelectionMode="Single" AlternatingRowBackground="AliceBlue"/>
     </Grid>
 </Window>

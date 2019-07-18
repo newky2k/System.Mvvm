@@ -1,5 +1,6 @@
 ﻿using MVVMSample.Models;
 using MVVMSample.Repository;
+using MVVMSample.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,11 +9,25 @@ using System.Mvvm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MVVMSample.ViewModels
 {
     public class TreeSearchListWindowViewModel : SearchTreeViewModel<CarModel, ObservableCollection<CarModel>>
     {
+        public ICommand AddCarCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var addDlg = new AddCarDialog();
+                    addDlg.Owner = Application.Current.MainWindow;
+                    addDlg.ShowDialog();
+                });
+            }
+        }
+
         public override async Task RefreshAsync()
         {
             Items = CarRepository.Instance.Cars;

@@ -14,6 +14,19 @@ namespace MVVMSample.ViewModels
     {
         #region Commands
 
+        public ICommand ShowAddCarCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var lstWindow = new AddCarDialog();
+                    lstWindow.Owner = Application.Current.MainWindow;
+                    lstWindow.ShowDialog();
+                });
+            }
+        }
+
         public ICommand ShowListWindowCommand
         {
             get
@@ -34,6 +47,19 @@ namespace MVVMSample.ViewModels
                 return new DelegateCommand(() =>
                 {
                     var lstWindow = new SearchListWindow();
+                    lstWindow.Owner = Application.Current.MainWindow;
+                    lstWindow.ShowDialog();
+                });
+            }
+        }
+
+        public ICommand ShowSearchTreeListWindowCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var lstWindow = new TreeSearchListWindow();
                     lstWindow.Owner = Application.Current.MainWindow;
                     lstWindow.ShowDialog();
                 });

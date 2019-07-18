@@ -12,8 +12,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <Button Content="Show List" Command="{Binding ShowListWindowCommand}" />
-            <Button Content="Show Search List" Command="{Binding ShowSearchListWindowCommand}" />
+            <Button Margin="5" Content="Add Car" Command="{Binding ShowAddCarCommand}" />
+            <Button Margin="5" Content="Show List" Command="{Binding ShowListWindowCommand}" />
+            <Button Margin="5" Content="Show Search List" Command="{Binding ShowSearchListWindowCommand}" />
+            <Button Margin="5" Content="Show Tree Search List" Command="{Binding ShowSearchTreeListWindowCommand}" />
         </StackPanel>
     </Grid>
 </Window>
