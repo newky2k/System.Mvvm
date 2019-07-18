@@ -27,6 +27,19 @@ namespace MVVMSample.ViewModels
             }
         }
 
+        public ICommand ShowSearchListWindowCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var lstWindow = new SearchListWindow();
+                    lstWindow.Owner = Application.Current.MainWindow;
+                    lstWindow.ShowDialog();
+                });
+            }
+        }
+
         #endregion
         public MainViewModel() : base()
         {

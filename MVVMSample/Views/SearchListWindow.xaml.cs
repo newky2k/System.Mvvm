@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVVMSample.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,29 @@ namespace MVVMSample.Views
     /// </summary>
     public partial class SearchListWindow : Window
     {
+        private SearchListWindowViewModel _viewModel;
+
+        public SearchListWindowViewModel ViewModel
+        {
+            get { return _viewModel; }
+            set { _viewModel = value; DataContext = _viewModel; }
+        }
+
         public SearchListWindow()
         {
             InitializeComponent();
+
+            ViewModel = new SearchListWindowViewModel();
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (!ViewModel.IsLoaded)
+            {
+                await ViewModel.RefreshAsync();
+
+                ViewModel.IsLoaded = true;
+            }
         }
     }
 }

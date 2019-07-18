@@ -13,6 +13,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Button Content="Show List" Command="{Binding ShowListWindowCommand}" />
+            <Button Content="Show Search List" Command="{Binding ShowSearchListWindowCommand}" />
         </StackPanel>
     </Grid>
 </Window>
