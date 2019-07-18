@@ -30,6 +30,10 @@ namespace MVVMSample.ViewModels
             }
         }
 
+        public TreeSearchListWindowViewModel()
+        {
+            GroupingNames = new[] { "Make", "Model", "Year" };
+        }
         public override async Task RefreshAsync()
         {
             Items = CarRepository.Instance.Cars;
@@ -46,12 +50,6 @@ namespace MVVMSample.ViewModels
                 return data;
 
             return data.Where(x => x.Make.ToLower().Contains(SearchText.ToLower()) || x.Model.ToLower().Contains(SearchText.ToLower())).ToObservable();
-        }
-
-        protected override IReadOnlyCollection<TreeViewObject> BuildTreePath(IEnumerable<CarModel> data)
-        {
-            return BuildPath(data, new [] { "Make", "Model", "Year"});
-
         }
     }
 }

@@ -13,6 +13,15 @@ namespace System.Mvvm
 
         #region Properties
 
+        private string[] _groupingNames;
+
+        public string[] GroupingNames
+        {
+            get { return _groupingNames; }
+            set { _groupingNames = value; }
+        }
+
+
         public virtual IReadOnlyCollection<TreeViewObject> TreePath
         {
             get
@@ -40,9 +49,12 @@ namespace System.Mvvm
 
         #region Methods
 
-        protected abstract IReadOnlyCollection<TreeViewObject> BuildTreePath(IEnumerable<T> data);
+        private IReadOnlyCollection<TreeViewObject> BuildTreePath(IEnumerable<T> data)
+        {
+            return BuildPath(data, GroupingNames);
+        }
 
-        protected IReadOnlyCollection<TreeViewObject> BuildPath(IEnumerable<T> data, string[] groupNames)
+        private IReadOnlyCollection<TreeViewObject> BuildPath(IEnumerable<T> data, string[] groupNames)
         {
             var groupby2 = groupNames[1];
 
@@ -76,7 +88,7 @@ namespace System.Mvvm
             return rootFolderVMs;
         }
 
-        protected TreeViewItemModel BuildTree(List<TreeViewItemModel> data, T dataItem, string groupByName)
+        private TreeViewItemModel BuildTree(List<TreeViewItemModel> data, T dataItem, string groupByName)
         {
             var aProp = dataItem.GetType().GetTypeInfo().GetDeclaredProperty(groupByName);
 
