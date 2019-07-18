@@ -1,19 +1,24 @@
-﻿<Window x:Class="MVVMSample.Views.ListWindow"
+﻿<Window x:Class="MVVMSample.Views.AddCarDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMSample.Views"
         mc:Ignorable="d"
-        Title="ListWindow" Height="480" Width="320" Loaded="OnLoaded">
+        Title="AddCarDialog" Height="200" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" Margin="5">
-            <Button Content="New" Command="{Binding AddCarCommand}" Width="75"/>
+            <Button Content="Add" Command="{Binding AddCarCommand}" Width="150"/>
         </StackPanel>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" CanUserAddRows="False" SelectionMode="Single" AlternatingRowBackground="AliceBlue"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="5">
+            <TextBlock>Make</TextBlock>
+            <TextBox Text="{Binding Make, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock>Model</TextBlock>
+            <TextBox Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
     </Grid>
 </Window>

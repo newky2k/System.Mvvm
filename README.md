@@ -15,6 +15,8 @@ Base Model View View Model classes for .NET
   - IsEditable
   - IsEditableReversed
 - Data Validation 
+- Built-In Error notification methods
+- ICommand binding helpers
 - Notification extension actions
     - Rather than overriding a property, add an action when it changes
 - Base View Models for

@@ -16,33 +16,30 @@ using System.Windows.Shapes;
 namespace MVVMSample.Views
 {
     /// <summary>
-    /// Interaction logic for ListWindow.xaml
+    /// Interaction logic for AddCarDialog.xaml
     /// </summary>
-    public partial class ListWindow : Window
+    public partial class AddCarDialog : Window
     {
-        private ListWindowViewModel _viewModel;
+        private AddCarDialogViewModel _viewModel;
 
-        public ListWindowViewModel ViewModel
+        public AddCarDialogViewModel ViewModel
         {
             get { return _viewModel; }
             set { _viewModel = value; DataContext = _viewModel; }
         }
 
-        public ListWindow()
+        public AddCarDialog()
         {
             InitializeComponent();
 
-            ViewModel = new ListWindowViewModel();
+            ViewModel = new AddCarDialogViewModel();
+
+            ViewModel.OnComplete += OnComplete;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnComplete(object sender, bool e)
         {
-            if (!ViewModel.IsLoaded)
-            {
-                await ViewModel.RefreshAsync();
-
-                ViewModel.IsLoaded = true;
-            }
+            this.DialogResult = e;
         }
     }
 }

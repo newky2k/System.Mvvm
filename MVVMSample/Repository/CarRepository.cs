@@ -1,7 +1,9 @@
 ﻿using MVVMSample.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Mvvm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,9 +21,9 @@ namespace MVVMSample.Repository
             }
         }
 
-        private List<CarModel> _cars;
+        private ObservableCollection<CarModel> _cars;
 
-        public List<CarModel> Cars
+        public ObservableCollection<CarModel> Cars
         {
             get { return _cars; }
             set { _cars = value; }
@@ -31,7 +33,7 @@ namespace MVVMSample.Repository
 
         public CarRepository()
         {
-            _cars = new List<CarModel>()
+            _cars = new ObservableCollection<CarModel>()
             {
                 new CarModel() {Make="Ford", Model="Mustang"},
                 new CarModel() {Make="Ford", Model="Kuga"},
@@ -45,6 +47,16 @@ namespace MVVMSample.Repository
                 new CarModel() {Make="Ferrari", Model="F40"},
                 new CarModel() {Make="Ferrari", Model="F50"},
             };
+        }
+
+        public void AddCar(CarModel car)
+        {
+            var existCar = Cars.Where(x => x.Make.Equals(car.Make, StringComparison.OrdinalIgnoreCase) && x.Model.Equals(car.Model, StringComparison.OrdinalIgnoreCase));
+
+            if (existCar.Any())
+                throw new TitledException("Add Car Failed", new Exception($"{car.Make} {car.Model} already exists"));
+
+            Cars.Add(car);
         }
     }
 }

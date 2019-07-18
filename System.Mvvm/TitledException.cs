@@ -17,5 +17,6 @@ namespace System.Mvvm
         {
             this.title = title;
         }
+
     }
 }

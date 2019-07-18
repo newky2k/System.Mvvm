@@ -57,10 +57,14 @@
     </ApplicationDefinition>
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Repository\CarRepository.cs" />
+    <Compile Include="ViewModels\AddCarDialogViewModel.cs" />
     <Compile Include="ViewModels\ListWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SearchListWindowViewModel.cs" />
     <Compile Include="ViewModels\TreeSearchListWindowViewModel.cs" />
+    <Compile Include="Views\AddCarDialog.xaml.cs">
+      <DependentUpon>AddCarDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ListWindow.xaml.cs">
       <DependentUpon>ListWindow.xaml</DependentUpon>
     </Compile>
@@ -82,6 +86,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddCarDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
