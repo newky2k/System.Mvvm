@@ -5,7 +5,7 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageId>System.Mvvm.Wpf</PackageId>
+    <PackageId>DSoft.System.Mvvm.Wpf</PackageId>
     <Authors>newky2k</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
@@ -24,6 +24,6 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Mvvm\System.Mvvm.csproj" />
+    <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
   </ItemGroup>
 </Project>
