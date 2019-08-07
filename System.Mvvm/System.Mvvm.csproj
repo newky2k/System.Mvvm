@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;portable45-net45+win8+wpa81</TargetFrameworks>
     <PackOnBuild>true</PackOnBuild>
-    <PackageId>DSoft.System.Mvvm</PackageId>
+    <PackageId>System.Mvvm</PackageId>
     <Authors>newky2k</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Owners>newky2k</Owners>
