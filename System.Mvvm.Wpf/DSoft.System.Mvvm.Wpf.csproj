@@ -24,6 +24,6 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Mvvm\System.Mvvm.csproj" />
+    <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
   </ItemGroup>
 </Project>
