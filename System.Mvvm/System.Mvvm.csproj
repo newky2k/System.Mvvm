@@ -21,14 +21,16 @@
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
-    <AssemblyVersion>1.1.2.0</AssemblyVersion>
-    <Version>1.1.2.0</Version>
-    <FileVersion>1.1.2.0</FileVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <Version>1.2.0</Version>
+    <FileVersion>1.2.0.0</FileVersion>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>dsoftkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <RepositoryUrl />
-    <PackageLicenseFile>Licence</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/newky2k/system.mvvm</RepositoryUrl>
+    <PackageLicenseFile></PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>GIT</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='portable45-net45+win8+wpa81'">
@@ -54,12 +56,5 @@
   
   <ItemGroup>
     <PackageReference Update="NETStandard.Library" Version="2.0.3" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="..\Licence">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 </Project>
