@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;portable45-net45+win8+wpa81</TargetFrameworks>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>System.Mvvm</PackageId>
-    <PackageVersion>1.1.2</PackageVersion>
+    <PackageVersion>1.2.0</PackageVersion>
     <Authors>newky2k</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Owners>newky2k</Owners>
@@ -22,7 +22,7 @@
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <Version>1.2.0</Version>
+    <Version>1.2.0-preview1</Version>
     <FileVersion>1.2.0.0</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
