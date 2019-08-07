@@ -10,7 +10,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
-    <Version>1.2.0-preview1</Version>
+    <Version>1.2.0-preview2</Version>
     <Description>WPF MvvmManager for .NET Framework and .NET Core 3.0</Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
