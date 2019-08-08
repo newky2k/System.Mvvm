@@ -29,6 +29,7 @@
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>GIT</RepositoryType>
+    <Copyright>Copyright © 2019 DSoft</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='portable45-net45+win8+wpa81'">
