@@ -13,9 +13,10 @@
     <Description>Simple Core MVVM class library for .Net</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Added strong naming of the assembly
-- Added NotifyAndValidateProperty method
-</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added ListViewModel, SearchViewModel and SearchTreeViewModel
+      - Added Validator classes
+      - Bug Fixes
+    </PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
