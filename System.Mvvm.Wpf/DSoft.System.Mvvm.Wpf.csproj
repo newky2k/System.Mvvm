@@ -20,7 +20,7 @@
     <Copyright>Copyright © 2019 DSoft</Copyright>
     <Product>System.Mvvm.Wpf</Product>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
