@@ -21,7 +21,7 @@
     <Product>System.Mvvm.Wpf</Product>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
