@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM</PackageTags>
-    <PackageReleaseNotes>Initial release with .NET Framework and .NET Core 3.0 WPF support</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated to latest version of Microsoft.Windows.Compatibility</PackageReleaseNotes>
     <Copyright>Copyright © 2019 DSoft</Copyright>
     <Product>System.Mvvm.Wpf</Product>
   </PropertyGroup>
