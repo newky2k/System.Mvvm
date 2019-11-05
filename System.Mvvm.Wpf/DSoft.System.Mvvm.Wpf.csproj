@@ -18,7 +18,8 @@
     <PackageTags>WPF MVVM</PackageTags>
     <PackageReleaseNotes>Updated to latest version of Microsoft.Windows.Compatibility</PackageReleaseNotes>
     <Copyright>Copyright © 2019 DSoft</Copyright>
-    <Product>System.Mvvm.Wpf</Product>
+    <AssemblyName>System.Mvvm.Wpf</AssemblyName>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
