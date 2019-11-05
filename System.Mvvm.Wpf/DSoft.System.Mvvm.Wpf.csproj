@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM</PackageTags>
-    <PackageReleaseNotes>Updated to latest version of Microsoft.Windows.Compatibility</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed packaging issues with CI</PackageReleaseNotes>
     <Copyright>Copyright © 2019 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Wpf</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
