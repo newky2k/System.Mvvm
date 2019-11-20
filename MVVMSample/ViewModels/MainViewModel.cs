@@ -1,4 +1,5 @@
-﻿using MVVMSample.Views;
+﻿using MVVMSample.Contracts;
+using MVVMSample.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,21 @@ namespace MVVMSample.ViewModels
 
                     if (result)
                         UI.ShowAlert("YAY!", "You confirmed that");
+                });
+            }
+        }
+
+        public ICommand ShowCustomUiCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+
+                    var customUI = UI.Get<ITestCustomUIProvider>();
+
+                    customUI.SayHello();
+
                 });
             }
         }

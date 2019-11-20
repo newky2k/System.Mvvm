@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,11 +21,9 @@ namespace System.Mvvm.Wpf
                 MessageBox.Show(message, title);
         }
 
-        /// <summary>
-        /// Initializes the MvvmManager
-        /// </summary>
-        public static void Init()
+        private static void CommonInit()
         {
+
             DelegateCommand.ExecuteChanged = (ev, shoudlAdd) =>
             {
                 if (shoudlAdd)
@@ -54,8 +53,32 @@ namespace System.Mvvm.Wpf
 
             };
 
-            //Register the Main UI provider
-            UI.Register<PlatformUIProvider>();
+        }
+        /// <summary>
+        /// Initializes the MvvmManager
+        /// </summary>
+        public static void Init()
+        {
+            CommonInit();
+
+            UI.Init<PlatformUIProvider>(new List<Assembly>() { Assembly.GetCallingAssembly(), typeof(MvvmManager).Assembly });
+        }
+
+        public static void Init(params Assembly[] assemblies)
+        {
+            CommonInit();
+
+            var newAssms = new List<Assembly>()
+            {
+                typeof(MvvmManager).Assembly,
+            };
+
+            if (!assemblies.Contains(Assembly.GetCallingAssembly()))
+                newAssms.Add(Assembly.GetCallingAssembly());
+
+            newAssms.AddRange(assemblies);
+
+            UI.Init<PlatformUIProvider>(newAssms);
         }
 
         /// <summary>
@@ -64,7 +87,9 @@ namespace System.Mvvm.Wpf
         /// <param name="messageDisplayHandler">The message display handler.</param>
         public static void Init(Action<string, string> messageDisplayHandler)
         {
-            Init();
+            CommonInit();
+
+            UI.Init<PlatformUIProvider>(new List<Assembly>() { Assembly.GetCallingAssembly(), typeof(MvvmManager).Assembly });
 
             _messageDisplayHandler = messageDisplayHandler;
         }

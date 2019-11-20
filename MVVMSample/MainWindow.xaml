@@ -17,6 +17,7 @@
             <Button Margin="5" Content="Show Search List" Command="{Binding ShowSearchListWindowCommand}" />
             <Button Margin="5" Content="Show Tree Search List" Command="{Binding ShowSearchTreeListWindowCommand}" />
             <Button Margin="5" Content="Show Confirmation Dialog" Command="{Binding ShowAlertCommand}" />
+            <Button Margin="5" Content="Show Custom UI" Command="{Binding ShowCustomUiCommand}" />
         </StackPanel>
     </Grid>
 </Window>

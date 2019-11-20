@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace System.Mvvm.Wpf
 {
-    internal class PlatformUIProvider : IPlatformUIProvider
+    internal class PlatformUIProvider : IPlatformCoreUIProvider
     {
         public void ShowAlert(string title, string message)
         {

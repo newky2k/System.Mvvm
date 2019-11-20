@@ -55,7 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\ITestCustomUIProvider.cs" />
     <Compile Include="Models\CarModel.cs" />
+    <Compile Include="Providers\TestCustomUIProvider.cs" />
     <Compile Include="Repository\CarRepository.cs" />
     <Compile Include="ViewModels\AddCarDialogViewModel.cs" />
     <Compile Include="ViewModels\ListWindowViewModel.cs" />

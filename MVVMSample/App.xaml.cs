@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVVMSample.Providers;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,7 +22,6 @@ namespace MVVMSample
             base.OnStartup(e);
 
             MvvmManager.Init();
-
         }
     }
 }
