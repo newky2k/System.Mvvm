@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-[assembly: MvvmService(typeof(TestCustomUIProvider))]
+[assembly: UIService(typeof(TestCustomUIProvider))]
 namespace MVVMSample.Providers
 {
     public class TestCustomUIProvider : ITestCustomUIProvider

@@ -5,9 +5,13 @@ using System.Text;
 namespace System.Mvvm.Attributes
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-    public class MvvmServiceAttribute : Attribute
+    public class UIServiceAttribute : Attribute
     {
-        public MvvmServiceAttribute(Type serviceType)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceType">Service Type</param>
+        public UIServiceAttribute(Type serviceType)
         {
             Implementation = serviceType;
         }

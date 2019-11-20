@@ -74,7 +74,6 @@ namespace System.Mvvm
 
         private static List<Type> ServiceTypes { get; set; } = new List<Type>();
 
-
         public static void Register<T>() where T : new()
         {
             var newType = typeof(T);
@@ -106,13 +105,13 @@ namespace System.Mvvm
 
         private static void LoadServices(IEnumerable<Assembly> assemblies)
         {
-            var custAttr = typeof(MvvmServiceAttribute);
+            var custAttr = typeof(UIServiceAttribute);
 
             foreach (var assembly in assemblies)
             {
                 var serAttrs = assembly.GetCustomAttributes(custAttr, true);
 
-                foreach (MvvmServiceAttribute attrib in serAttrs)
+                foreach (UIServiceAttribute attrib in serAttrs)
                 {
                     if (!ServiceTypes.Contains(attrib.Implementation))
                         ServiceTypes.Add(attrib.Implementation);
