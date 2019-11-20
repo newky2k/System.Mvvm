@@ -68,12 +68,20 @@ namespace System.Mvvm
         #region UI Providers
 
         /// <summary>
-        /// The registered UI services
+        /// Stored instances of the 
         /// </summary>
-        public static Dictionary<Type, object> Services { get; set; } = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> Services { get; set; } = new Dictionary<Type, object>();
 
+        /// <summary>
+        /// Register types
+        /// </summary>
         private static List<Type> ServiceTypes { get; set; } = new List<Type>();
 
+
+        /// <summary>
+        /// Register a UI Service
+        /// </summary>
+        /// <typeparam name="T">Service implementation type</typeparam>
         public static void Register<T>() where T : new()
         {
             var newType = typeof(T);
@@ -82,12 +90,23 @@ namespace System.Mvvm
                 ServiceTypes.Add(newType);
         }
 
-        public static T Get<T>()
+        /// <summary>
+        /// Get a UI Service implementation
+        /// </summary>
+        /// <typeparam name="T">The inherited type</typeparam>
+        /// <param name="cachedInstance">Cache the instance for use later, default is true</param>
+        /// <returns></returns>
+        public static T Get<T>(bool cachedInstance = true)
         {
             var type = ServiceTypes.FirstOrDefault(x => x.Equals(typeof(T)) || typeof(T).IsAssignableFrom(x));
 
             if (type != null)
             {
+                if (!cachedInstance == true)
+                {
+                    return (T)Activator.CreateInstance(type);
+                }
+
                 if (Services.ContainsKey(type))
                     return (T)Services[type];
                 else
