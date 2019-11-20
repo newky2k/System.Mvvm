@@ -53,6 +53,9 @@ namespace System.Mvvm.Wpf
                 }
 
             };
+
+            //Register the Main UI provider
+            UI.Register<PlatformUIProvider>();
         }
 
         /// <summary>

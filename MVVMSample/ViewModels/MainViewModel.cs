@@ -66,6 +66,19 @@ namespace MVVMSample.ViewModels
             }
         }
 
+        public ICommand ShowAlertCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var result = UI.ShowConfirmationDialog("Confirm this", "This is a platform specific confirmation message");
+
+                    if (result)
+                        UI.ShowAlert("YAY!", "You confirmed that");
+                });
+            }
+        }
         #endregion
         public MainViewModel() : base()
         {
