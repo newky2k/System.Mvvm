@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace System.Mvvm
 {
 	public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 	{
+        
         #region Fields
         private bool _dataHasChanged;
         private bool _isLoaded;
@@ -245,6 +247,9 @@ namespace System.Mvvm
 
             if (_propertyChangeActions.ContainsKey(propertyName))
                 _propertyChangeActions[propertyName]?.Invoke();
+
+            if (DelegateCommand.RequeryCommandsOnChange)
+                RequeryCommands();
         }
 
 
@@ -263,6 +268,8 @@ namespace System.Mvvm
 
             }
 
+            if (DelegateCommand.RequeryCommandsOnChange)
+                RequeryCommands();
         }
 
 
@@ -437,6 +444,26 @@ namespace System.Mvvm
         }
         #endregion
 
+        #region Private
 
+        private void RequeryCommands()
+        {
+            var aType = GetType();
+
+            if (aType != null)
+            {
+                var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));
+
+                if (commands.Any())
+                {
+                    foreach (var command in commands)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }

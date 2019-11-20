@@ -6,6 +6,7 @@ using System.Mvvm.Contracts;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Mvvm
 {
@@ -47,9 +48,9 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="title">The title of the alert</param>
         /// <param name="message">The message to display</param>
-        public static void ShowAlert(string title, string message)
+        public static async Task ShowAlertAsync(string title, string message)
         {
-            PlatformProvider.ShowAlert(title, message);
+            await PlatformProvider.ShowAlertAsync(title, message);
         }
 
         /// <summary>
@@ -58,9 +59,9 @@ namespace System.Mvvm
         /// <param name="title">The title of the alert</param>
         /// <param name="message">The confirmaton message to display</param>
         /// <returns></returns>
-        public static bool ShowConfirmationDialog(string title, string message)
+        public static async Task<bool> ShowConfirmationDialogAsync(string title, string message)
         {
-            return PlatformProvider.ShowConfirmationDialog(title, message);
+            return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
         }
 
         #endregion

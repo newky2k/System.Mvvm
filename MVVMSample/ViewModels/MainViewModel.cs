@@ -71,12 +71,12 @@ namespace MVVMSample.ViewModels
         {
             get
             {
-                return new DelegateCommand(() =>
+                return new DelegateCommand(async () =>
                 {
-                    var result = UI.ShowConfirmationDialog("Confirm this", "This is a platform specific confirmation message");
+                    var result = await UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
 
                     if (result)
-                        UI.ShowAlert("YAY!", "You confirmed that");
+                       await UI.ShowAlertAsync("YAY!", "You confirmed that");
                 });
             }
         }

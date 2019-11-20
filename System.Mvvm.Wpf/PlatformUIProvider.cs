@@ -10,17 +10,29 @@ namespace System.Mvvm.Wpf
 {
     internal class PlatformUIProvider : IPlatformCoreUIProvider
     {
-        public void ShowAlert(string title, string message)
+        public async Task ShowAlertAsync(string title, string message)
         {
-            MessageBox.Show(message, title);
+            await Task.Run(() =>
+            {
+                MessageBox.Show(message, title);
+            });
+            
         }
 
-        public bool ShowConfirmationDialog(string title, string message)
+
+        public async Task<bool> ShowConfirmationDialogAsync(string title, string message)
         {
-            var confirm = MessageBox.Show(message, title, MessageBoxButton.YesNo);
+            //var tsk = new TaskCompletionSource<bool>();
+            var result = false;
 
-            return (confirm == MessageBoxResult.Yes);
+            await Task.Run(() =>
+            {
+                var confirm = MessageBox.Show(message, title, MessageBoxButton.YesNo);
 
+                result = (confirm == MessageBoxResult.Yes);
+            });
+
+            return result;   
         }
     }
 }
