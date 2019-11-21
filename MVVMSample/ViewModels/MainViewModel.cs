@@ -1,4 +1,5 @@
-﻿using MVVMSample.Views;
+﻿using MVVMSample.Contracts;
+using MVVMSample.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,34 @@ namespace MVVMSample.ViewModels
             }
         }
 
+        public ICommand ShowAlertCommand
+        {
+            get
+            {
+                return new DelegateCommand(async () =>
+                {
+                    var result = await UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
+
+                    if (result)
+                       await UI.ShowAlertAsync("YAY!", "You confirmed that");
+                });
+            }
+        }
+
+        public ICommand ShowCustomUiCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+
+                    var customUI = UI.Get<ITestCustomUIProvider>(false);
+
+                    customUI.SayHello();
+
+                });
+            }
+        }
         #endregion
         public MainViewModel() : base()
         {

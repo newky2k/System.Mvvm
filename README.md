@@ -24,6 +24,10 @@ Base Model View View Model classes for .NET
     - Lists
     - Searchable Lists
     - Tree View Searchable Lists
+- UI
+  - Core UI functions for Showing Alerts and Confirmation Dialogs (using platform specific implementations)
+     - UWP and WPF (.NET Framework and .NET Core 3.0)
+  - UI Dependency Service for calling platform UI code from shared code (details below) 
 
 # Classes
 

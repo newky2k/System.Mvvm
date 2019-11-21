@@ -12,6 +12,10 @@ namespace System.Mvvm
 
         public static Action<EventHandler, bool> ExecuteChanged { get; set; }
 
+        /// <summary>
+        /// If set, the ViewModels will requery an ICommand properties when NotifyPropertyChanged is set
+        /// </summary>
+        public static bool RequeryCommandsOnChange { get; set; }
         #endregion
 
         #region Fields
@@ -50,6 +54,8 @@ namespace System.Mvvm
         {
             executeMethod = exec;
         }
+
+       
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
@@ -96,6 +102,11 @@ namespace System.Mvvm
             executeMethod();
         }
 
+        public void RaiseCanExecuteChanged()
+        {
+            //if (CanExecuteChanged != null)
+            //    CanExecuteChanged(this, EventArgs.Empty);
+        }
         #endregion
 
 

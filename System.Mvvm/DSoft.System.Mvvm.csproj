@@ -13,8 +13,15 @@
     <Description>Simple Core MVVM class library for .Net</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Removed PCL support
-</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Added UI Framework and UI Dependency Service for access Platform UI from shared code.
+
+      Fixes for DelegateCommand on UWP to enable CanExecute calculations to function(temp work around)
+
+      Added NotifyPropertiesChanged to notify on multiple-properties in one call
+      Changed Validate(with List) to IEnumberable and added Validate(params string[])
+      Laying the ground work for a multi-targeting library later
+    </PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
