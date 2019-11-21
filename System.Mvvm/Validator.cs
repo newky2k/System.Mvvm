@@ -137,6 +137,14 @@ namespace System.Mvvm
 
         }
 
+        public void ValidateProperties(params string[] propertyNames)
+        {
+            foreach (var propertyName in propertyNames)
+            {
+                ValidateProperty(propertyName);
+            }
+        }
+
         public void AddValidation(string propertyName, string errorMessage, Func<bool> validation)
         {
 

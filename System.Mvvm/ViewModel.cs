@@ -252,6 +252,31 @@ namespace System.Mvvm
                 RequeryCommands();
         }
 
+        /// <summary>
+        /// Notify that the specified properties have changed
+        /// </summary>
+        /// <param name="propertyNames">list of Parameter names</param>
+        protected void NotifyPropertiesChanged(params string[] propertyNames)
+        {
+            if (propertyNames == null || propertyNames.Length == 0)
+            {
+                NotifyAllPropertiesDidChange();
+                return;
+            }
+                
+            foreach (var propertyName in propertyNames)
+            {
+
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+
+                if (_propertyChangeActions.ContainsKey(propertyName))
+                    _propertyChangeActions[propertyName]?.Invoke();
+            }
+
+
+            if (DelegateCommand.RequeryCommandsOnChange)
+                RequeryCommands();
+        }
 
         /// <summary>
         /// All Properties Changed (ie the Model changed).
@@ -408,6 +433,9 @@ namespace System.Mvvm
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Validate the ViewModel
+        /// </summary>
         public void Validate()
         {
             Errors.Clear();
@@ -426,21 +454,30 @@ namespace System.Mvvm
 
         }
 
-        public void Validate(List<string> properties)
+        /// <summary>
+        /// Validate the selected properties
+        /// </summary>
+        /// <param name="properties">List of property names</param>
+        public void Validate(IEnumerable<string> properties)
+        {
+            Validate(properties.ToArray());
+        }
+
+        /// <summary>
+        /// Validate the selected properties
+        /// </summary>
+        /// <param name="propertyNames">List of property names</param>
+        public void Validate(params string[] properties)
         {
             Errors.Clear();
             DataHasChanged = true;
             NotifyAllPropertiesDidChange();
-
-
 
             foreach (var aProp in properties)
             {
                 Validator.ValidateProperty(aProp);
 
             }
-
-
         }
         #endregion
 
