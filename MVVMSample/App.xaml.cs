@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Mvvm;
-using System.Mvvm.Wpf;
+using System.Mvvm.Ui;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;

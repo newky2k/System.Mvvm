@@ -132,9 +132,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Mvvm.Wpf\DSoft.System.Mvvm.Wpf.csproj">
-      <Project>{0f9ac8e3-2772-418e-8ce1-a4f0ad515bfe}</Project>
-      <Name>DSoft.System.Mvvm.Wpf</Name>
+    <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.Ui.csproj">
+      <Project>{1435fdcc-d83c-43b5-8398-bd676219779b}</Project>
+      <Name>DSoft.System.Mvvm.Ui</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj">
       <Project>{e5d6aa6e-a16a-4258-a872-1557e4ed4827}</Project>

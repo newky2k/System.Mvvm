@@ -1,0 +1,48 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+  <PropertyGroup>
+    <TargetFrameworks>net461;netcoreapp3.0;uap10.0.16299;</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>DSoft.System.Mvvm.Ui</PackageId>
+    <Authors>newky2k</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
+    <Version>1.2.0-preview2</Version>
+    <Description>Cross platform MvvmManager for .NET Framework(WPF) and .NET Core 3.0(WPF) and UWP</Description>
+    <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>WPF UWP MVVM NetCore</PackageTags>
+    <PackageReleaseNotes>Initial version of the Ui library</PackageReleaseNotes>
+    <Copyright>Copyright © 2019 DSoft</Copyright>
+    <AssemblyName>System.Mvvm.Ui</AssemblyName>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('net')) ">
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.shared.*.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net')) ">
+    <Compile Include="**\*.net.cs" />
+    <Compile Include="**\*.net.*.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
+    <Compile Include="**\*.uwp.cs" />
+    <Compile Include="**\*.uwp.*.cs" />
+  </ItemGroup>
+</Project>
