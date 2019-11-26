@@ -2,77 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Mvvm.Attributes;
-using System.Mvvm.Contracts;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace System.Mvvm
 {
-    public static class UI
+    /// <summary>
+    /// Simple Dependency service container
+    /// </summary>
+    public static class Services
     {
-        #region Core Backend
-        private static IPlatformCoreUIProvider _mainUiProvider;
-
-        internal static IPlatformCoreUIProvider PlatformProvider
+        /// <summary>
+        /// Init will register any instances of the MvvmServiceAttribute in the calling assembly
+        /// </summary>
+        public static void Init()
         {
-            get 
+            var assm = Assembly.GetCallingAssembly();
+
+            LoadServices(new Assembly[] { assm });
+        }
+
+        /// <summary>
+        /// Init will register any instances of the MvvmServiceAttribute in the calling assembly and the asssemblies provided
+        /// </summary>
+        /// <param name="assemblies">Array of external assemblies</param>
+        public static void Init(params Assembly[] assemblies)
+        {
+            var assms = new List<Assembly>(){ Assembly.GetCallingAssembly() };
+
+            if (assemblies != null && assemblies.Length > 0)
             {
-                if (_mainUiProvider == null)
-                    throw new Exception("The platform specific UI provider has not been set.  Call System.Mvvm.UI.Init to register the platform implementation");
-
-                return _mainUiProvider; 
+                foreach (var aAssm in assemblies)
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
             }
-            private set { _mainUiProvider = value; }
+
+            LoadServices(assms);
         }
-
-
-        /// <summary>
-        /// Initializes the core UI provider
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static void Init<T>(IEnumerable<Assembly> assemblies = null) where T : IPlatformCoreUIProvider, new()
-        {
-            PlatformProvider = new T();
-
-            if (assemblies != null && assemblies.Count() > 0)
-                LoadServices(assemblies);
-        }
-
-        #endregion
-
-        #region Core UI Methods
-
-        /// <summary>
-        /// Show an alert
-        /// </summary>
-        /// <param name="title">The title of the alert</param>
-        /// <param name="message">The message to display</param>
-        public static async Task ShowAlertAsync(string title, string message)
-        {
-            await PlatformProvider.ShowAlertAsync(title, message);
-        }
-
-        /// <summary>
-        /// Show a confirmation dialog
-        /// </summary>
-        /// <param name="title">The title of the alert</param>
-        /// <param name="message">The confirmaton message to display</param>
-        /// <returns></returns>
-        public static async Task<bool> ShowConfirmationDialogAsync(string title, string message)
-        {
-            return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
-        }
-
-        #endregion
 
         #region UI Providers
 
         /// <summary>
         /// Stored instances of the 
         /// </summary>
-        private static Dictionary<Type, object> Services { get; set; } = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> _services { get; set; } = new Dictionary<Type, object>();
 
         /// <summary>
         /// Register types
@@ -109,13 +84,13 @@ namespace System.Mvvm
                     return (T)Activator.CreateInstance(type);
                 }
 
-                if (Services.ContainsKey(type))
-                    return (T)Services[type];
+                if (_services.ContainsKey(type))
+                    return (T)_services[type];
                 else
                 {
                     var newType = (T)Activator.CreateInstance(type);
 
-                    Services.Add(type, newType);
+                    _services.Add(type, newType);
 
                     return newType;
                 }
@@ -126,13 +101,13 @@ namespace System.Mvvm
 
         private static void LoadServices(IEnumerable<Assembly> assemblies)
         {
-            var custAttr = typeof(UIServiceAttribute);
+            var custAttr = typeof(MvvmServiceAttribute);
 
             foreach (var assembly in assemblies)
             {
                 var serAttrs = assembly.GetCustomAttributes(custAttr, true);
 
-                foreach (UIServiceAttribute attrib in serAttrs)
+                foreach (MvvmServiceAttribute attrib in serAttrs)
                 {
                     if (!ServiceTypes.Contains(attrib.Implementation))
                         ServiceTypes.Add(attrib.Implementation);
@@ -140,8 +115,5 @@ namespace System.Mvvm
             }
         }
         #endregion
-
-
     }
-
 }
