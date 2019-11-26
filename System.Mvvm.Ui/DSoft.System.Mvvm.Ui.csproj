@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF UWP MVVM NetCore</PackageTags>
-    <PackageReleaseNotes>Initial version of the Ui library</PackageReleaseNotes>
+    <PackageReleaseNotes>Added simple "Services" Dependency injection framework to DSoft.System.Mvvm</PackageReleaseNotes>
     <Copyright>Copyright © 2019 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
