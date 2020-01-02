@@ -5,18 +5,37 @@ using System.Mvvm.Contracts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace System.Mvvm.Ui
 {
     internal class PlatformUIProvider : IPlatformCoreUIProvider
     {
+        public Application CurrentApplication => Application.Current;
+
+        public Dispatcher CurrentDispatcher => CurrentApplication.Dispatcher;
+
+        public Window CurrentWindow => CurrentApplication.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive);
+
+        public async Task InvokeOnUIThread(Action action)
+        {
+            if (CurrentDispatcher.CheckAccess())
+            {
+                action();
+            }
+            else
+            {
+                await CurrentDispatcher.InvokeAsync(action);
+            }
+                
+        }
         public async Task ShowAlertAsync(string title, string message)
         {
-            await Task.Run(() =>
+            await InvokeOnUIThread(() =>
             {
                 MessageBox.Show(message, title);
             });
-            
+
         }
 
 
@@ -25,7 +44,7 @@ namespace System.Mvvm.Ui
             //var tsk = new TaskCompletionSource<bool>();
             var result = false;
 
-            await Task.Run(() =>
+            await InvokeOnUIThread(() =>
             {
                 var confirm = MessageBox.Show(message, title, MessageBoxButton.YesNo);
 
