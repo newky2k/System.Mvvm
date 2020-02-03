@@ -42,6 +42,25 @@ namespace System.Mvvm
             LoadServices(assms);
         }
 
+        /// <summary>
+        /// Init will registrer an instance MvvmServiceAttribute in the calling assembly and the assemblies containing the specified types
+        /// </summary>
+        /// <param name="types"></param>
+        public static void Init(params Type[] types)
+        {
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (types != null && types.Any())
+            {
+                foreach (var aAssm in types.Select(x => x.Assembly))
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+        }
         #region UI Providers
 
         /// <summary>
