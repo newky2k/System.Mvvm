@@ -7,6 +7,8 @@ namespace System.Mvvm.Contracts
 {
     public interface IPlatformCoreUIProvider
     {
+        Task InvokeOnUIThread(Action action);
+
         Task ShowAlertAsync(string title, string message);
         Task<bool> ShowConfirmationDialogAsync(string title, string message);
     }
