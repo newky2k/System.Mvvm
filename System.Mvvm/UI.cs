@@ -26,18 +26,68 @@ namespace System.Mvvm
             }
             private set { _mainUiProvider = value; }
         }
+        #endregion
+
+        #region Initializers
+        /// <summary>
+        /// Initializes the core UI provider
+        /// </summary>
+        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
+        public static void Init<T>() where T : IPlatformCoreUIProvider, new()
+        {
+            PlatformProvider = new T();
+
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            LoadServices(assms);
+        }
 
 
         /// <summary>
         /// Initializes the core UI provider
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static void Init<T>(IEnumerable<Assembly> assemblies = null) where T : IPlatformCoreUIProvider, new()
+        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
+        /// <param name="assemblies">External Assemblies with UI services</param>
+        public static void Init<T>(params Assembly[] assemblies) where T : IPlatformCoreUIProvider, new()
         {
             PlatformProvider = new T();
 
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
             if (assemblies != null && assemblies.Count() > 0)
-                LoadServices(assemblies);
+            {
+                foreach (var aAssm in assemblies)
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+            
+            LoadServices(assms);
+        }
+
+        /// <summary>
+        /// Initializes the core UI provider
+        /// </summary>
+        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
+        /// <param name="types">Types in external assemblies with UI services</param>
+        public static void Init<T>(params Type[] types) where T : IPlatformCoreUIProvider, new()
+        {
+            PlatformProvider = new T();
+
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (types != null && types.Count() > 0)
+            {
+                foreach (var aAssm in types.Select(x => x.Assembly))
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+
         }
 
         #endregion
@@ -90,6 +140,47 @@ namespace System.Mvvm
 
             if (!ServiceTypes.Contains(newType))
                 ServiceTypes.Add(newType);
+        }
+
+        /// <summary>
+        /// Register all UI Services in the specified assemblies
+        /// </summary>
+        /// <param name="assemblies">Assemblies to process</param>
+        public static void Register(params Assembly[] assemblies)
+        {
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (assemblies != null && assemblies.Count() > 0)
+            {
+                foreach (var aAssm in assemblies)
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+        }
+
+        /// <summary>
+        /// Register all UI Services in the assemblies conatining the specified types
+        /// </summary>
+        /// <param name="types">Types to process in external assemblies</param>
+        public static void Register(params Type[] types)
+        {
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (types != null && types.Count() > 0)
+            {
+                foreach (var aAssm in types.Select(x => x.Assembly))
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+
         }
 
         /// <summary>
