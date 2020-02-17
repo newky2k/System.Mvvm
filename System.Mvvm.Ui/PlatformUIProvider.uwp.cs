@@ -11,6 +11,11 @@ namespace System.Mvvm.Ui
 {
     internal class PlatformUIProvider : IPlatformCoreUIProvider
     {
+        public Task InvokeOnUIThread(Action action)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task ShowAlertAsync(string title, string message)
         {
             ContentDialog noWifiDialog = new ContentDialog

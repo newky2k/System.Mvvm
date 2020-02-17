@@ -42,6 +42,26 @@ namespace System.Mvvm
             LoadServices(assms);
         }
 
+        /// <summary>
+        /// Init will registrer an instance MvvmServiceAttribute in the calling assembly and the assemblies containing the specified types
+        /// </summary>
+        /// <param name="types"></param>
+        public static void Init(params Type[] types)
+        {
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (types != null && types.Any())
+            {
+                foreach (var aAssm in types.Select(x => x.Assembly))
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+        }
+
         #region UI Providers
 
         /// <summary>
@@ -56,7 +76,7 @@ namespace System.Mvvm
 
 
         /// <summary>
-        /// Register a UI Service
+        /// Register a Mvvm Service
         /// </summary>
         /// <typeparam name="T">Service implementation type</typeparam>
         public static void Register<T>() where T : new()
@@ -66,6 +86,47 @@ namespace System.Mvvm
             if (!ServiceTypes.Contains(newType))
                 ServiceTypes.Add(newType);
         }
+
+        /// <summary>
+        /// Register all Mvvm Service implementation in the external assemblies
+        /// </summary>
+        /// <param name="assemblies">Array of external assemblies</param>
+        public static void Register(params Assembly[] assemblies)
+        {
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (assemblies != null && assemblies.Length > 0)
+            {
+                foreach (var aAssm in assemblies)
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+        }
+
+        /// <summary>
+        ///  Register all Mvvm Services in the assemblies conatining the specified types
+        /// </summary>
+        /// <param name="types">Types to process in external assemblies</param>
+        public static void Register(params Type[] types)
+        {
+            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+
+            if (types != null && types.Any())
+            {
+                foreach (var aAssm in types.Select(x => x.Assembly))
+                {
+                    if (!assms.Contains(aAssm))
+                        assms.Add(aAssm);
+                }
+            }
+
+            LoadServices(assms);
+        }
+
 
         /// <summary>
         /// Get a UI Service implementation

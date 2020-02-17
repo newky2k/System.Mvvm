@@ -42,7 +42,7 @@ namespace System.Mvvm.Ui
         {
             CommonInit();
 
-            UI.Init<PlatformUIProvider>(new List<Assembly>() { Assembly.GetCallingAssembly(), typeof(MvvmManager).Assembly });
+            UI.Init<PlatformUIProvider>(Assembly.GetCallingAssembly(), typeof(MvvmManager).Assembly);
         }
 
         public static void Init(params Assembly[] assemblies)
@@ -59,7 +59,7 @@ namespace System.Mvvm.Ui
 
             newAssms.AddRange(assemblies);
 
-            UI.Init<PlatformUIProvider>(newAssms);
+            UI.Init<PlatformUIProvider>(newAssms.ToArray());
         }
 
     }
