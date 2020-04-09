@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace System.Mvvm.Ui
 {
-    internal class PlatformUIProvider : IPlatformCoreUIProvider
+    internal class PlatformUIProvider : IPlatformCoreUIProvider, UWPPlatformUIProvider
     {
         public Task InvokeOnUIThread(Action action)
         {
@@ -42,5 +42,12 @@ namespace System.Mvvm.Ui
 
             return (result == ContentDialogResult.Primary);
         }
+
+        
+    }
+
+    public interface UWPPlatformUIProvider : IPlatformCoreUIProvider
+    {
+
     }
 }

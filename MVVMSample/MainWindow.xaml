@@ -18,6 +18,12 @@
             <Button Margin="5" Content="Show Tree Search List" Command="{Binding ShowSearchTreeListWindowCommand}" />
             <Button Margin="5" Content="Show Confirmation Dialog" Command="{Binding ShowAlertCommand}" />
             <Button Margin="5" Content="Show Custom UI" Command="{Binding ShowCustomUiCommand}" />
+            <Button Margin="5" Content="InvokeOnUiThread - Off UI thread" Command="{Binding TestInvokeUIThreadOffUIThread}" />
+            <Button Margin="5" Content="InvokeOnUiThread - On UI thread" Command="{Binding TestInvokeUIThreadOnUIThread}" />
+            <Button Margin="5" Content="Get UIProvider" Command="{Binding GetUIProviderService}" />
         </StackPanel>
+        <Grid Grid.Column="1">
+            <Rectangle x:Name="panel" Visibility="Hidden" Fill="Red" Width="100" Height="100"/>
+        </Grid>
     </Grid>
 </Window>

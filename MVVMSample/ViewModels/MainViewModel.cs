@@ -4,8 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Mvvm;
+using System.Mvvm.Contracts;
+using System.Mvvm.Ui;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
@@ -95,10 +99,70 @@ namespace MVVMSample.ViewModels
                 });
             }
         }
+
+        public ICommand TestInvokeUIThreadOffUIThread
+        {
+            get
+            {
+                return new DelegateCommand(async () =>
+                {
+                    await Task.Run(async () =>
+                    {
+                        await UI.InvokeOnUIThread(() =>
+                        {
+                            ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
+                        });
+                        
+                    });
+                   
+
+                });
+            }
+        }
+
+        public ICommand TestInvokeUIThreadOnUIThread
+        {
+            get
+            {
+                return new DelegateCommand(async () =>
+                {
+                    await UI.InvokeOnUIThread(() =>
+                    {
+                        ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
+                    });
+
+                });
+            }
+        }
+
+        public ICommand GetUIProviderService
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var uiS = UI.Get<IPlatformCoreUIProvider>();
+
+                    var wpfProvider = UI.Get<WPFPlatformUIProvider>();
+
+                   var mainWindow = wpfProvider.CurrentApplication.MainWindow;
+                });
+            }
+        }
+
         #endregion
         public MainViewModel() : base()
         {
 
         }
+
+        private void BackgroundTask(object thing)
+        {
+            ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
+
+            //MessageBox.Show("This is on the UI Thread, hopefully");
+        }
+
+
     }
 }
