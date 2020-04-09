@@ -115,6 +115,13 @@ namespace System.Mvvm
             return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
         }
 
+        /// <summary>
+        /// Invokes the action on the UI thread
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <returns></returns>
+        public static Task InvokeOnUIThread(Action action) => PlatformProvider.InvokeOnUIThread(action);
+
         #endregion
 
         #region UI Providers
@@ -191,6 +198,10 @@ namespace System.Mvvm
         /// <returns></returns>
         public static T Get<T>(bool cachedInstance = true)
         {
+            //check if the type is the Core platrofm provider interface
+            if (typeof(T).Equals(typeof(IPlatformCoreUIProvider)) || typeof(IPlatformCoreUIProvider).IsAssignableFrom(typeof(T)))
+                return (T)PlatformProvider;
+
             var type = ServiceTypes.FirstOrDefault(x => x.Equals(typeof(T)) || typeof(T).IsAssignableFrom(x));
 
             if (type != null)

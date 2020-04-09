@@ -9,7 +9,7 @@ using System.Windows.Threading;
 
 namespace System.Mvvm.Ui
 {
-    internal class PlatformUIProvider : IPlatformCoreUIProvider
+    internal class PlatformUIProvider : IPlatformCoreUIProvider, WPFPlatformUIProvider
     {
         public Application CurrentApplication => Application.Current;
 
@@ -17,15 +17,17 @@ namespace System.Mvvm.Ui
 
         public Window CurrentWindow => CurrentApplication.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive);
 
-        public async Task InvokeOnUIThread(Action action)
+        public Task InvokeOnUIThread(Action action)
         {
             if (CurrentDispatcher.CheckAccess())
             {
                 action();
+
+                return Task.CompletedTask;
             }
             else
             {
-                await CurrentDispatcher.InvokeAsync(action);
+                return CurrentDispatcher.InvokeAsync(action).Task;
             }
                 
         }
@@ -53,5 +55,14 @@ namespace System.Mvvm.Ui
 
             return result;   
         }
+    }
+
+    public interface WPFPlatformUIProvider : IPlatformCoreUIProvider
+    {
+        Application CurrentApplication { get; }
+
+        Dispatcher CurrentDispatcher { get; }
+
+        Window CurrentWindow { get; }
     }
 }
