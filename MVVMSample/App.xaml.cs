@@ -1,4 +1,6 @@
-﻿using MVVMSample.Providers;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using MVVMSample.Providers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,6 +24,44 @@ namespace MVVMSample
             base.OnStartup(e);
 
             MvvmManager.Init();
+
+            var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
+
+            wpfPlatform.ShowAlertOverideFunction = (title, message) =>
+            {
+                var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
+
+                return DialogManager.ShowMessageAsync(currentWindow, title, message);
+            };
+
+
+            wpfPlatform.ShowConfirmOverideFunction = (title, message) =>
+            {
+                return ShowConfirmationDialog(title, message);
+            };
+        }
+
+        public static Task<bool> ShowConfirmationDialog(string title, string message)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+
+            var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
+
+            UI.InvokeOnUIThread(async () =>
+            {
+                var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
+
+                var result = await DialogManager.ShowMessageAsync(currentWindow, title, message, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings()
+                {
+                    AffirmativeButtonText = "Yes",
+                    NegativeButtonText = "No",
+                });
+
+                tcs.SetResult((result == MessageDialogResult.Affirmative));
+            });
+            
+
+            return tcs.Task;
         }
     }
 }
