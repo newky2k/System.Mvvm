@@ -17,6 +17,22 @@ namespace System.Mvvm.Ui
 
         public Window CurrentWindow => CurrentApplication.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive);
 
+        /// <summary>
+        /// Gets or sets the show alert overide function.
+        /// </summary>
+        /// <value>
+        /// The show alert overide function.
+        /// </value>
+        public Func<string, string, Task> ShowAlertOverideFunction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the show confirm overide function.
+        /// </summary>
+        /// <value>
+        /// The show confirm overide function.
+        /// </value>
+        public Func<string, string, Task<bool>> ShowConfirmOverideFunction { get; set; }
+
         public Task InvokeOnUIThread(Action action)
         {
             if (CurrentDispatcher.CheckAccess())
@@ -31,30 +47,53 @@ namespace System.Mvvm.Ui
             }
                 
         }
+
         public async Task ShowAlertAsync(string title, string message)
         {
-            await InvokeOnUIThread(() =>
+            if (ShowAlertOverideFunction != null)
             {
-                MessageBox.Show(message, title);
-            });
+                await InvokeOnUIThread(async () =>
+                {
+                    await ShowAlertOverideFunction(title, message);
+
+                });
+            }
+            else
+            {
+                await InvokeOnUIThread(() =>
+                {
+                    MessageBox.Show(message, title);
+                });
+            }
+
 
         }
-
 
         public async Task<bool> ShowConfirmationDialogAsync(string title, string message)
         {
             //var tsk = new TaskCompletionSource<bool>();
             var result = false;
 
-            await InvokeOnUIThread(() =>
+            if (ShowConfirmOverideFunction != null)
             {
-                var confirm = MessageBox.Show(message, title, MessageBoxButton.YesNo);
+                return await ShowConfirmOverideFunction(title, message);
+            }
+            else
+            {
+                await InvokeOnUIThread(() =>
+                {
+                    var confirm = MessageBox.Show(message, title, MessageBoxButton.YesNo);
 
-                result = (confirm == MessageBoxResult.Yes);
-            });
+                    result = (confirm == MessageBoxResult.Yes);
+                });
+            }
+
+                
 
             return result;   
         }
+
+
     }
 
     public interface WPFPlatformUIProvider : IPlatformCoreUIProvider
@@ -64,5 +103,22 @@ namespace System.Mvvm.Ui
         Dispatcher CurrentDispatcher { get; }
 
         Window CurrentWindow { get; }
+
+        /// <summary>
+        /// Gets or sets the show alert overide function, to provide a different implementation of the WPF show alert
+        /// </summary>
+        /// <value>
+        /// The show alert overide function.
+        /// </value>
+        Func<string, string, Task> ShowAlertOverideFunction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the show confirm overide function, to provide a different implementation of the WPF confirm dialog
+        /// </summary>
+        /// <value>
+        /// The show confirm overide function.
+        /// </value>
+        Func<string, string, Task<bool>> ShowConfirmOverideFunction { get; set; }
+
     }
 }

@@ -10,6 +10,7 @@ namespace System.Mvvm.Contracts
         Task InvokeOnUIThread(Action action);
 
         Task ShowAlertAsync(string title, string message);
+
         Task<bool> ShowConfirmationDialogAsync(string title, string message);
     }
 }

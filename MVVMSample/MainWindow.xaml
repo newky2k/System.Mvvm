@@ -1,9 +1,9 @@
-﻿<Window x:Class="MVVMSample.MainWindow"
+﻿<controls:MetroWindow x:Class="MVVMSample.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVMSample"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -16,7 +16,8 @@
             <Button Margin="5" Content="Show List" Command="{Binding ShowListWindowCommand}" />
             <Button Margin="5" Content="Show Search List" Command="{Binding ShowSearchListWindowCommand}" />
             <Button Margin="5" Content="Show Tree Search List" Command="{Binding ShowSearchTreeListWindowCommand}" />
-            <Button Margin="5" Content="Show Confirmation Dialog" Command="{Binding ShowAlertCommand}" />
+            <Button Margin="5" Content="Show Message" Command="{Binding ShowAlertCommand}" />
+            <Button Margin="5" Content="Show Confirmation Dialog" Command="{Binding ShowConfirmCommand}" />
             <Button Margin="5" Content="Show Custom UI" Command="{Binding ShowCustomUiCommand}" />
             <Button Margin="5" Content="InvokeOnUiThread - Off UI thread" Command="{Binding TestInvokeUIThreadOffUIThread}" />
             <Button Margin="5" Content="InvokeOnUiThread - On UI thread" Command="{Binding TestInvokeUIThreadOnUIThread}" />
@@ -26,4 +27,4 @@
             <Rectangle x:Name="panel" Visibility="Hidden" Fill="Red" Width="100" Height="100"/>
         </Grid>
     </Grid>
-</Window>
+</controls:MetroWindow>
