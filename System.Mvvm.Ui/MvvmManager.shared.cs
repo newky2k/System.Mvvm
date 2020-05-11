@@ -60,6 +60,8 @@ namespace System.Mvvm.Ui
             newAssms.AddRange(assemblies);
 
             UI.Init<PlatformUIProvider>(newAssms.ToArray());
+
+            Services.Init(newAssms.ToArray());
         }
 
     }
