@@ -13,7 +13,9 @@
     <Description>Simple Core MVVM class library for .Net</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Added simple "Services" Dependency injection framework</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Services.Init to MvvmManager.Init
+
+Added Types parameters overload to MvvmManager.Init</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
