@@ -29,7 +29,7 @@ Added Types parameters overload to MvvmManager.Init</PackageReleaseNotes>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>GIT</RepositoryType>
-    <Copyright>Copyright © 2019 DSoft</Copyright>
+    <Copyright>Copyright © 2020 DSoft</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

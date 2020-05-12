@@ -19,7 +19,7 @@
     <PackageReleaseNotes>Added Services.Init to MvvmManager.Init
 
 Added Types parameters overload to MvvmManager.Init</PackageReleaseNotes>
-    <Copyright>Copyright © 2019 DSoft</Copyright>
+    <Copyright>Copyright © 2020 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
