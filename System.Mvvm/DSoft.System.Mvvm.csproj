@@ -13,7 +13,9 @@
     <Description>Simple Core MVVM class library for .Net</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Added simple "Services" Dependency injection framework</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Services.Init to MvvmManager.Init
+
+Added Types parameters overload to MvvmManager.Init</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
@@ -27,7 +29,7 @@
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>GIT</RepositoryType>
-    <Copyright>Copyright © 2019 DSoft</Copyright>
+    <Copyright>Copyright © 2020 DSoft</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

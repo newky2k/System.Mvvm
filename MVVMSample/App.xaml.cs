@@ -27,18 +27,18 @@ namespace MVVMSample
 
             var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
 
-            wpfPlatform.ShowAlertOverideFunction = (title, message) =>
-            {
-                var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
+            wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
 
-                return DialogManager.ShowMessageAsync(currentWindow, title, message);
-            };
+            wpfPlatform.ShowConfirmOverideFunction = (title, message) => ShowConfirmationDialog(title, message);
+        }
 
+        public static Task ShowAlertWindow(string title, string message)
+        {
+            var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
 
-            wpfPlatform.ShowConfirmOverideFunction = (title, message) =>
-            {
-                return ShowConfirmationDialog(title, message);
-            };
+            var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
+
+            return DialogManager.ShowMessageAsync(currentWindow, title, message);
         }
 
         public static Task<bool> ShowConfirmationDialog(string title, string message)
