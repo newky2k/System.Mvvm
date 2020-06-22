@@ -10,7 +10,7 @@
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.Mvvm</Title>
-    <Description>Simple Core MVVM class library for .Net</Description>
+    <Description>Cross-platform MVVM class library for .Net Core, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>  - Added OnPropertyChanged and OnPropertiesChanged methods
