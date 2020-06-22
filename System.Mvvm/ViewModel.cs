@@ -110,8 +110,8 @@ namespace System.Mvvm
 
                     if (!DisableIsBusyChanged)
                     {
-                        NotifyPropertyChanged("IsBusy");
-                        NotifyPropertyChanged("IsBusyReversed");
+                        NotifyPropertiesChanged(nameof(IsBusy), nameof(IsBusyReversed));
+
                         OnIsBusyChanged(this, value);
                     }
 
@@ -203,8 +203,7 @@ namespace System.Mvvm
             {
                 _isEditable = value;
 
-                NotifyPropertyChanged("IsEditable");
-                NotifyPropertyChanged("IsEditableReversed");
+                NotifyPropertiesChanged(nameof(IsEditable), nameof(IsEditableReversed));
             }
         }
 
@@ -234,10 +233,27 @@ namespace System.Mvvm
         #endregion
 
         #region Methods
+
+        #region Property Change Notification Methods
+
+        /// <summary>
+        /// Call to notify that a property has changed
+        /// </summary>
+        /// <param name="propertyName">Name of the property that has changed</param>
+        /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
+
+        /// <summary>
+        /// Called when [properties changed].
+        /// </summary>
+        /// <param name="propertyNames">The property names that have changed</param>
+        protected void OnPropertiesChanged(params string[] propertyNames) => NotifyPropertiesChanged(propertyNames);
+
         /// <summary>
         /// Notifies the property changed.
         /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="propertyName">Name of the property that has changed</param>
+        /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
         {
             if (hasChanged == true)
@@ -255,7 +271,7 @@ namespace System.Mvvm
         /// <summary>
         /// Notify that the specified properties have changed
         /// </summary>
-        /// <param name="propertyNames">list of Parameter names</param>
+        /// <param name="propertyNames">The property names that have changed</param>
         protected void NotifyPropertiesChanged(params string[] propertyNames)
         {
             if (propertyNames == null || propertyNames.Length == 0)
@@ -297,43 +313,6 @@ namespace System.Mvvm
                 RequeryCommands();
         }
 
-
-        /// <summary>
-        /// Notifies the error occured.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        protected void NotifyErrorOccured(Exception ex, string title = null)
-        {
-            IsBusy = false;
-
-            if (string.IsNullOrWhiteSpace(title))
-                OnErrorOccured(this, ex);
-            else
-                OnErrorOccured(this, new TitledException(title, ex));
-        }
-
-        private void NotifyLoadedChanged(bool value)
-        {
-            OnLoadedChanged(this, value);
-        }
-
-        /// <summary>
-        /// Notify that the property has changed and validate the new value at the same time
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <param name="hasChanged"></param>
-        protected void NotifyAndValidateProperty([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
-        {
-            NotifyPropertyChanged(propertyName, hasChanged);
-
-            ValidateProperty(propertyName);
-        }
-
-        protected void NotifyOnComplete(bool value)
-        {
-            this.OnComplete?.Invoke(this, value);
-        }
-
         /// <summary>
         /// When the specified property changes execute the specified action
         /// </summary>
@@ -361,6 +340,125 @@ namespace System.Mvvm
 
             }
         }
+
+        /// <summary>
+        /// Notify that the property has changed and validate the new value at the same time
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <param name="hasChanged"></param>
+        protected void NotifyAndValidateProperty([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
+        {
+            NotifyPropertyChanged(propertyName, hasChanged);
+
+            ValidateProperty(propertyName);
+        }
+
+        #endregion
+
+        #region Event Methods
+
+        private void NotifyLoadedChanged(bool value)
+        {
+            OnLoadedChanged(this, value);
+        }
+
+
+        /// <summary>
+        /// Notifies that the process has completed.  Call the OnComplete event handlers
+        /// </summary>
+        /// <param name="result">if set to <c>true</c> [result].</param>
+        protected void NotifyOnComplete(bool result)
+        {
+            this.OnComplete?.Invoke(this, result);
+        }
+
+        #endregion
+
+
+        #region Value Update Methods
+
+        /// <summary>
+        /// Updates the value and notifies that the property has changed
+        /// </summary>
+        /// <param name="action">The update action to perform</param>
+        /// <param name="propertyName">The name of the property that has changed</param>
+        public void UpdateValueAndNotify(Action action, [CallerMemberName] string propertyName = null)
+        {
+            action();
+
+            NotifyPropertyChanged(propertyName);
+        }
+
+        /// <summary>
+        /// Updates the value and notifies that the property has changed, if the validator returns true
+        /// </summary>
+        /// <param name="action">The update action to perform</param>
+        /// <param name="validator">The validation function to be evaluated.</param>
+        /// <param name="propertyName">The name of the property that has changed</param>
+        public void UpdateValueAndNotify(Action action, Func<bool> validator, [CallerMemberName] string propertyName = null)
+        {
+            if (validator == null)
+                UpdateValueAndNotify(action, propertyName);
+
+            if (validator() == true)
+            {
+                action();
+
+                NotifyPropertyChanged(propertyName);
+            }
+            
+        }
+
+        /// <summary>
+        /// Updates the value and notifies that the specified properties have changed
+        /// </summary>
+        /// <param name="action">The update action to perform</param>
+        /// <param name="propertyNames">The property names that have changed</param>
+        public void UpdateValueAndNotify(Action action, params string[] propertyNames)
+        {
+            action();
+
+            NotifyPropertiesChanged(propertyNames);
+        }
+
+        /// <summary>
+        /// Updates the value and notifies that the specified properties have changed, if the validator returns true
+        /// </summary>
+        /// <param name="action">The update action to perform</param>
+        /// <param name="validator">The validation function to be evaluated.</param>
+        /// <param name="propertyNames">The property names that have changed</param>
+        public void UpdateValueAndNotify(Action action, Func<bool> validator, params string[] propertyNames)
+        {
+            if (validator == null)
+                UpdateValueAndNotify(action, propertyNames);
+
+            if (validator() == true)
+            {
+                action();
+
+                NotifyPropertiesChanged(propertyNames);
+            }
+
+        }
+
+        #endregion
+
+        #region Error Notifications
+        /// <summary>
+        /// Notifies the error occured.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        protected void NotifyErrorOccured(Exception ex, string title = null)
+        {
+            IsBusy = false;
+
+            if (string.IsNullOrWhiteSpace(title))
+                OnErrorOccured(this, ex);
+            else
+                OnErrorOccured(this, new TitledException(title, ex));
+        }
+
+        #endregion
         #endregion
 
         #region Error Handling
