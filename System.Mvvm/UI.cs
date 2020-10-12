@@ -115,12 +115,20 @@ namespace System.Mvvm
             return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
         }
 
-        /// <summary>
+                /// <summary>
         /// Invokes the action on the UI thread
         /// </summary>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public static Task InvokeOnUIThread(Action action) => PlatformProvider.InvokeOnUIThread(action);
+        public static void InvokeOnUIThread(Action action) => PlatformProvider.InvokeOnUIThread(action);
+
+        /// <summary>
+        /// Invokes the action on the UI thread asyncronously
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <returns></returns>
+        public static Task InvokeOnUIThreadAsync(Action action) => PlatformProvider.InvokeOnUIThreadAsync(action);
+
 
         #endregion
 

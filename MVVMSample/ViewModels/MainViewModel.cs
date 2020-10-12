@@ -119,7 +119,7 @@ namespace MVVMSample.ViewModels
                 {
                     await Task.Run(async () =>
                     {
-                        await UI.InvokeOnUIThread(() =>
+                        await UI.InvokeOnUIThreadAsync(() =>
                         {
                             ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                         });
@@ -137,7 +137,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                    await UI.InvokeOnUIThread(() =>
+                    await UI.InvokeOnUIThreadAsync(() =>
                     {
                         ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                     });
