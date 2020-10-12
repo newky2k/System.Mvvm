@@ -7,7 +7,9 @@ namespace System.Mvvm.Contracts
 {
     public interface IPlatformCoreUIProvider
     {
-        Task InvokeOnUIThread(Action action);
+        void InvokeOnUIThread(Action action);
+
+        Task InvokeOnUIThreadAsync(Action action);
 
         Task ShowAlertAsync(string title, string message);
 

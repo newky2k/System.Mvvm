@@ -33,7 +33,19 @@ namespace System.Mvvm.Ui
         /// </value>
         public Func<string, string, Task<bool>> ShowConfirmOverideFunction { get; set; }
 
-        public Task InvokeOnUIThread(Action action)
+        public void InvokeOnUIThread(Action action)
+        {
+            if (CurrentDispatcher.CheckAccess())
+            {
+                action();
+            }
+            else
+            {
+                CurrentDispatcher.Invoke(action);
+            }
+        }
+
+        public Task InvokeOnUIThreadAsync(Action action)
         {
             if (CurrentDispatcher.CheckAccess())
             {
@@ -52,7 +64,7 @@ namespace System.Mvvm.Ui
         {
             if (ShowAlertOverideFunction != null)
             {
-                await InvokeOnUIThread(async () =>
+                await InvokeOnUIThreadAsync(async () =>
                 {
                     await ShowAlertOverideFunction(title, message);
 
@@ -60,7 +72,7 @@ namespace System.Mvvm.Ui
             }
             else
             {
-                await InvokeOnUIThread(() =>
+                await InvokeOnUIThreadAsync(() =>
                 {
                     MessageBox.Show(message, title);
                 });
@@ -80,7 +92,7 @@ namespace System.Mvvm.Ui
             }
             else
             {
-                await InvokeOnUIThread(() =>
+                await InvokeOnUIThreadAsync(() =>
                 {
                     var confirm = MessageBox.Show(message, title, MessageBoxButton.YesNo);
 
@@ -93,6 +105,7 @@ namespace System.Mvvm.Ui
             return result;   
         }
 
+        public T CurrentWindowOfType<T>()  where T : Window => CurrentApplication.Windows.OfType<T>().FirstOrDefault(x => x.IsActive);
 
     }
 
@@ -120,5 +133,11 @@ namespace System.Mvvm.Ui
         /// </value>
         Func<string, string, Task<bool>> ShowConfirmOverideFunction { get; set; }
 
+        /// <summary>
+        /// Gets the first window of the specified type
+        /// </summary>
+        /// <typeparam name="T">The type of window to locate</typeparam>
+        /// <returns></returns>
+        T CurrentWindowOfType<T>() where T : Window;
     }
 }
