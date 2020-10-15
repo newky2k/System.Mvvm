@@ -22,6 +22,14 @@ namespace System.Mvvm
         #region Properties
 
         /// <summary>
+        /// Gets the unfiltered items.
+        /// </summary>
+        /// <value>
+        /// The unfiltered items.
+        /// </value>
+        public T2 UnfilteredItems => base.Items;
+
+        /// <summary>
         /// Gets or sets the items.
         /// </summary>
         /// <value>
