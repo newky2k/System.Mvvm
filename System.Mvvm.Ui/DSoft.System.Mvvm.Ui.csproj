@@ -32,12 +32,6 @@ Added Types parameters overload to MvvmManager.Init</PackageReleaseNotes>
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
   </ItemGroup>
