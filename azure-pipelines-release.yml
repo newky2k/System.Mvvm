@@ -1,0 +1,62 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - '*.yml'
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  netVersion: '3.1.x'
+  vsVersion: '16.7.0'
+  releaseSuffix: '-prerelease'
+
+name: 1.3.$(date:yyMM).$(date:dd)$(rev:r)
+steps:
+- task: UseDotNet@2
+  displayName: Install .Net Core
+  inputs:
+    packageType: 'sdk'
+    version: '$(netVersion)'
+    vsVersion: '$(vsVersion)'
+    includePreviewVersions: true
+
+- task: DotNetCoreCLI@2
+  displayName: Restore packages
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 
+      '$(solution)'
+    arguments: '-c $(buildConfiguration) /p:Platform="$(buildPlatform)" -p:Version=$(Build.BuildNumber)$(releaseSuffix) -p:AssemblyVersion=$(Build.BuildNumber) -p:FileVersion=$(Build.BuildNumber)'
+    
+- task: CopyFiles@2
+  displayName: Copy Files to $(build.artifactstagingdirectory)
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/Dsoft.*.nupkg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    flattenFolders: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts drop
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
