@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Mvvm.Attributes;
 using System.Mvvm.Contracts;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,82 +14,9 @@ namespace System.Mvvm
     public static class UI
     {
         #region Core Backend
-        private static IPlatformCoreUIProvider _mainUiProvider;
+       
 
-        internal static IPlatformCoreUIProvider PlatformProvider
-        {
-            get 
-            {
-                if (_mainUiProvider == null)
-                    throw new Exception("The platform specific UI provider has not been set.  Call System.Mvvm.UI.Init to register the platform implementation");
-
-                return _mainUiProvider; 
-            }
-            private set { _mainUiProvider = value; }
-        }
-        #endregion
-
-        #region Initializers
-        /// <summary>
-        /// Initializes the core UI provider
-        /// </summary>
-        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
-        public static void Init<T>() where T : IPlatformCoreUIProvider, new()
-        {
-            PlatformProvider = new T();
-
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
-
-            LoadServices(assms);
-        }
-
-
-        /// <summary>
-        /// Initializes the core UI provider
-        /// </summary>
-        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
-        /// <param name="assemblies">External Assemblies with UI services</param>
-        public static void Init<T>(params Assembly[] assemblies) where T : IPlatformCoreUIProvider, new()
-        {
-            PlatformProvider = new T();
-
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
-
-            if (assemblies != null && assemblies.Count() > 0)
-            {
-                foreach (var aAssm in assemblies)
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
-            
-            LoadServices(assms);
-        }
-
-        /// <summary>
-        /// Initializes the core UI provider
-        /// </summary>
-        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
-        /// <param name="types">Types in external assemblies with UI services</param>
-        public static void Init<T>(params Type[] types) where T : IPlatformCoreUIProvider, new()
-        {
-            PlatformProvider = new T();
-
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
-
-            if (types != null && types.Count() > 0)
-            {
-                foreach (var aAssm in types.Select(x => x.Assembly))
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
-
-            LoadServices(assms);
-
-        }
+        internal static IPlatformCoreUIProvider PlatformProvider => Services.Get<IPlatformCoreUIProvider>();
 
         #endregion
 
@@ -115,7 +43,7 @@ namespace System.Mvvm
             return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
         }
 
-                /// <summary>
+        /// <summary>
         /// Invokes the action on the UI thread
         /// </summary>
         /// <param name="action">The action.</param>
@@ -132,72 +60,59 @@ namespace System.Mvvm
 
         #endregion
 
+        #region Initializers
+
+        [Obsolete("Use Services.Register insead")]
+        /// <summary>
+        /// Initializes the core UI provider
+        /// </summary>
+        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
+        public static void Init<T>() where T : IPlatformCoreUIProvider, new() => Services.Register<T>();
+
+        [Obsolete("Use Services.Register insead")]
+        /// <summary>
+        /// Initializes the core UI provider
+        /// </summary>
+        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
+        /// <param name="assemblies">External Assemblies with UI services</param>
+        public static void Init<T>(params Assembly[] assemblies) where T : IPlatformCoreUIProvider, new() => Services.Register<T>(assemblies);
+
+        [Obsolete("Use Services.Register insead")]
+        /// <summary>
+        /// Initializes the core UI provider
+        /// </summary>
+        /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
+        /// <param name="types">Types in external assemblies with UI services</param>
+        public static void Init<T>(params Type[] types) where T : IPlatformCoreUIProvider, new() => Services.Register<T>(types);
+
+        #endregion
+
+
+
         #region UI Providers
 
-        /// <summary>
-        /// Stored instances of the 
-        /// </summary>
-        private static Dictionary<Type, object> Services { get; set; } = new Dictionary<Type, object>();
-
-        /// <summary>
-        /// Register types
-        /// </summary>
-        private static List<Type> ServiceTypes { get; set; } = new List<Type>();
-
-
+        [Obsolete("Use Services.Register insead")]
         /// <summary>
         /// Register a UI Service
         /// </summary>
         /// <typeparam name="T">Service implementation type</typeparam>
-        public static void Register<T>() where T : new()
-        {
-            var newType = typeof(T);
+        public static void Register<T>() where T : new() => Services.Register<T>();
 
-            if (!ServiceTypes.Contains(newType))
-                ServiceTypes.Add(newType);
-        }
-
+        [Obsolete("Use Services.Register insead")]
         /// <summary>
         /// Register all UI Services in the specified assemblies
         /// </summary>
         /// <param name="assemblies">Assemblies to process</param>
-        public static void Register(params Assembly[] assemblies)
-        {
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+        public static void Register(params Assembly[] assemblies) => Services.Register(assemblies);
 
-            if (assemblies != null && assemblies.Count() > 0)
-            {
-                foreach (var aAssm in assemblies)
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
-
-            LoadServices(assms);
-        }
-
+        [Obsolete("Use Services.Register insead")]
         /// <summary>
         /// Register all UI Services in the assemblies conatining the specified types
         /// </summary>
         /// <param name="types">Types to process in external assemblies</param>
-        public static void Register(params Type[] types)
-        {
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+        public static void Register(params Type[] types) => Services.Register(types);
 
-            if (types != null && types.Count() > 0)
-            {
-                foreach (var aAssm in types.Select(x => x.Assembly))
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
-
-            LoadServices(assms);
-
-        }
-
+        [Obsolete("Use Services.Get insead")]
         /// <summary>
         /// Get a UI Service implementation
         /// </summary>
@@ -210,45 +125,10 @@ namespace System.Mvvm
             if (typeof(T).Equals(typeof(IPlatformCoreUIProvider)) || typeof(IPlatformCoreUIProvider).IsAssignableFrom(typeof(T)))
                 return (T)PlatformProvider;
 
-            var type = ServiceTypes.FirstOrDefault(x => x.Equals(typeof(T)) || typeof(T).IsAssignableFrom(x));
+            return Services.Get<T>(cachedInstance);
 
-            if (type != null)
-            {
-                if (!cachedInstance == true)
-                {
-                    return (T)Activator.CreateInstance(type);
-                }
-
-                if (Services.ContainsKey(type))
-                    return (T)Services[type];
-                else
-                {
-                    var newType = (T)Activator.CreateInstance(type);
-
-                    Services.Add(type, newType);
-
-                    return newType;
-                }
-            }
-
-            throw new Exception("Type not registered");
         }
 
-        private static void LoadServices(IEnumerable<Assembly> assemblies)
-        {
-            var custAttr = typeof(UIServiceAttribute);
-
-            foreach (var assembly in assemblies)
-            {
-                var serAttrs = assembly.GetCustomAttributes(custAttr, true);
-
-                foreach (UIServiceAttribute attrib in serAttrs)
-                {
-                    if (!ServiceTypes.Contains(attrib.Implementation))
-                        ServiceTypes.Add(attrib.Implementation);
-                }
-            }
-        }
         #endregion
 
 

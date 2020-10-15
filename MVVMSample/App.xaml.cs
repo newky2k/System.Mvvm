@@ -25,7 +25,7 @@ namespace MVVMSample
 
             MvvmManager.Init();
 
-            var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
+            var wpfPlatform = Services.Get<WPFPlatformUIProvider>();
 
             wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
 
@@ -34,7 +34,7 @@ namespace MVVMSample
 
         public static Task ShowAlertWindow(string title, string message)
         {
-            var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
+            var wpfPlatform = Services.Get<WPFPlatformUIProvider>();
 
             var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
 
@@ -45,7 +45,7 @@ namespace MVVMSample
         {
             var tcs = new TaskCompletionSource<bool>();
 
-            var wpfPlatform = UI.Get<WPFPlatformUIProvider>();
+            var wpfPlatform = Services.Get<WPFPlatformUIProvider>();
 
             UI.InvokeOnUIThread(async () =>
             {

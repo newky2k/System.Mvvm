@@ -12,68 +12,34 @@ namespace System.Mvvm
     /// </summary>
     public static class Services
     {
+        #region Public members
+
         /// <summary>
         /// Init will register any instances of the MvvmServiceAttribute in the calling assembly
         /// </summary>
-        public static void Init()
-        {
-            var assm = Assembly.GetCallingAssembly();
-
-            LoadServices(new Assembly[] { assm });
-        }
+        public static void Init() => Register();
 
         /// <summary>
         /// Init will register any instances of the MvvmServiceAttribute in the calling assembly and the asssemblies provided
         /// </summary>
         /// <param name="assemblies">Array of external assemblies</param>
-        public static void Init(params Assembly[] assemblies)
-        {
-            var assms = new List<Assembly>(){ Assembly.GetCallingAssembly() };
-
-            if (assemblies != null && assemblies.Length > 0)
-            {
-                foreach (var aAssm in assemblies)
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
-
-            LoadServices(assms);
-        }
+        public static void Init(params Assembly[] assemblies) => Register(assemblies);
 
         /// <summary>
         /// Init will registrer an instance MvvmServiceAttribute in the calling assembly and the assemblies containing the specified types
         /// </summary>
         /// <param name="types"></param>
-        public static void Init(params Type[] types)
+        public static void Init(params Type[] types) => Register(types);
+
+        /// <summary>
+        /// Registers this instance.
+        /// </summary>
+        public static void Register()
         {
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
+            var assm = Assembly.GetCallingAssembly();
 
-            if (types != null && types.Any())
-            {
-                foreach (var aAssm in types.Select(x => x.Assembly))
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
-
-            LoadServices(assms);
+            LoadServices(new Assembly[] { assm });
         }
-
-        #region UI Providers
-
-        /// <summary>
-        /// Stored instances of the 
-        /// </summary>
-        private static Dictionary<Type, object> _services { get; set; } = new Dictionary<Type, object>();
-
-        /// <summary>
-        /// Register types
-        /// </summary>
-        private static List<Type> ServiceTypes { get; set; } = new List<Type>();
-
 
         /// <summary>
         /// Register a Mvvm Service
@@ -83,8 +49,20 @@ namespace System.Mvvm
         {
             var newType = typeof(T);
 
-            if (!ServiceTypes.Contains(newType))
-                ServiceTypes.Add(newType);
+            if (!_serviceTypes.Contains(newType))
+                _serviceTypes.Add(newType);
+        }
+
+        public static void Register<T>(params Assembly[] assemblies)
+        {
+            var newAssemblies = new List<Assembly>()
+            {
+                typeof(T).Assembly,
+            };
+
+            newAssemblies.AddRange(assemblies);
+
+            Register(newAssemblies.ToArray());
         }
 
         /// <summary>
@@ -107,6 +85,18 @@ namespace System.Mvvm
             LoadServices(assms);
         }
 
+        public static void Register<T>(params Type[] types) where T : new()
+        {
+            var newTypes = new List<Type>()
+            {
+                typeof(T),
+            };
+
+            newTypes.AddRange(types);
+
+            Register(newTypes.ToArray());
+        }
+
         /// <summary>
         ///  Register all Mvvm Services in the assemblies conatining the specified types
         /// </summary>
@@ -127,7 +117,6 @@ namespace System.Mvvm
             LoadServices(assms);
         }
 
-
         /// <summary>
         /// Get a UI Service implementation
         /// </summary>
@@ -136,7 +125,7 @@ namespace System.Mvvm
         /// <returns></returns>
         public static T Get<T>(bool cachedInstance = true)
         {
-            var type = ServiceTypes.FirstOrDefault(x => x.Equals(typeof(T)) || typeof(T).IsAssignableFrom(x));
+            var type = _serviceTypes.FirstOrDefault(x => x.Equals(typeof(T)) || typeof(T).IsAssignableFrom(x));
 
             if (type != null)
             {
@@ -157,24 +146,52 @@ namespace System.Mvvm
                 }
             }
 
-            throw new Exception("Type not registered");
+            throw new Exception($"{typeof(T).Name} not registered");
         }
+        #endregion
+
+        #region Private members
+
+
+        /// <summary>
+        /// Stored instances of the 
+        /// </summary>
+        private static Dictionary<Type, object> _services { get; set; } = new Dictionary<Type, object>();
+
+        /// <summary>
+        /// Register types
+        /// </summary>
+        private static List<Type> _serviceTypes { get; set; } = new List<Type>();
 
         private static void LoadServices(IEnumerable<Assembly> assemblies)
         {
             var custAttr = typeof(MvvmServiceAttribute);
+            var serviceAttr = typeof(UIServiceAttribute);
 
             foreach (var assembly in assemblies)
             {
                 var serAttrs = assembly.GetCustomAttributes(custAttr, true);
+                var uiAttrs = assembly.GetCustomAttributes(serviceAttr, true);
 
                 foreach (MvvmServiceAttribute attrib in serAttrs)
                 {
-                    if (!ServiceTypes.Contains(attrib.Implementation))
-                        ServiceTypes.Add(attrib.Implementation);
+                    if (!_serviceTypes.Contains(attrib.Implementation))
+                        _serviceTypes.Add(attrib.Implementation);
                 }
+
+                foreach (UIServiceAttribute attrib in uiAttrs)
+                {
+                    if (!_serviceTypes.Contains(attrib.Implementation))
+                        _serviceTypes.Add(attrib.Implementation);
+                }
+
             }
         }
+
+
+
+
+
         #endregion
     }
 }
