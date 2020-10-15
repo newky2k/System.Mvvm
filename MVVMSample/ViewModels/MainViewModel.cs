@@ -103,7 +103,7 @@ namespace MVVMSample.ViewModels
                 return new DelegateCommand(() =>
                 {
 
-                    var customUI = UI.Get<ITestCustomUIProvider>(false);
+                    var customUI = Services.Get<ITestCustomUIProvider>(false);
 
                     customUI.SayHello();
 
@@ -152,9 +152,9 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    var uiS = UI.Get<IPlatformCoreUIProvider>();
+                    var uiS = Services.Get<IPlatformCoreUIProvider>();
 
-                    var wpfProvider = UI.Get<WPFPlatformUIProvider>();
+                    var wpfProvider = Services.Get<WPFPlatformUIProvider>();
 
                    var mainWindow = wpfProvider.CurrentApplication.MainWindow;
                 });

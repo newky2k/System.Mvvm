@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Mvvm.Attributes;
 using System.Mvvm.Contracts;
+using System.Mvvm.Ui;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
+[assembly: UIService(typeof(PlatformUIProvider))]
 namespace System.Mvvm.Ui
 {
     internal class PlatformUIProvider : IPlatformCoreUIProvider, UWPPlatformUIProvider
