@@ -43,6 +43,8 @@ namespace System.Mvvm.Ui
             CommonInit();
 
             UI.Init<PlatformUIProvider>(Assembly.GetCallingAssembly(), typeof(MvvmManager).Assembly);
+
+            Services.Init(new Assembly[] { Assembly.GetCallingAssembly() });
         }
 
         /// <summary>
