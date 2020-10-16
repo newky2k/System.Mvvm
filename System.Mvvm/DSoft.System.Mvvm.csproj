@@ -10,13 +10,10 @@
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.Mvvm</Title>
-    <Description>Powerful Cross-platform MVVM class library for .Net Core, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
+    <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 5.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>  - Added OnPropertyChanged and OnPropertiesChanged methods
-    - Added UpdateValueNotify methods for use in new setter lambda expressions
-    - Clean up methods intellisense summaries
-    - Changed from strings to nameof references for internal notifications(IsBusy, IsEditable)
+    <PackageReleaseNotes>Integrated UI service management with Services and deprecated service related methods inside UI
     </PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
