@@ -19,14 +19,14 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '3.1.x'
-  vsVersion: '16.7.0'
+  netVersion: '5.x'
+  vsVersion: '16.8.0'
   releaseSuffix: '-prerelease'
 
 name: 1.3.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
 - task: UseDotNet@2
-  displayName: Install .Net Core
+  displayName: Install .Net 5.x
   inputs:
     packageType: 'sdk'
     version: '$(netVersion)'

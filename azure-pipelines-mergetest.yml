@@ -12,12 +12,12 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '3.1.x'
-  sVersion: '16.7.0'
+  netVersion: '5.x'
+  sVersion: '16.8.0'
 
 steps:
 - task: UseDotNet@2
-  displayName: Install .Net Core
+  displayName: Install .Net 5.x
   inputs:
     packageType: 'sdk'
     version: '$(netVersion)'
