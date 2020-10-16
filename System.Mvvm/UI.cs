@@ -87,8 +87,6 @@ namespace System.Mvvm
 
         #endregion
 
-
-
         #region UI Providers
 
         [Obsolete("Use Services.Register insead")]
