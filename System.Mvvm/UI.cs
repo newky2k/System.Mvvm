@@ -62,14 +62,14 @@ namespace System.Mvvm
 
         #region Initializers
 
-        [Obsolete("Use Services.Register insead")]
+        [Obsolete("Use Services.Register<T> insead")]
         /// <summary>
         /// Initializes the core UI provider
         /// </summary>
         /// <typeparam name="T">Implementation of IPlatformCoreUIProvider</typeparam>
         public static void Init<T>() where T : IPlatformCoreUIProvider, new() => Services.Register<T>();
 
-        [Obsolete("Use Services.Register insead")]
+        [Obsolete("Use Services.Register<T> insead")]
         /// <summary>
         /// Initializes the core UI provider
         /// </summary>
@@ -77,7 +77,7 @@ namespace System.Mvvm
         /// <param name="assemblies">External Assemblies with UI services</param>
         public static void Init<T>(params Assembly[] assemblies) where T : IPlatformCoreUIProvider, new() => Services.Register<T>(assemblies);
 
-        [Obsolete("Use Services.Register insead")]
+        [Obsolete("Use Services.Register<T> insead")]
         /// <summary>
         /// Initializes the core UI provider
         /// </summary>
