@@ -13,14 +13,16 @@
     <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 5.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Integrated UI service management with Services and deprecated service related methods inside UI
+    <PackageReleaseNotes>
+  - Integrated UI service management with `Services` and deprecated dependency injection related methods inside `UI`
+  - Deprecated UIServiceAttribute, use MvvmServiceAttribute instead
     </PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <Version>1.2.0-preview2</Version>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <Version>2.0-preview2</Version>
+    <FileVersion>2.0.0.0</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>

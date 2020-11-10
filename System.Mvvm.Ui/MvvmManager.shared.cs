@@ -42,8 +42,6 @@ namespace System.Mvvm.Ui
         {
             CommonInit();
 
-            //UI.Init<PlatformUIProvider>(Assembly.GetCallingAssembly(), typeof(MvvmManager).Assembly);
-
             Services.Register<PlatformUIProvider>(new Assembly[] { Assembly.GetCallingAssembly() });
         }
 
@@ -64,8 +62,6 @@ namespace System.Mvvm.Ui
                 newAssms.Add(Assembly.GetCallingAssembly());
 
             newAssms.AddRange(assemblies);
-
-            //UI.Init<PlatformUIProvider>(newAssms.ToArray());
 
             Services.Register<PlatformUIProvider>(newAssms.ToArray());
         }
@@ -100,7 +96,6 @@ namespace System.Mvvm.Ui
                 
             typesList.AddRange(types);
 
-            //UI.Init<PlatformUIProvider>(typesList.ToArray());
             Services.Register<PlatformUIProvider>(typesList.ToArray());
         }
 

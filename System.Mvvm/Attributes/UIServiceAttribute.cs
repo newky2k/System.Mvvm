@@ -4,6 +4,7 @@ using System.Text;
 
 namespace System.Mvvm.Attributes
 {
+    [Obsolete("Use MvvmServiceAttribute instead to register UI services")]
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class UIServiceAttribute : Attribute
     {
