@@ -166,20 +166,12 @@ namespace System.Mvvm
         private static void LoadServices(IEnumerable<Assembly> assemblies)
         {
             var custAttr = typeof(MvvmServiceAttribute);
-            var serviceAttr = typeof(UIServiceAttribute);
 
             foreach (var assembly in assemblies)
             {
                 var serAttrs = assembly.GetCustomAttributes(custAttr, true);
-                var uiAttrs = assembly.GetCustomAttributes(serviceAttr, true);
 
                 foreach (MvvmServiceAttribute attrib in serAttrs)
-                {
-                    if (!_serviceTypes.Contains(attrib.Implementation))
-                        _serviceTypes.Add(attrib.Implementation);
-                }
-
-                foreach (UIServiceAttribute attrib in uiAttrs)
                 {
                     if (!_serviceTypes.Contains(attrib.Implementation))
                         _serviceTypes.Add(attrib.Implementation);
