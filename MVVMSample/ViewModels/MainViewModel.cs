@@ -110,13 +110,6 @@ namespace MVVMSample.ViewModels
                 });
             }
         }
-        private int myVar;
-
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; NotifyPropertyChanged(nameof(MyProperty)); }
-        }
 
         public ICommand TestInvokeUIThreadOffUIThread
         {
