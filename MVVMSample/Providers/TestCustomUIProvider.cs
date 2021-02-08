@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-[assembly: MvvmService(typeof(TestCustomUIProvider))]
+[assembly: MvvmService(typeof(ITestCustomUIProvider), typeof(TestCustomUIProvider))]
 namespace MVVMSample.Providers
 {
+    [SingletonService]
     public class TestCustomUIProvider : ITestCustomUIProvider
     {
         public void SayHello()

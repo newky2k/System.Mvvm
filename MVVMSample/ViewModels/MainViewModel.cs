@@ -103,7 +103,7 @@ namespace MVVMSample.ViewModels
                 return new DelegateCommand(() =>
                 {
 
-                    var customUI = Services.Get<ITestCustomUIProvider>(false);
+                    var customUI = Services.Get<ITestCustomUIProvider>();
 
                     customUI.SayHello();
 
