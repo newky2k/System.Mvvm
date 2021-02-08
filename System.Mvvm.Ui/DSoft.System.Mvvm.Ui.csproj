@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.0;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -10,16 +10,18 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
-    <Version>2.0-preview2</Version>
-    <Description>WPF MvvmManager for .NET Framework, .NET Core 3.x and .Net 5+</Description>
+    <Version>2.1-preview2</Version>
+    <Description>WPF MvvmManager for .NET Framework, .NET Core 3.1 and .Net 5+</Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM NetCore</PackageTags>
     <PackageReleaseNotes>
-  - Removed UWP support
-  - Added .Net 5+ support
-  - Removed unnecessary dependency on Microsoft.Windows.Compatibility
+  - Added SingletonServiceAttribute to define cached instances
+  - Added the ability to register interface and implementation types explicity
+  - Removed Obsolete UI methods
+  - Cleaned up Services API and obsoleted some members(To be removed in 2.2)
+  - Updated to .NET Core 3.1 LTS minimum
     </PackageReleaseNotes>
     <Copyright>Copyright © 2020 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
