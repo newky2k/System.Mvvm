@@ -15,23 +15,6 @@ namespace System.Mvvm
         #region Public members
 
         /// <summary>
-        /// Init will register any instances of the MvvmServiceAttribute in the calling assembly
-        /// </summary>
-        public static void Init() => Register();
-
-        /// <summary>
-        /// Init will register any instances of the MvvmServiceAttribute in the calling assembly and the asssemblies provided
-        /// </summary>
-        /// <param name="assemblies">Array of external assemblies</param>
-        public static void Init(params Assembly[] assemblies) => Register(assemblies);
-
-        /// <summary>
-        /// Init will registrer an instance MvvmServiceAttribute in the calling assembly and the assemblies containing the specified types
-        /// </summary>
-        /// <param name="types"></param>
-        public static void Init(params Type[] types) => Register(types);
-
-        /// <summary>
         /// Registers this instance.
         /// </summary>
         public static void Register()
@@ -49,20 +32,28 @@ namespace System.Mvvm
         {
             var newType = typeof(T);
 
-            if (!_serviceTypes.Contains(newType))
-                _serviceTypes.Add(newType);
+            AddService(newType);
+
         }
 
-        public static void Register<T>(params Assembly[] assemblies)
+        /// <summary>
+        /// Registers the interface and implementation types
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the 2.</typeparam>
+        /// <exception cref="Exception">The first type must be an interface when calling Resgister<T,T2></exception>
+        public static void Register<T, T2>() where T2 : class, new()
         {
-            var newAssemblies = new List<Assembly>()
-            {
-                typeof(T).Assembly,
-            };
+            var interfaceType = typeof(T);
 
-            newAssemblies.AddRange(assemblies);
+            if (!interfaceType.IsInterface)
+                throw new Exception("The first type must be an interface when calling Resgister<T,T2>");
 
-            Register(newAssemblies.ToArray());
+
+            var implementationType = typeof(T2);
+
+            AddService(implementationType, interfaceType);
+
         }
 
         /// <summary>
@@ -85,6 +76,85 @@ namespace System.Mvvm
             LoadServices(assms);
         }
 
+        /// <summary>
+        ///  Register all Mvvm Services in the assemblies conatining the specified types
+        /// </summary>
+        /// <param name="types">Types to process in external assemblies</param>
+        public static void Register(params Type[] types)
+        {
+            foreach (var type in types)
+                AddService(type);
+        }
+
+        /// <summary>
+        /// Get a UI Service implementation
+        /// </summary>
+        /// <typeparam name="T">The inherited type</typeparam>
+        /// <returns></returns>
+        public static T Get<T>()
+        {
+            var type = FindImplementation<T>();
+
+            //if the implentation type is null then it must not have been rergistered so through an error
+            if (type == null)
+                throw new Exception(string.Format("There is no registered implementation for type: {0}", typeof(T).Name));
+
+            var cachedAttribute = type.GetTypeInfo().GetCustomAttribute<SingletonServiceAttribute>();
+
+            if (cachedAttribute == null)
+                return (T)Activator.CreateInstance(type);
+
+            if (_cachedServices.ContainsKey(type))
+            {
+                return (T)_cachedServices[type];
+            }   
+            else
+            {
+                var newType = (T)Activator.CreateInstance(type);
+
+                _cachedServices.Add(type, newType);
+
+                return newType;
+            }
+
+        }
+
+        #region Obsolete Methods
+        [Obsolete("The cachedInstance parameter is obsolete.  Decorate the cached service with SingletonServiceAttribute instead and Call Get<T> without any parameters. v2.1")]
+        /// <summary>
+        /// Get a UI Service implementation
+        /// </summary>
+        /// <typeparam name="T">The inherited type</typeparam>
+        /// <param name="cachedInstance">Cache the instance for use later, default is true</param>
+        /// <returns></returns>
+        public static T Get<T>(bool cachedInstance)
+        {
+            var type = FindImplementation<T>();
+
+            //if the implentation type is null then it must not have been rergistered so through an error
+            if (type == null)
+                throw new Exception(string.Format("There is no registered implementation for type: {0}", typeof(T).Name));
+
+
+            if (cachedInstance != true)
+            {
+                return (T)Activator.CreateInstance(type);
+            }
+
+            if (_cachedServices.ContainsKey(type))
+                return (T)_cachedServices[type];
+            else
+            {
+                var newType = (T)Activator.CreateInstance(type);
+
+                _cachedServices.Add(type, newType);
+
+                return newType;
+            }
+
+        }
+
+        [Obsolete("Use Register(params Type[] types) instead. v2.1")]
         public static void Register<T>(params Type[] types) where T : new()
         {
             var newTypes = new List<Type>()
@@ -97,66 +167,68 @@ namespace System.Mvvm
             Register(newTypes.ToArray());
         }
 
-        /// <summary>
-        ///  Register all Mvvm Services in the assemblies conatining the specified types
-        /// </summary>
-        /// <param name="types">Types to process in external assemblies</param>
-        public static void Register(params Type[] types)
+        [Obsolete("Use Register(params Assembly[] assemblies) instead. v2.1")]
+        public static void Register<T>(params Assembly[] assemblies)
         {
-            var assms = new List<Assembly>() { Assembly.GetCallingAssembly() };
-
-            if (types != null && types.Any())
+            var newAssemblies = new List<Assembly>()
             {
-                foreach (var aAssm in types.Select(x => x.Assembly))
-                {
-                    if (!assms.Contains(aAssm))
-                        assms.Add(aAssm);
-                }
-            }
+                typeof(T).Assembly,
+            };
 
-            LoadServices(assms);
+            newAssemblies.AddRange(assemblies);
+
+            Register(newAssemblies.ToArray());
         }
 
+        [Obsolete("Use Register() instead. v2.1")]
         /// <summary>
-        /// Get a UI Service implementation
+        /// Init will register any instances of the MvvmServiceAttribute in the calling assembly
         /// </summary>
-        /// <typeparam name="T">The inherited type</typeparam>
-        /// <param name="cachedInstance">Cache the instance for use later, default is true</param>
-        /// <returns></returns>
-        public static T Get<T>(bool cachedInstance = true)
-        {
-            var type = _serviceTypes.FirstOrDefault(x => x.Equals(typeof(T)) || typeof(T).IsAssignableFrom(x));
+        public static void Init() => Register();
 
-            if (type != null)
-            {
-                if (!cachedInstance == true)
-                {
-                    return (T)Activator.CreateInstance(type);
-                }
+        [Obsolete("Use Register(params Assembly[] assemblies) instead. v2.1")]
+        /// <summary>
+        /// Init will register any instances of the MvvmServiceAttribute in the calling assembly and the asssemblies provided
+        /// </summary>
+        /// <param name="assemblies">Array of external assemblies</param>
+        public static void Init(params Assembly[] assemblies) => Register(assemblies);
 
-                if (_services.ContainsKey(type))
-                    return (T)_services[type];
-                else
-                {
-                    var newType = (T)Activator.CreateInstance(type);
+        [Obsolete("Use Register(params Type[] types) instead. v2.1")]
+        /// <summary>
+        /// Init will registrer an instance MvvmServiceAttribute in the calling assembly and the assemblies containing the specified types
+        /// </summary>
+        /// <param name="types"></param>
+        public static void Init(params Type[] types) => Register(types);
 
-                    _services.Add(type, newType);
+        #endregion
 
-                    return newType;
-                }
-            }
-
-            throw new Exception($"{typeof(T).Name} not registered");
-        }
         #endregion
 
         #region Private members
+        private static Type FindImplementation<T>()
+        {
+            Type type = null;
 
+            //get the request type
+            var reqType = typeof(T);
+
+            //check to see if there is an explicitly type service entry
+            if (_explicitlyTypedServices.ContainsKey(reqType))
+                type = _explicitlyTypedServices[reqType];
+
+            //if there is not explicityly type service see if there an matched type or assginable type in service types
+            if (type == null)
+                type = _serviceTypes.FirstOrDefault(x => x.Equals(reqType) || reqType.IsAssignableFrom(x));
+
+            return type;
+        }
 
         /// <summary>
         /// Stored instances of the 
         /// </summary>
-        private static Dictionary<Type, object> _services { get; set; } = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> _cachedServices { get; set; } = new Dictionary<Type, object>();
+        
+        private static Dictionary<Type, Type> _explicitlyTypedServices { get; set; } = new Dictionary<Type, Type>();
 
         /// <summary>
         /// Register types
@@ -166,29 +238,35 @@ namespace System.Mvvm
         private static void LoadServices(IEnumerable<Assembly> assemblies)
         {
             var custAttr = typeof(MvvmServiceAttribute);
-            var serviceAttr = typeof(UIServiceAttribute);
 
             foreach (var assembly in assemblies)
             {
                 var serAttrs = assembly.GetCustomAttributes(custAttr, true);
-                var uiAttrs = assembly.GetCustomAttributes(serviceAttr, true);
 
                 foreach (MvvmServiceAttribute attrib in serAttrs)
                 {
-                    if (!_serviceTypes.Contains(attrib.Implementation))
-                        _serviceTypes.Add(attrib.Implementation);
-                }
+                    AddService(attrib.Implementation, attrib.Interface);
 
-                foreach (UIServiceAttribute attrib in uiAttrs)
-                {
-                    if (!_serviceTypes.Contains(attrib.Implementation))
-                        _serviceTypes.Add(attrib.Implementation);
                 }
+                    
 
             }
         }
 
-
+        private static void AddService(Type implementationType, Type interfaceType = null)
+        {
+            if(interfaceType == null)
+            {
+                if (!_serviceTypes.Contains(implementationType))
+                    _serviceTypes.Add(implementationType);
+            }
+            else
+            {
+                if (!_explicitlyTypedServices.ContainsKey(interfaceType))
+                    _explicitlyTypedServices.Add(interfaceType, implementationType);
+            }
+            
+        }
 
 
 

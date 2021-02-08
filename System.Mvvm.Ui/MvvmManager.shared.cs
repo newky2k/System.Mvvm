@@ -36,14 +36,9 @@ namespace System.Mvvm.Ui
         }
 
         /// <summary>
-        /// Initializes the MvvmManager
+        /// Initializes the MvvmManager, with the assmebly calling the Init method
         /// </summary>
-        public static void Init()
-        {
-            CommonInit();
-
-            Services.Register<PlatformUIProvider>(new Assembly[] { Assembly.GetCallingAssembly() });
-        }
+        public static void Init() => Init(new Assembly[] { Assembly.GetCallingAssembly() });
 
         /// <summary>
         /// Initializes the MvvmManager with the specified assemblies.
@@ -56,6 +51,7 @@ namespace System.Mvvm.Ui
             var newAssms = new List<Assembly>()
             {
                 typeof(MvvmManager).Assembly,
+                typeof(PlatformUIProvider).Assembly,
             };
 
             if (!assemblies.Contains(Assembly.GetCallingAssembly()))
@@ -63,7 +59,7 @@ namespace System.Mvvm.Ui
 
             newAssms.AddRange(assemblies);
 
-            Services.Register<PlatformUIProvider>(newAssms.ToArray());
+            Services.Register(newAssms.ToArray());
         }
 
         /// <summary>
@@ -77,6 +73,7 @@ namespace System.Mvvm.Ui
             var typesList = new List<Type>()
             {
                 typeof(MvvmManager),
+                typeof(PlatformUIProvider),
             };
 
             if (Assembly.GetCallingAssembly().GetTypes().Any())
@@ -96,7 +93,7 @@ namespace System.Mvvm.Ui
                 
             typesList.AddRange(types);
 
-            Services.Register<PlatformUIProvider>(typesList.ToArray());
+            Services.Register(typesList.ToArray());
         }
 
     }

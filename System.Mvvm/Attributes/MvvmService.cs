@@ -11,10 +11,18 @@ namespace System.Mvvm.Attributes
         /// 
         /// </summary>
         /// <param name="serviceType">Service Type</param>
-        public MvvmServiceAttribute(Type serviceType)
+        public MvvmServiceAttribute(Type implementationType)
         {
-            Implementation = serviceType;
+            Implementation = implementationType;
         }
+
+        public MvvmServiceAttribute(Type interfaceType, Type implementationType)
+        {
+            Interface = interfaceType;
+            Implementation = implementationType;
+        }
+
+        public Type Interface { get; private set; }
 
         public Type Implementation { get; private set; }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-[assembly: UIService(typeof(PlatformUIProvider))]
+[assembly: MvvmService(typeof(PlatformUIProvider))]
 namespace System.Mvvm.Ui
 {
     internal class PlatformUIProvider : IPlatformCoreUIProvider, WPFPlatformUIProvider
