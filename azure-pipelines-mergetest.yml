@@ -12,8 +12,8 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '5.x'
-  vsVersion: '16.9.0'
+  netVersion: '5.0'
+  vsVersion: '16.8.0'
 
 steps:
 - task: UseDotNet@2
@@ -22,13 +22,16 @@ steps:
     packageType: 'sdk'
     version: '$(netVersion)'
     performMultiLevelLookup: true
-    includePreviewVersions: false
 
 - script: dotnet tool update -g dotnet-vs
+  displayName: Updte DotNet
 - pwsh: echo "##vso[task.setvariable variable=MSB]$(vs where preview --prop=InstallationPath)"
+  displayName: Powershell 1
 - script: vs install preview --quiet +Microsoft.VisualStudio.Component.ManagedDesktop.Core +Microsoft.NetCore.Component.DevelopmentTools
   condition: eq(variables['MSB'], '')
+  displayName: Install VS preview
 - pwsh: echo "##vso[task.prependpath]$(vs where preview --prop=InstallationPath)\MSBuild\Current\Bin"
+  displayName: preview 2
 - script: msbuild -r
 - script: msbuild -t:test
 
