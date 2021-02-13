@@ -21,8 +21,8 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '$(netVersion)'
-    vsVersion: '$(vsVersion)'
-    includePreviewVersions: true
+    performMultiLevelLookup: true
+    includePreviewVersions: false
 
 - script: dotnet tool update -g dotnet-vs
 - pwsh: echo "##vso[task.setvariable variable=MSB]$(vs where preview --prop=InstallationPath)"
