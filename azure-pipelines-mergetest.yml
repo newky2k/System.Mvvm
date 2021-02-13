@@ -23,6 +23,10 @@ steps:
 #     version: '$(netVersion)'
 #     performMultiLevelLookup: true
 
+- task: NuGetToolInstaller@1
+  displayName: Install Latest Nuget
+
+
 - script: dotnet tool update -g dotnet-vs
   displayName: Updte DotNet
 - pwsh: echo "##vso[task.setvariable variable=MSB]$(vs where preview --prop=InstallationPath)"
@@ -32,9 +36,6 @@ steps:
   displayName: Install VS preview
 - pwsh: echo "##vso[task.prependpath]$(vs where preview --prop=InstallationPath)\MSBuild\Current\Bin"
   displayName: Set install
-
-- task: NuGetToolInstaller@1
-  displayName: Install Latest Nuget
 
 - task: NuGetCommand@2
   displayName: Nuget Restore
