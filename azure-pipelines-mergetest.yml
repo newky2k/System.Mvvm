@@ -13,7 +13,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   netVersion: '5.x'
-  sVersion: '16.9.0'
+  vsVersion: '16.9.0'
 
 steps:
 - task: UseDotNet@2
