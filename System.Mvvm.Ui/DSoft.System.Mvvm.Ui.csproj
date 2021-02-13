@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0; net5.0-windows10.0.18362.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows; net5.0-windows10.0.18362.0</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -16,8 +16,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM NetCore</PackageTags>
     <PackageReleaseNotes>
-  - Added initial support for WinUI 3
-  - Made .NET 5 WPF support explict windows 7 TFM to avoid conflict with WinUI TFM
+ - Added initial support for WinUI 3
     </PackageReleaseNotes>
     <Copyright>Copyright © 2021 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
@@ -25,7 +24,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0')) ">
+  <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows')) ">
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
@@ -40,7 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0'))  ">
+  <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows'))  ">
     <Compile Include="**\*.net.cs" />
     <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
