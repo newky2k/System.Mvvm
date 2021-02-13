@@ -16,12 +16,12 @@ variables:
   vsVersion: '16.8.0'
 
 steps:
-- task: UseDotNet@2
-  displayName: Install .Net 5.x
-  inputs:
-    packageType: 'sdk'
-    version: '$(netVersion)'
-    performMultiLevelLookup: true
+# - task: UseDotNet@2
+#   displayName: Install .Net 5.x
+#   inputs:
+#     packageType: 'sdk'
+#     version: '$(netVersion)'
+#     performMultiLevelLookup: true
 
 - script: dotnet tool update -g dotnet-vs
   displayName: Updte DotNet
