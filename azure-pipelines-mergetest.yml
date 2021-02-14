@@ -12,30 +12,20 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '5.0'
+  netVersion: '5.x'
   vsVersion: '16.8.0'
 
 steps:
-# - task: UseDotNet@2
-#   displayName: Install .Net 5.x
-#   inputs:
-#     packageType: 'sdk'
-#     version: '$(netVersion)'
-#     performMultiLevelLookup: true
+- task: UseDotNet@2
+  displayName: Install .Net 5.x
+  inputs:
+    packageType: 'sdk'
+    version: '$(netVersion)'
+    vsVersion: '$(vsVersion)'
+    includePreviewVersions: true
 
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
-
-
-- script: dotnet tool update -g dotnet-vs
-  displayName: Updte DotNet
-- pwsh: echo "##vso[task.setvariable variable=MSB]$(vs where preview --prop=InstallationPath)"
-  displayName: Powershell 1
-- script: vs install preview --quiet +Microsoft.VisualStudio.Workload.ManagedDesktop +Microsoft.VisualStudio.Workload.Universal +Microsoft.VisualStudio.ComponentGroup.UWP.VC
-  condition: eq(variables['MSB'], '')
-  displayName: Install VS preview
-- pwsh: echo "##vso[task.prependpath]$(vs where preview --prop=InstallationPath)\MSBuild\Current\Bin"
-  displayName: Set install
 
 - task: NuGetCommand@2
   displayName: Nuget Restore
