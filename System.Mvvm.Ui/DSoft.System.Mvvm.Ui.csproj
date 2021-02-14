@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows; net5.0-windows10.0.18362.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0; net5.0-windows10.0.18362.0</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -24,7 +24,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows')) ">
+  <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0')) ">
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
@@ -37,12 +37,9 @@
     <Compile Include="**\*.shared.*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.8.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows'))  ">
+  <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0'))  ">
     <Compile Include="**\*.net.cs" />
     <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
