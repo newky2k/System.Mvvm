@@ -20,9 +20,9 @@
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <Version>2.0-preview2</Version>
-    <FileVersion>2.0.0.0</FileVersion>
+    <AssemblyVersion>2.2.2102.141</AssemblyVersion>
+    <Version>2.2.2102.141-preview1</Version>
+    <FileVersion>2.2.2102.141</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
