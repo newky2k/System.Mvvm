@@ -20,9 +20,7 @@ steps:
   displayName: Install .Net 5.x
   inputs:
     packageType: 'sdk'
-    version: '$(netVersion)'
-    vsVersion: '$(vsVersion)'
-
+    version: '5.0.x'
   
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
