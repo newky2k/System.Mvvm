@@ -30,18 +30,18 @@ steps:
     packageType: 'sdk'
     version: '$(netVersion)'
 
-- task: DotNetCoreCLI@2
-  displayName: Restore packages
+- task: NuGetCommand@2
+  displayName: Nuget Restore
   inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+    restoreSolution: '$(solution)'
 
-- task: DotNetCoreCLI@2
+- task: VSBuild@1
+  displayName: Build Solution
   inputs:
-    command: 'build'
-    projects: 
-      '$(solution)'
-    arguments: '-c $(buildConfiguration) /p:Platform="$(buildPlatform)" -p:Version=$(Build.BuildNumber)$(releaseSuffix) -p:AssemblyVersion=$(Build.BuildNumber) -p:FileVersion=$(Build.BuildNumber)'
+    solution: '$(solution)'
+    msbuildArgs: '/p:Version=$(Build.BuildNumber)$(releaseSuffix) /p:AssemblyVersion=$(Build.BuildNumber) /p:FileVersion=$(Build.BuildNumber)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
     
 - task: CopyFiles@2
   displayName: Copy Files to $(build.artifactstagingdirectory)
