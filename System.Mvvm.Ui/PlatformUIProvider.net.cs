@@ -12,6 +12,7 @@ using System.Windows.Threading;
 [assembly: MvvmService(typeof(PlatformUIProvider))]
 namespace System.Mvvm.Ui
 {
+    [SingletonService]
     internal class PlatformUIProvider : IPlatformCoreUIProvider, WPFPlatformUIProvider
     {
         public Application CurrentApplication => Application.Current;

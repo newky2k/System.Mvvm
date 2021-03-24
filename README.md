@@ -2,7 +2,7 @@
 
 Model View View Model (MVVM) classes with built in Dependency Injection (DI) for all variants of .NET.
 
-Also provides centralised multi-platform UI Management
+Also provides centralised multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x) and WinUI 3 (Preview 4 and above)(Experimental)
 
 ### Functionality
 
@@ -94,7 +94,7 @@ The standaerd `UI` functions can be called directly
     if (result)
         await UI.ShowAlertAsync("YAY!", "You confirmed that");
 
-**NOTE: The standard UI functions only work when the platform code has been registered using `MvvmManager` a the supported plafrom**
+**NOTE: The standard UI functions only work when the platform code has been registered using `MvvmManager` on the supported plafrom**
 
 You can call `UI.Register<T>` to manually register a class or `UI.Init` and register the calling assembly and a list of optional external assemblies.
 
@@ -113,7 +113,7 @@ For example:
 
 There is a method called `Init` on the MvvmManager with and overload that excepts a list of assemblies. 
 
-**NOTE: Only WPF(.NET framework, .NET Core 3.1, .NET 5.x) is supported with `MvvmManager` at the moment**
+**NOTE: Only WPF(.NET framework, .NET Core 3.1, .NET 5.x) and WinUI 3 (Preview 4 and above) are supported with `MvvmManager` at the moment**
 
 # Services
 `Services` is a simple dependency service manager for calling platform specific service implementations from shared code
