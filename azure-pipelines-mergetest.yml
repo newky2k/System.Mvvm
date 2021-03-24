@@ -22,7 +22,6 @@ steps:
     packageType: 'sdk'
     version: '$(netVersion)'
     vsVersion: '$(vsVersion)'
-    includePreviewVersions: true
 
   
 - task: NuGetToolInstaller@1
