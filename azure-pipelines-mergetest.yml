@@ -12,18 +12,13 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '5.x'
-  vsVersion: '16.9.0'
 
 steps:
 - task: UseDotNet@2
   displayName: Install .Net 5.x
   inputs:
     packageType: 'sdk'
-    version: '$(netVersion)'
-    vsVersion: '$(vsVersion)'
-    includePreviewVersions: true
-
+    version: '5.0.x'
   
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
