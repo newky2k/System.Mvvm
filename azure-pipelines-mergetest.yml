@@ -16,20 +16,13 @@ variables:
   vsVersion: '16.9.0'
 
 steps:
-# - task: UseDotNet@2
-#   displayName: Install .Net 5.x
-#   inputs:
-#     packageType: 'sdk'
-#     version: '$(netVersion)'
-#     vsVersion: '$(vsVersion)'
-#     includePreviewVersions: true
-
 - task: UseDotNet@2
+  displayName: Install .Net 5.x
   inputs:
     packageType: 'sdk'
-    useGlobalJson: true
+    version: '$(netVersion)'
     vsVersion: '$(vsVersion)'
-  
+
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
 
