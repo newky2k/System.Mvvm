@@ -19,9 +19,8 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '5.x'
-  vsVersion: '16.9.0'
-  releaseSuffix: '-preview1'
+  netVersion: '5.0.x'
+  releaseSuffix: '-preview2'
 
 name: 2.1.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
@@ -30,7 +29,6 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '$(netVersion)'
-    vsVersion: '$(vsVersion)'
 
 - task: DotNetCoreCLI@2
   displayName: Restore packages
