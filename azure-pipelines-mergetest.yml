@@ -12,8 +12,6 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '5.x'
-  vsVersion: '16.9.0'
 
 steps:
 - task: UseDotNet@2
