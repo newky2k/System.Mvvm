@@ -154,7 +154,7 @@ namespace MVVMSample.ViewModels
                 {
                     var uiS = Services.Get<IPlatformCoreUIProvider>();
 
-                    var wpfProvider = Services.Get<WPFPlatformUIProvider>();
+                    var wpfProvider = Services.Get<IWPFPlatformUIProvider>();
 
                    var mainWindow = wpfProvider.CurrentApplication.MainWindow;
                 });

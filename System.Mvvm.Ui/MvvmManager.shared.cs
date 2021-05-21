@@ -17,7 +17,7 @@ namespace System.Mvvm.Ui
             PlatformInit();
 
             //Centralised management of errors notifications through the ViewModel
-            ViewModel.OnErrorOccured += async (object sen, Exception e2) =>
+            ViewModel.OnErrorOccurred += async (object sen, Exception e2) =>
             {
                 if (e2 is TitledException)
                 {

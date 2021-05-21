@@ -25,10 +25,13 @@ namespace System.Mvvm
         #region Events
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
+        [Obsolete("Use OnErrorOccurred instead")]
+        public static event EventHandler<Exception> OnErrorOccured = delegate { };
+
         /// <summary>
         /// Called when an exception is thrown
         /// </summary>
-        public static event EventHandler<Exception> OnErrorOccured = delegate { };
+        public static event EventHandler<Exception> OnErrorOccurred = delegate { };
 
         /// <summary>
         /// Occurs when [on is busy changed].
@@ -444,20 +447,28 @@ namespace System.Mvvm
         #endregion
 
         #region Error Notifications
+
+        [Obsolete("Use NotifyErrorOccurred instead")]
+        protected void NotifyErrorOccured(Exception ex, string title = null) => NotifyErrorOccurred(ex, title);
         /// <summary>
-        /// Notifies the error occured.
+        /// Notifies that an error occurred.
         /// </summary>
         /// <param name="ex">The ex.</param>
-        protected void NotifyErrorOccured(Exception ex, string title = null)
+        protected void NotifyErrorOccurred(Exception ex, string title = null)
         {
             IsBusy = false;
 
             if (string.IsNullOrWhiteSpace(title))
+            {
                 OnErrorOccured(this, ex);
+                OnErrorOccurred(this, ex);
+            } 
             else
+            {
                 OnErrorOccured(this, new TitledException(title, ex));
+                OnErrorOccurred(this, new TitledException(title, ex));
+            }
         }
-
         #endregion
         #endregion
 
