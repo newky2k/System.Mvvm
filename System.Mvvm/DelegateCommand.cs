@@ -20,11 +20,13 @@ namespace System.Mvvm
 
         #region Fields
         private ExecuteMethod executeMethod;
+        private ExecuteMethodWithParameter executeMethodWithParam;
         private Func<object, bool> canExecute;
         #endregion
 
         #region Properties
         public delegate void ExecuteMethod();
+        public delegate void ExecuteMethodWithParameter(object parameter);
         #endregion
 
         #region Events
@@ -55,7 +57,15 @@ namespace System.Mvvm
             executeMethod = exec;
         }
 
-       
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
+        /// </summary>
+        /// <param name="exec">The execute method that takes a parameter</param>
+        public DelegateCommand(ExecuteMethodWithParameter exec)
+        {
+            executeMethodWithParam = exec;
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
@@ -63,6 +73,17 @@ namespace System.Mvvm
         /// <param name="exec">The execute method</param>
         /// <param name="canExecutePredicate">Predicate Function with object parameter</param>
         public DelegateCommand(ExecuteMethod exec, Func<object, bool> canExecutePredicate)
+            : this(exec)
+        {
+            canExecute = canExecutePredicate;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
+        /// </summary>
+        /// <param name="exec">The execute method that takes a parameter</param>
+        /// <param name="canExecutePredicate">Predicate Function with object parameter</param>
+        public DelegateCommand(ExecuteMethodWithParameter exec, Func<object, bool> canExecutePredicate)
             : this(exec)
         {
             canExecute = canExecutePredicate;
@@ -81,6 +102,21 @@ namespace System.Mvvm
                 return canExecutePredicate.Invoke();
             };
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
+        /// </summary>
+        /// <param name="exec">The execute method</param>
+        /// <param name="canExecutePredicate">Predicate Function without object parameter</param>
+        public DelegateCommand(ExecuteMethodWithParameter exec, Func<bool> canExecutePredicate)
+            : this(exec)
+        {
+            canExecute = (obj) =>
+            {
+                return canExecutePredicate.Invoke();
+            };
+        }
+
         #endregion
 
         #region Methods
@@ -99,13 +135,15 @@ namespace System.Mvvm
 
         public void Execute(object parameter)
         {
-            executeMethod();
+            if (executeMethod != null)
+                executeMethod();
+            else if (executeMethodWithParam != null)
+                executeMethodWithParam(parameter);
         }
 
         public void RaiseCanExecuteChanged()
         {
-            //if (CanExecuteChanged != null)
-            //    CanExecuteChanged(this, EventArgs.Empty);
+
         }
         #endregion
 

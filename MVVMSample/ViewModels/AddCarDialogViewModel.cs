@@ -48,7 +48,7 @@ namespace MVVMSample.ViewModels
                     catch (Exception ex)
                     {
                         //show an the error messagew if there was an exception
-                        NotifyErrorOccured(ex);
+                        NotifyErrorOccurred(ex);
                     }
 
 

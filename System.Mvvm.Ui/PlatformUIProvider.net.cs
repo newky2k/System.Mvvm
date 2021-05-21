@@ -13,7 +13,7 @@ using System.Windows.Threading;
 namespace System.Mvvm.Ui
 {
     [SingletonService]
-    internal class PlatformUIProvider : IPlatformCoreUIProvider, WPFPlatformUIProvider
+    internal class PlatformUIProvider : IPlatformCoreUIProvider, IWPFPlatformUIProvider
     {
         public Application CurrentApplication => Application.Current;
 
@@ -113,7 +113,7 @@ namespace System.Mvvm.Ui
 
     }
 
-    public interface WPFPlatformUIProvider : IPlatformCoreUIProvider
+    public interface IWPFPlatformUIProvider : IPlatformCoreUIProvider
     {
         Application CurrentApplication { get; }
 
