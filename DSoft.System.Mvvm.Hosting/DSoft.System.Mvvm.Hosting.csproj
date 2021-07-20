@@ -9,14 +9,14 @@
     <PackageProjectUrl>https://github.com/newky2k/system.mvvm</PackageProjectUrl>
     <Summary>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Summary>
     <PackageTags>MVVM</PackageTags>
-    <Title>System.Mvvm.Hosting</Title>
+    <Title>DSoft.System.Mvvm.Hosting</Title>
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      - Added ServiceHost and ViewModel extensions
+      - Fixed assembly name
     </PackageReleaseNotes>
-    <AssemblyName>System.Mvvm</AssemblyName>
+    <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
@@ -24,7 +24,6 @@
     <FileVersion>2.2.2102.142</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <RepositoryUrl>https://github.com/newky2k/system.mvvm</RepositoryUrl>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
