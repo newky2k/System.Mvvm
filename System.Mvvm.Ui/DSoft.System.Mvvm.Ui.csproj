@@ -45,7 +45,7 @@
     <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
-    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview4.210210.4" />
+    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.1" />
     <Compile Include="**\*.uwp.cs" />
     <Compile Include="**\*.uwp.*.cs" />
   </ItemGroup>
