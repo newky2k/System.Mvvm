@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0; net5.0-windows10.0.18362.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -11,7 +11,7 @@
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
     <Description>WPF and WinUI 3 (Preview 4 and Above) MVVM UI Manager for .NET Framework, .NET Core 3.1 and .Net 5+
-</Description>
+    </Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
@@ -38,12 +38,12 @@
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-  </ItemGroup>
-  
+  </ItemGroup>  
   <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0'))  ">
     <Compile Include="**\*.net.cs" />
     <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
+  
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
     <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.1" />
     <Compile Include="**\*.uwp.cs" />

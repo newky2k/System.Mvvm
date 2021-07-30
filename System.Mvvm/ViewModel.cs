@@ -25,9 +25,6 @@ namespace System.Mvvm
         #region Events
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        [Obsolete("Use OnErrorOccurred instead")]
-        public static event EventHandler<Exception> OnErrorOccured = delegate { };
-
         /// <summary>
         /// Called when an exception is thrown
         /// </summary>
@@ -448,8 +445,6 @@ namespace System.Mvvm
 
         #region Error Notifications
 
-        [Obsolete("Use NotifyErrorOccurred instead")]
-        protected void NotifyErrorOccured(Exception ex, string title = null) => NotifyErrorOccurred(ex, title);
         /// <summary>
         /// Notifies that an error occurred.
         /// </summary>
@@ -460,12 +455,10 @@ namespace System.Mvvm
 
             if (string.IsNullOrWhiteSpace(title))
             {
-                OnErrorOccured(this, ex);
                 OnErrorOccurred(this, ex);
             } 
             else
             {
-                OnErrorOccured(this, new TitledException(title, ex));
                 OnErrorOccurred(this, new TitledException(title, ex));
             }
         }
