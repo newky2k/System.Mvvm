@@ -1,5 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MVVMSample.Providers;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,8 @@ namespace MVVMSample
             wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
 
             wpfPlatform.ShowConfirmOverideFunction = (title, message) => ShowConfirmationDialog(title, message);
+
+            ServiceHost.Init(ConfigureServices);
         }
 
         public static Task ShowAlertWindow(string title, string message)
@@ -63,5 +67,10 @@ namespace MVVMSample
 
             return tcs.Task;
         }
-    }
+
+        void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
+        {
+
+        }
+     }
 }

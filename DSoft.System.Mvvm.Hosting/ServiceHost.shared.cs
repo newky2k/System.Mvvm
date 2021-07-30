@@ -81,5 +81,10 @@ namespace System.Mvvm
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
         public static void Init(string rootPath, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Init((c) => { c.AddCommandLine(new string[] { $"ContentRoot={rootPath}" }); }, servicesConfigurationAction);
 
+        /// <summary>
+        /// Initializes the ServiceHost
+        /// </summary>
+        /// <param name="serviceConfigurationAction">The service configuration action.</param>
+        public static void Init(Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Init((c) => { }, servicesConfigurationAction);
     }
 }
