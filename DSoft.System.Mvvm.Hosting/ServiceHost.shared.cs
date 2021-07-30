@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace System.Mvvm
 {
-    public static class ServiceHost
+    public static partial class ServiceHost
     {
         private static IHost _host;
 
@@ -18,6 +19,7 @@ namespace System.Mvvm
             {
                 if (_host == null)
                     throw new NullReferenceException("The Host property has not been set on ServiceHost");
+
 
                 return _host; 
             }
@@ -56,5 +58,28 @@ namespace System.Mvvm
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         public static Task StopAsync(CancellationToken cancellationToken = default) => Host.StopAsync();
+
+        /// <summary>
+        /// Initializes the ServiceHost
+        /// </summary>
+        /// <param name="hostConfigurationBuilder">The host configuration builder.</param>
+        /// <param name="serviceConfigurationAction">The service configuration action.</param>
+        public static void Init(Action<IConfigurationBuilder> hostConfigurationBuilder, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction)
+        {
+            IHostBuilder host = new HostBuilder();
+
+            host = host.ConfigureHostConfiguration(hostConfigurationBuilder);
+            host = host.ConfigureServices(servicesConfigurationAction);
+
+            Host = host.Build();
+        }
+
+        /// <summary>
+        /// Initializes the ServiceHost with a specified root path.
+        /// </summary>
+        /// <param name="rootPath">The root path.</param>
+        /// <param name="serviceConfigurationAction">The service configuration action.</param>
+        public static void Init(string rootPath, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Init((c) => { c.AddCommandLine(new string[] { $"ContentRoot={rootPath}" }); }, servicesConfigurationAction);
+
     }
 }
