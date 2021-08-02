@@ -13,11 +13,12 @@
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>
-      - Fixed assembly name
+    <PackageReleaseNotes>- Fixed assembly name
     </PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <Product>System.Mvvm</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <Version>2.2.2102.142-prerelease</Version>
@@ -32,11 +33,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.shared.*.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+  <ItemGroup Condition=" $(TargetFramework.Equals('netstandard2.0'))">
+    <Compile Include="**\*.netstandard.cs" />
+    <Compile Include="**\*.netstandard.*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.Equals('net5.0'))">
+    <Compile Include="**\*.net.cs" />
+    <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
 
 </Project>
