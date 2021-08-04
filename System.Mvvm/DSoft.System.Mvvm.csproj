@@ -13,8 +13,7 @@
     <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 5.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Added parameter support for DelegateCommand
-- Corrected "Occurred" spellings on NotifyErrorOccurred and OnErrorOccurred</PackageReleaseNotes>
+    <PackageReleaseNotes>- Removed obsolete methods and properties</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>System.Mvvm</Product>

@@ -22,7 +22,7 @@ variables:
   netVersion: '5.0.x'
   releaseSuffix: ''
 
-name: 2.3.$(date:yyMM).$(date:dd)$(rev:r)
+name: 2.4.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
 - task: UseDotNet@2
   displayName: Install .Net 5.x
