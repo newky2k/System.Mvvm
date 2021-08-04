@@ -38,6 +38,7 @@
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
   </ItemGroup>  
   <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0'))  ">
     <Compile Include="**\*.net.cs" />
