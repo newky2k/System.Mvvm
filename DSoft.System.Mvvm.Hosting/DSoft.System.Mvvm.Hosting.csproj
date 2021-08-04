@@ -13,8 +13,7 @@
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Fixed assembly name
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Added Host initiators for ServiceHost</PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
