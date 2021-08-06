@@ -8,7 +8,7 @@ using System.Mvvm.Ui;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSoft.System.Mvvm.Ui
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
