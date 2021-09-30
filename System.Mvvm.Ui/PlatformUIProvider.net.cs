@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-[assembly: MvvmService(typeof(PlatformUIProvider))]
 namespace System.Mvvm.Ui
 {
-    [SingletonService]
-    internal class PlatformUIProvider : IPlatformCoreUIProvider, IWPFPlatformUIProvider
+    internal partial class PlatformUIProvider : IPlatformCoreUIProvider, IWPFPlatformUIProvider
     {
         public Application CurrentApplication => Application.Current;
 

@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Mvvm.Attributes;
 using System.Mvvm.Contracts;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Mvvm
+namespace System.Mvvm.Ui
 {
-    [Obsolete("Use System.Mvvm.UI.UI instead")]
     public static class UI
     {
         #region Core Backend
-       
 
-        internal static IPlatformCoreUIProvider PlatformProvider => Services.Get<IPlatformCoreUIProvider>();
+        private static Lazy<IPlatformCoreUIProvider> _instance = new Lazy<IPlatformCoreUIProvider>(() => new PlatformUIProvider());
+
+        internal static IPlatformCoreUIProvider PlatformProvider => _instance.Value;
 
         #endregion
 
         #region Core UI Methods
-        [Obsolete("Use System.Mvvm.UI.UI instead")]
+
         /// <summary>
         /// Show an alert
         /// </summary>
@@ -32,7 +27,7 @@ namespace System.Mvvm
         {
             await PlatformProvider.ShowAlertAsync(title, message);
         }
-        [Obsolete("Use System.Mvvm.UI.UI instead")]
+
         /// <summary>
         /// Show a confirmation dialog
         /// </summary>
@@ -44,7 +39,6 @@ namespace System.Mvvm
             return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
         }
 
-        [Obsolete("Use System.Mvvm.UI.UI instead")]
         /// <summary>
         /// Invokes the action on the UI thread
         /// </summary>
@@ -52,7 +46,6 @@ namespace System.Mvvm
         /// <returns></returns>
         public static void InvokeOnUIThread(Action action) => PlatformProvider.InvokeOnUIThread(action);
 
-        [Obsolete("Use System.Mvvm.UI.UI instead")]
         /// <summary>
         /// Invokes the action on the UI thread asyncronously
         /// </summary>
@@ -60,9 +53,10 @@ namespace System.Mvvm
         /// <returns></returns>
         public static Task InvokeOnUIThreadAsync(Action action) => PlatformProvider.InvokeOnUIThreadAsync(action);
 
+        public static IPlatformCoreUIProvider Provider() => _instance.Value;
 
+        public static T Provider<T>() where T : IPlatformCoreUIProvider => (T)_instance.Value;
         #endregion
 
     }
-
 }

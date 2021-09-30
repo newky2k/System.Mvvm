@@ -11,7 +11,6 @@ using System.Windows;
 [assembly: MvvmService(typeof(ITestCustomUIProvider), typeof(TestCustomUIProvider))]
 namespace MVVMSample.Providers
 {
-    [SingletonService]
     public class TestCustomUIProvider : ITestCustomUIProvider
     {
         public void SayHello()

@@ -19,11 +19,10 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 
-[assembly: MvvmService(typeof(PlatformUIProvider))]
 namespace System.Mvvm.Ui
 {
-    [SingletonService]
-    internal class PlatformUIProvider : IPlatformCoreUIProvider, UWPPlatformUIProvider
+
+    internal partial class PlatformUIProvider : IPlatformCoreUIProvider, UWPPlatformUIProvider
     {
         static bool IsMainThread
         {

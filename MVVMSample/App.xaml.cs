@@ -1,7 +1,9 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using MVVMSample.Contracts;
 using MVVMSample.Providers;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace MVVMSample
 
             MvvmManager.Init();
 
-            var wpfPlatform = Services.Get<IWPFPlatformUIProvider>();
+            var wpfPlatform = System.Mvvm.Ui.UI.Provider<IWPFPlatformUIProvider>();
 
             wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
 
@@ -51,7 +53,7 @@ namespace MVVMSample
 
             var wpfPlatform = Services.Get<IWPFPlatformUIProvider>();
 
-            UI.InvokeOnUIThread(async () =>
+            System.Mvvm.Ui.UI.InvokeOnUIThread(async () =>
             {
                 var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
 
@@ -70,7 +72,7 @@ namespace MVVMSample
 
         void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
-
+            services.TryAddSingleton<ITestCustomUIProvider, TestCustomUIProvider>();
         }
      }
 }

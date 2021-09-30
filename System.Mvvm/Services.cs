@@ -7,6 +7,7 @@ using System.Text;
 
 namespace System.Mvvm
 {
+    [Obsolete("Services is now deprecated, Use DSoft.ServiceRegistrar package instead")]
     /// <summary>
     /// Simple Dependency service container
     /// </summary>
@@ -36,6 +37,7 @@ namespace System.Mvvm
 
         }
 
+        [Obsolete("Services is now deprecated, Use DSoft.ServiceRegistrar package instead")]
         /// <summary>
         /// Registers the interface and implementation types
         /// </summary>
@@ -56,6 +58,7 @@ namespace System.Mvvm
 
         }
 
+        [Obsolete("Services is now deprecated, Use DSoft.ServiceRegistrar package instead")]
         /// <summary>
         /// Register all Mvvm Service implementation in the external assemblies
         /// </summary>
@@ -76,6 +79,7 @@ namespace System.Mvvm
             LoadServices(assms);
         }
 
+        [Obsolete("Services is now deprecated, Use DSoft.ServiceRegistrar package instead")]
         /// <summary>
         ///  Register all Mvvm Services in the assemblies conatining the specified types
         /// </summary>
@@ -86,6 +90,7 @@ namespace System.Mvvm
                 AddService(type);
         }
 
+        [Obsolete("Services is now deprecated, Use DSoft.ServiceRegistrar package instead")]
         /// <summary>
         /// Get a UI Service implementation
         /// </summary>

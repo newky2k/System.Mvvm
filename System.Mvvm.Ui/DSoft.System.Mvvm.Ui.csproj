@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.22">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0; uap10.0.16299;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0; uap10.0.16299;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -25,6 +25,7 @@
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <FileVersion>2.2.2102.142</FileVersion>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <RootNamespace>System.Mvvm.Ui</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0')) ">
     <UseWPF>true</UseWPF>
@@ -48,7 +49,6 @@
     <Compile Include="**\*.net.cs" />
     <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
-  
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
     <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.1" />
     <Compile Include="**\*.uwp.cs" />
@@ -59,5 +59,8 @@
     <Compile Include="**\*.uwp.cs" />
     <Compile Include="**\*.uwp.*.cs" />
   </ItemGroup>
-      
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <Compile Include="**\*.netstandard.cs" />
+    <Compile Include="**\*.netstandard.*.cs" />
+  </ItemGroup>     
 </Project>
