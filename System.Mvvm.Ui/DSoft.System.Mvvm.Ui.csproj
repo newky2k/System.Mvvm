@@ -10,7 +10,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>WPF and WinUI 3 (Project.Reunion 0.81+) MVVM UI Manager for .NET Framework, .NET Core 3.1 and .Net 5+
+    <Description>WPF and WinUI 3 (Project.Reunion 0.81+) MVVM UI Manager for .NET Framework, .NET Core 3.1, NET5+ and UWP
     </Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
@@ -24,6 +24,7 @@
     <Configurations>Debug;Release</Configurations>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <FileVersion>2.2.2102.142</FileVersion>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0')) ">
     <UseWPF>true</UseWPF>
@@ -37,6 +38,7 @@
     <DefineConstants>$(DefineConstants);UAP</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\readme.md" Pack="true" PackagePath="\" />
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />

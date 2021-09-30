@@ -1,0 +1,1 @@
+Powerful Cross-platform MVVM class library for .Net Core, Net 5.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework
