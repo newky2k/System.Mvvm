@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.22">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0; uap10.0.16299;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -33,6 +33,9 @@
     <RootNamespace>System.Mvvm.Ui</RootNamespace>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
   </PropertyGroup>
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <DefineConstants>$(DefineConstants);UAP</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
@@ -46,6 +49,11 @@
   
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
     <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.1" />
+    <Compile Include="**\*.uwp.cs" />
+    <Compile Include="**\*.uwp.*.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <!--<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />-->
     <Compile Include="**\*.uwp.cs" />
     <Compile Include="**\*.uwp.*.cs" />
   </ItemGroup>
