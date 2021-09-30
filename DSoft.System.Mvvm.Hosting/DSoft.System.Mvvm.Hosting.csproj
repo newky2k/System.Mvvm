@@ -29,9 +29,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>GIT</RepositoryType>
     <Copyright>Copyright © 2021 DSoft</Copyright>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\readme.md" Pack="true" PackagePath="\" />
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />

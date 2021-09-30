@@ -66,12 +66,16 @@ namespace System.Mvvm
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
         public static void Init(Action<IConfigurationBuilder> hostConfigurationBuilder, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction)
         {
-            IHostBuilder host = new HostBuilder();
 
-            host = host.ConfigureHostConfiguration(hostConfigurationBuilder);
-            host = host.ConfigureServices(servicesConfigurationAction);
+            Init((builder) =>
+            {
+                if (hostConfigurationBuilder != null)
+                    builder = builder.ConfigureHostConfiguration(hostConfigurationBuilder);
 
-            Host = host.Build();
+                if (servicesConfigurationAction != null)
+                    builder = builder.ConfigureServices(servicesConfigurationAction);
+            });
+
         }
 
         /// <summary>
@@ -86,5 +90,47 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
         public static void Init(Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Init((c) => { }, servicesConfigurationAction);
+
+        /// <summary>
+        /// Initializes the ServiceHost with the specified configure services action.
+        /// </summary>
+        /// <param name="configureServicesAction">The configure services action.</param>
+        public static void Init(Action<IConfiguration, IServiceCollection> configureServicesAction)
+        {
+            Init((HostBuilderContext context, IServiceCollection services) =>
+            {
+                configureServicesAction?.Invoke(context.Configuration, services);
+
+            });
+        }
+
+        /// <summary>
+        /// Initializes the specified root path.
+        /// </summary>
+        /// <param name="rootPath">The root path.</param>
+        /// <param name="configureServicesAction">The configure services action.</param>
+        public static void Init(string rootPath, Action<IConfiguration, IServiceCollection> configureServicesAction)
+        {
+            Init(rootPath, (HostBuilderContext context, IServiceCollection services) =>
+            {
+                configureServicesAction?.Invoke(context.Configuration, services);
+
+            });
+        }
+
+        /// <summary>
+        /// Initializes a new ServiceHost instance the specified configuration action.
+        /// </summary>
+        /// <param name="configAction">The configuration action.</param>
+        public static void Init(Action<IHostBuilder> configAction)
+        {
+            var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder();
+
+            configAction?.Invoke(host);
+
+            Host = host.Build();
+
+
+        }
     }
 }
