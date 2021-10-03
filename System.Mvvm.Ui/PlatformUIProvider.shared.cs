@@ -4,7 +4,7 @@ using System.Text;
 
 namespace System.Mvvm.Ui
 {
-    internal partial class PlatformUIProvider
+    internal partial class PlatformUIProvider : IPlatformCoreUIProvider
     {
 
     }

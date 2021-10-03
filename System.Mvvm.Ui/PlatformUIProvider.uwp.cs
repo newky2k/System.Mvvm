@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Mvvm.Attributes;
-using System.Mvvm.Contracts;
 using System.Mvvm.Ui;
 using System.Text;
 using System.Threading;
@@ -22,7 +20,7 @@ using Windows.UI.Popups;
 namespace System.Mvvm.Ui
 {
 
-    internal partial class PlatformUIProvider : IPlatformCoreUIProvider, UWPPlatformUIProvider
+    internal partial class PlatformUIProvider : IUWPPlatformUIProvider
     {
         static bool IsMainThread
         {
@@ -117,7 +115,7 @@ namespace System.Mvvm.Ui
 
     }
 
-    public interface UWPPlatformUIProvider : IPlatformCoreUIProvider
+    public interface IUWPPlatformUIProvider : IPlatformCoreUIProvider
     {
 
     }

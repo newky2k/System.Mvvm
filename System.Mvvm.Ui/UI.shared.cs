@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Mvvm.Contracts;
+using System.Mvvm;
+using System.Mvvm.Ui;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
     public static class UI
     {

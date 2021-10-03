@@ -29,7 +29,7 @@ namespace MVVMSample
 
             MvvmManager.Init();
 
-            var wpfPlatform = System.Mvvm.Ui.UI.Provider<IWPFPlatformUIProvider>();
+            var wpfPlatform = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
 
             wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
 
@@ -40,7 +40,7 @@ namespace MVVMSample
 
         public static Task ShowAlertWindow(string title, string message)
         {
-            var wpfPlatform = Services.Get<IWPFPlatformUIProvider>();
+            var wpfPlatform = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
 
             var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
 
@@ -51,9 +51,9 @@ namespace MVVMSample
         {
             var tcs = new TaskCompletionSource<bool>();
 
-            var wpfPlatform = Services.Get<IWPFPlatformUIProvider>();
+            var wpfPlatform = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
 
-            System.Mvvm.Ui.UI.InvokeOnUIThread(async () =>
+            System.Mvvm.UI.InvokeOnUIThread(async () =>
             {
                 var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
 
@@ -72,6 +72,7 @@ namespace MVVMSample
 
         void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
+            services.AddCoreUI();
             services.TryAddSingleton<ITestCustomUIProvider, TestCustomUIProvider>();
         }
      }

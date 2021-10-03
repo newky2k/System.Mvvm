@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Mvvm;
-using System.Mvvm.Contracts;
 using System.Mvvm.Ui;
 using System.Text;
 using System.Threading;
@@ -77,7 +76,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                     await System.Mvvm.Ui.UI.ShowAlertAsync("YAY!", "You confirmed that");
+                     await System.Mvvm.UI.ShowAlertAsync("YAY!", "You confirmed that");
                 });
             }
         }
@@ -88,10 +87,10 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                    var result = await System.Mvvm.Ui.UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
+                    var result = await System.Mvvm.UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
 
                     if (result)
-                        await System.Mvvm.Ui.UI.ShowAlertAsync("YAY!", "You confirmed that");
+                        await System.Mvvm.UI.ShowAlertAsync("YAY!", "You confirmed that");
                 });
             }
         }
@@ -119,7 +118,7 @@ namespace MVVMSample.ViewModels
                 {
                     await Task.Run(async () =>
                     {
-                        await System.Mvvm.Ui.UI.InvokeOnUIThreadAsync(() =>
+                        await System.Mvvm.UI.InvokeOnUIThreadAsync(() =>
                         {
                             ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                         });
@@ -137,7 +136,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                    await System.Mvvm.Ui.UI.InvokeOnUIThreadAsync(() =>
+                    await System.Mvvm.UI.InvokeOnUIThreadAsync(() =>
                     {
                         ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                     });
@@ -152,7 +151,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                  var wpfProvider = System.Mvvm.Ui.UI.Provider<IWPFPlatformUIProvider>();
+                  var wpfProvider = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
 
                    var mainWindow = wpfProvider.CurrentApplication.MainWindow;
                 });

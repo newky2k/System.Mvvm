@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Mvvm.Contracts
+namespace System.Mvvm
 {
     public interface IPlatformCoreUIProvider
     {
