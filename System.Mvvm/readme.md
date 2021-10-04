@@ -33,7 +33,7 @@ Also provides centralised multi-platform UI Management for WPF (.NET Framework, 
 - Services
   - Simple Dependency Service container for dependecy injection service management
 
-# Version 4.0 - Breaking in Changes
+# Version 3.0 - Breaking in Changes
 
 `Services` and the dependency injection features have been removed and ported to the `DSoft.ServiceRegistra` 2.0 package.  The API is the same.
 

@@ -11,7 +11,7 @@ Multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x
      - UWP and WPF (.NET Framework and .NET Core 3.0)
   - UI Thread execution
 
-# Version 4.0 - Breaking in Changes
+# Version 3.0 - Breaking in Changes
 
 All UI functionality hae been moved from the main `DSoft.System.Mvvm` package too `DSoft.System.Mvvm.Ui`
 
