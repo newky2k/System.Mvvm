@@ -11,7 +11,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Mvvm;
-using System.Mvvm.Ui;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -23,19 +22,22 @@ namespace MVVMSample
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             MvvmManager.Init();
 
-            var wpfPlatform = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
+            var wpfPlatform = UI.Provider<IWPFPlatformUIProvider>();
 
             wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
 
             wpfPlatform.ShowConfirmOverideFunction = (title, message) => ShowConfirmationDialog(title, message);
 
-            ServiceHost.Init(ConfigureServices);
+            await ServiceHost
+                .Init(ConfigureServices)
+                .StartAsync();
+
         }
 
         public static Task ShowAlertWindow(string title, string message)
@@ -75,5 +77,15 @@ namespace MVVMSample
             services.AddCoreUI();
             services.TryAddSingleton<ITestCustomUIProvider, TestCustomUIProvider>();
         }
-     }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            if (ServiceHost.Host != null)
+            {
+                await ServiceHost.Host.StopAsync();
+
+            }
+            base.OnExit(e);
+        }
+    }
 }

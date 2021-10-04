@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Mvvm;
-using System.Mvvm.Ui;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -76,7 +75,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                     await System.Mvvm.UI.ShowAlertAsync("YAY!", "You confirmed that");
+                     await UI.ShowAlertAsync("YAY!", "You confirmed that");
                 });
             }
         }
@@ -87,10 +86,10 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                    var result = await System.Mvvm.UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
+                    var result = await UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
 
                     if (result)
-                        await System.Mvvm.UI.ShowAlertAsync("YAY!", "You confirmed that");
+                        await UI.ShowAlertAsync("YAY!", "You confirmed that");
                 });
             }
         }

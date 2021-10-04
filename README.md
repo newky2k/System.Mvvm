@@ -1,4 +1,4 @@
-# System.MMVM
+# System.Mvvm
 
 Model View View Model (MVVM) classes with built in Dependency Injection (DI) for all variants of .NET.
 
@@ -28,10 +28,7 @@ Also provides centralised multi-platform UI Management for WPF (.NET Framework, 
     - Tree View Searchable Lists
 - UI
   - Core UI functions for Showing Alerts and Confirmation Dialogs (using platform specific implementations)
-     - UWP and WPF (.NET Framework and .NET Core 3.0)
-  - UI Dependency Service for calling platform UI code from shared code (details below) 
-- Services
-  - Simple Dependency Service container for dependecy injection service management
+     - UWP, WinUI and WPF (.NET Framework and .NET Core 3.1, .NET 5+)
 
 # Classes
 
@@ -57,116 +54,58 @@ All of the ViewModel base classess are in the `System.Mvvm` namespace.  To creat
     public class MainViewModel : ViewModel
     {
 
-To create a notifiable property create a full prop using the `propfull` snippet and add the a call to `NotifyPropertyChanged`.
+To create a notifiable property create a property with a backing field using the `propfull` snippet and add a call to `NotifyPropertyChanged`.
 
-        private int myVar;
+    private int myVar;
 
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value;  NotifyPropertyChanged();}
-        }
+    public int MyProperty
+    {
+        get { return myVar; }
+        set { myVar = value;  NotifyPropertyChanged();}
+    }
 
 `NotifyPropertyChanged` will automatically pickup the calling member, but you can also be explicit.
 
-        private int myVar;
+    private int myVar;
 
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; NotifyPropertyChanged(nameof(MyProperty)); }
-        }
+    public int MyProperty
+    {
+        get { return myVar; }
+        set { myVar = value; NotifyPropertyChanged(nameof(MyProperty)); }
+    }
 
 
 
-# UI
+# Using System.Mvvm.Ui
+
 The `UI` static class provides two features
 
   - A central interface for calling some simple UI functions
-    - `ShowAlert`
-    - `ShowConfirmation`
-  - A simple UI dependency service manager for calling platform specific UI implementations from shared code
+    - `ShowAlert(string title, string message)`  
+      - Show an alert with a title and message
+    - `ShowConfirmation(string title, string message)`
+      - Show a confirmation dialog and return the result
+    - `InvokeOnUIThread(Action)`
+      - Execute the action on the UI thread
+    - `InvokeOnUIThreadAsync(Action)`
+      - Execute the action on the UI thread asyncronously
 
-The standaerd `UI` functions can be called directly
+The standard `UI` functions can be called directly after adding the `DSoft.Mvvm.Ui` package
+
+    using System.Mvvm;
+    ... 
 
     var result = await UI.ShowConfirmationDialogAsync("Confirm this", "This is a platform specific confirmation message");
 
     if (result)
         await UI.ShowAlertAsync("YAY!", "You confirmed that");
 
-**NOTE: The standard UI functions only work when the platform code has been registered using `MvvmManager` on the supported plafrom**
-
-You can call `UI.Register<T>` to manually register a class or `UI.Init` and register the calling assembly and a list of optional external assemblies.
-
-To get the implementation from `UI` just call the `UI.Get<T>()` method and it will return the first class the inherits from `T`(or is `T`), which will typically be an interface.
-
-For example:
-
-    var customUI = UI.Get<ITestCustomUIProvider>();
-
-    customUI.SayHello();
-
-`UI` will cache the instance the first time a call to `UI.Get<T>()` is made for the type of `T`.  Call the `UI.Get<T>(bool)` overload if you don't want the instance to be cached.
+**NOTE: The standard UI functions only work when the platform code has been registered using `MvvmManager.Init` on the supported plaforms**
 
 ## MvvmManager
-`MvvmManager` is a class that is found in the `Dsoft.System.Mvvm.Ui` package and registers the standard UI implementation for `UI` and registers any instances of the `UIServiceAttribute` on the calling or external assemblys(when provided).
+`MvvmManager` is a class that is found in the `Dsoft.System.Mvvm.Ui` package and registers the standard UI implementation for `UI` for each supported platform.
 
-There is a method called `Init` on the MvvmManager with and overload that excepts a list of assemblies. 
+Call `MvvmManager.Init`to initialise the platform implementation. 
 
-**NOTE: Only WPF(.NET framework, .NET Core 3.1, .NET 5.x) and WinUI 3 (Preview 4 and above) are supported with `MvvmManager` at the moment**
-
-# Services
-`Services` is a simple dependency service manager for calling platform specific service implementations from shared code
-
-You can call `Services.Register<T>` to manually register a class or `Services.Register` to register the calling assembly. `Services` will locate an instances of `MvvmServiceAttribute` within the assemblys and register the implementations types.
-
-Addtional `Services.Register` methods are:
-
-  - `Register(Type[] types)`
-    - Registers a array of implementation types
-  - `Register(Assembly[] assemblies)`
-    - Processes a array of Assemblies and registers any instances of the `MvvmServiceAttribute`
-  - `Register<T,T2>`
-    - Explicitly registers an interface, `T`, against an implementatio, `T2`
-
-
-To get the implementation from `Services` just call the `Services.Get<T>()` method and it will return the first type the inherits from `T`(or is `T`), which will typically be an interface.   If you have specified an explicit implementation of an interface the system will return that.
-
-For example:
-
-    var deviceProvider = Services.Get<ITestPlatformDeviceService>();
-
-    var printers = await deviceProvider.GetPrintersAsync();
-
-`Services` will cache the instance the first time a call to `Services.Get<T>()` is made for the type of `T`.  
-
-***Note: See SingletonServiceAtrribute below for cached or singleton instances of the service***
-
-## MvvmServiceAttribute
-`MvvmServiceAttribute` is an assembly level attribute that us used to identify Mvvm Services and register them with the system.
-
-If you want `Services.Init` to register the implementation then you need to add something like this
-
-    [assembly: MvvmService(typeof(TestPlatformDeviceService))]
-
-In this case `TestPlatformDeviceService` is the implementation.
-
-`MvvmServiceAttribute` can also be used to explicity registers an interface against an implemenetion type
-
-
-    [assembly: MvvmService(typeof(ITestPlatformDeviceService), typeof(TestPlatformDeviceService))]
-
-In this case `TestPlatformDeviceService` is the implementation and `ITestPlatformDeviceService` is the interface
-
-## SingletonServiceAttribute
-
-`SingletonServiceAttribute` allows you to identify an implementation as a singleton instance.  
-
-Decorating a clas with this attribute will tel the system to instatiate only a single instance of the implementation.
-
-    [assembly: MvvmService(typeof(ITestCustomUIProvider), typeof(TestCustomUIProvider))]
-    namespace MVVMSample.Providers
-    {
-        [SingletonService]
-        public class TestCustomUIProvider : ITestCustomUIProvider
+**NOTE: Only WPF(.NET framework, .NET Core 3.1, .NET 5.x) and WinUI 3 (Preview 4 and above) and UWP are supported with `MvvmManager` at the moment**
 

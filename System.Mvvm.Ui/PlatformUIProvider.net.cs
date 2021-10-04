@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Mvvm.Ui;
+using System.Mvvm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
     internal partial class PlatformUIProvider : IWPFPlatformUIProvider
     {

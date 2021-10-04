@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Mvvm.Ui;
+using System.Mvvm;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
 
     internal partial class PlatformUIProvider : IUWPPlatformUIProvider

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
     public partial class MvvmManager
     {
