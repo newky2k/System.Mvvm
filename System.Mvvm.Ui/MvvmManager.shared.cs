@@ -5,7 +5,8 @@ using System.Mvvm;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-namespace System.Mvvm.Ui
+
+namespace System.Mvvm
 {
     public partial class MvvmManager
     {
@@ -38,62 +39,9 @@ namespace System.Mvvm.Ui
         /// <summary>
         /// Initializes the MvvmManager, with the assmebly calling the Init method
         /// </summary>
-        public static void Init() => Init(new Assembly[] { Assembly.GetCallingAssembly() });
-
-        /// <summary>
-        /// Initializes the MvvmManager with the specified assemblies.
-        /// </summary>
-        /// <param name="assemblies">The assemblies to register</param>
-        public static void Init(params Assembly[] assemblies)
+        public static void Init()
         {
             CommonInit();
-
-            var newAssms = new List<Assembly>()
-            {
-                typeof(MvvmManager).Assembly,
-                typeof(PlatformUIProvider).Assembly,
-            };
-
-            if (!assemblies.Contains(Assembly.GetCallingAssembly()))
-                newAssms.Add(Assembly.GetCallingAssembly());
-
-            newAssms.AddRange(assemblies);
-
-            Services.Register(newAssms.ToArray());
-        }
-
-        /// <summary>
-        /// Initializes the MvvmManager with the specified types
-        /// </summary>
-        /// <param name="types">Types from each assembly to register</param>
-        public static void Init(params Type[] types)
-        {
-            CommonInit();
-
-            var typesList = new List<Type>()
-            {
-                typeof(MvvmManager),
-                typeof(PlatformUIProvider),
-            };
-
-            if (Assembly.GetCallingAssembly().GetTypes().Any())
-            {
-                var eTypes = Assembly.GetCallingAssembly().GetTypes();
-
-                foreach (var aType in eTypes)
-                {
-                    if (!typesList.Contains(aType) && !types.Contains(aType))
-                    {
-                        typesList.Add(aType);
-                        break;
-                    }
-                }
-                
-            }
-                
-            typesList.AddRange(types);
-
-            Services.Register(typesList.ToArray());
         }
 
     }

@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Mvvm.Attributes;
-using System.Mvvm.Contracts;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Mvvm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +9,10 @@ namespace System.Mvvm
     public static class UI
     {
         #region Core Backend
-       
 
-        internal static IPlatformCoreUIProvider PlatformProvider => Services.Get<IPlatformCoreUIProvider>();
+        private static Lazy<IPlatformCoreUIProvider> _instance = new Lazy<IPlatformCoreUIProvider>(() => new PlatformUIProvider());
+
+        internal static IPlatformCoreUIProvider PlatformProvider => _instance.Value;
 
         #endregion
 
@@ -57,9 +53,10 @@ namespace System.Mvvm
         /// <returns></returns>
         public static Task InvokeOnUIThreadAsync(Action action) => PlatformProvider.InvokeOnUIThreadAsync(action);
 
+        public static IPlatformCoreUIProvider Provider() => _instance.Value;
 
+        public static T Provider<T>() where T : IPlatformCoreUIProvider => (T)_instance.Value;
         #endregion
 
     }
-
 }

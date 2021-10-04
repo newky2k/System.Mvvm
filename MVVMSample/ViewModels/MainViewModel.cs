@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Mvvm;
-using System.Mvvm.Contracts;
-using System.Mvvm.Ui;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -102,8 +100,8 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-
-                    var customUI = Services.Get<ITestCustomUIProvider>();
+                    
+                    var customUI = ServiceHost.GetRequiredService<ITestCustomUIProvider>();
 
                     customUI.SayHello();
 
@@ -119,7 +117,7 @@ namespace MVVMSample.ViewModels
                 {
                     await Task.Run(async () =>
                     {
-                        await UI.InvokeOnUIThreadAsync(() =>
+                        await System.Mvvm.UI.InvokeOnUIThreadAsync(() =>
                         {
                             ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                         });
@@ -137,7 +135,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                    await UI.InvokeOnUIThreadAsync(() =>
+                    await System.Mvvm.UI.InvokeOnUIThreadAsync(() =>
                     {
                         ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                     });
@@ -152,9 +150,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    var uiS = Services.Get<IPlatformCoreUIProvider>();
-
-                    var wpfProvider = Services.Get<IWPFPlatformUIProvider>();
+                  var wpfProvider = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
 
                    var mainWindow = wpfProvider.CurrentApplication.MainWindow;
                 });

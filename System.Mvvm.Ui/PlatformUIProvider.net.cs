@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Mvvm.Attributes;
-using System.Mvvm.Contracts;
-using System.Mvvm.Ui;
+using System.Mvvm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-[assembly: MvvmService(typeof(PlatformUIProvider))]
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
-    [SingletonService]
-    internal class PlatformUIProvider : IPlatformCoreUIProvider, IWPFPlatformUIProvider
+    internal partial class PlatformUIProvider : IWPFPlatformUIProvider
     {
         public Application CurrentApplication => Application.Current;
 

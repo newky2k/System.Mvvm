@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
     public partial class MvvmManager
     {

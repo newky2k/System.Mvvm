@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
     public partial class MvvmManager
     {

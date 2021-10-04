@@ -8,9 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Mvvm.Attributes;
-using System.Mvvm.Contracts;
-using System.Mvvm.Ui;
+using System.Mvvm;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,11 +17,10 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 
-[assembly: MvvmService(typeof(PlatformUIProvider))]
-namespace System.Mvvm.Ui
+namespace System.Mvvm
 {
-    [SingletonService]
-    internal class PlatformUIProvider : IPlatformCoreUIProvider, UWPPlatformUIProvider
+
+    internal partial class PlatformUIProvider : IUWPPlatformUIProvider
     {
         static bool IsMainThread
         {
@@ -118,7 +115,7 @@ namespace System.Mvvm.Ui
 
     }
 
-    public interface UWPPlatformUIProvider : IPlatformCoreUIProvider
+    public interface IUWPPlatformUIProvider : IPlatformCoreUIProvider
     {
 
     }
