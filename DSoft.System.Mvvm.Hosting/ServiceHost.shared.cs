@@ -13,6 +13,13 @@ namespace System.Mvvm
     {
         private static IHost _host;
 
+        /// <summary>
+        /// Gets or sets the gloabl IHost instance
+        /// </summary>
+        /// <value>
+        /// The host.
+        /// </value>
+        /// <exception cref="System.NullReferenceException">The Host property has not been set on ServiceHost</exception>
         public static IHost Host
         {
             get 
@@ -50,32 +57,34 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        public static Task StartAsync(CancellationToken cancellationToken = default) => Host.StartAsync();
+        public static Task StartAsync(CancellationToken cancellationToken = default) => Host.StartAsync(cancellationToken);
 
         /// <summary>
         /// Stops the host asynchronously.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        public static Task StopAsync(CancellationToken cancellationToken = default) => Host.StopAsync();
+        public static Task StopAsync(CancellationToken cancellationToken = default) => Host.StopAsync(cancellationToken);
 
         /// <summary>
         /// Initializes the ServiceHost
         /// </summary>
         /// <param name="hostConfigurationBuilder">The host configuration builder.</param>
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
-        public static IHost Init(Action<IConfigurationBuilder> hostConfigurationBuilder, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction)
+        public static IHost Initialize(Action<IConfigurationBuilder> hostConfigurationBuilder, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction)
         {
 
-            return Init((builder) =>
-            {
-                if (hostConfigurationBuilder != null)
-                    builder = builder.ConfigureHostConfiguration(hostConfigurationBuilder);
+            IHostBuilder builder = new HostBuilder();
 
-                if (servicesConfigurationAction != null)
-                    builder = builder.ConfigureServices(servicesConfigurationAction);
-            });
+            if (hostConfigurationBuilder != null)
+                builder = builder.ConfigureHostConfiguration(hostConfigurationBuilder);
 
+            if (servicesConfigurationAction != null)
+                builder = builder.ConfigureServices(servicesConfigurationAction);
+
+            Host = builder.Build();
+
+            return Host;
         }
 
         /// <summary>
@@ -83,54 +92,20 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="rootPath">The root path.</param>
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
-        public static IHost Init(string rootPath, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Init((c) => { c.AddCommandLine(new string[] { $"ContentRoot={rootPath}" }); }, servicesConfigurationAction);
+        public static IHost Initialize(string rootPath, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Initialize((c) => { c.AddCommandLine(new string[] { $"ContentRoot={rootPath}" }); }, servicesConfigurationAction);
 
         /// <summary>
         /// Initializes the ServiceHost
         /// </summary>
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
-        public static IHost Init(Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction) => Init((c) => { }, servicesConfigurationAction);
-
-        /// <summary>
-        /// Initializes the ServiceHost with the specified configure services action.
-        /// </summary>
-        /// <param name="configureServicesAction">The configure services action.</param>
-        public static IHost Init(Action<IConfiguration, IServiceCollection> configureServicesAction)
+       public static IHost Initialize(Action<HostBuilderContext, IServiceCollection> configAction)
         {
-            return Init((HostBuilderContext context, IServiceCollection services) =>
-            {
-                configureServicesAction?.Invoke(context.Configuration, services);
-
-            });
-        }
-
-        /// <summary>
-        /// Initializes the specified root path.
-        /// </summary>
-        /// <param name="rootPath">The root path.</param>
-        /// <param name="configureServicesAction">The configure services action.</param>
-        public static IHost Init(string rootPath, Action<IConfiguration, IServiceCollection> configureServicesAction)
-        {
-            return Init(rootPath, (HostBuilderContext context, IServiceCollection services) =>
-            {
-                configureServicesAction?.Invoke(context.Configuration, services);
-
-            });
-        }
-
-        /// <summary>
-        /// Initializes a new ServiceHost instance the specified configuration action.
-        /// </summary>
-        /// <param name="configAction">The configuration action.</param>
-        public static IHost Init(Action<IHostBuilder> configAction)
-        {
-            var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder();
-
-            configAction?.Invoke(host);
-
-            Host = host.Build();
+            Host = new HostBuilder().ConfigureServices(configAction).Build();
 
             return Host;
         }
+
+
+
     }
 }

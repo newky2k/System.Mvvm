@@ -35,7 +35,7 @@ namespace MVVMSample
             wpfPlatform.ShowConfirmOverideFunction = (title, message) => ShowConfirmationDialog(title, message);
 
             await ServiceHost
-                .Init(ConfigureServices)
+                .Initialize(ConfigureServices)
                 .StartAsync();
 
         }
