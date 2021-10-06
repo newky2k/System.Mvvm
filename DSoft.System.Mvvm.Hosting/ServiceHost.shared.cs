@@ -98,7 +98,12 @@ namespace System.Mvvm
         /// Initializes the ServiceHost
         /// </summary>
         /// <param name="serviceConfigurationAction">The service configuration action.</param>
-       public static IHost Initialize(Action<HostBuilderContext, IServiceCollection> configAction) => new HostBuilder().ConfigureServices(configAction).Build();
+       public static IHost Initialize(Action<HostBuilderContext, IServiceCollection> configAction)
+        {
+            Host = new HostBuilder().ConfigureServices(configAction).Build();
+
+            return Host;
+        }
 
 
 
