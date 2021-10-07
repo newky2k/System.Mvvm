@@ -36,6 +36,7 @@
     <None Include="..\readme.md" Pack="true" PackagePath="\" />
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
+    <Compile Include="HostMode.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
   </ItemGroup>
