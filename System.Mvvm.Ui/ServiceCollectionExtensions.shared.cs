@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddCoreUI(this IServiceCollection services)
+        public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
             services.TryAddTransient<IPlatformCoreUIProvider, PlatformUIProvider>();
 
@@ -26,6 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
 #if WINUI
             services.TryAddTransient<IUWPPlatformUIProvider, PlatformUIProvider>();
 #endif
+            return services;
         }
     }
 }
