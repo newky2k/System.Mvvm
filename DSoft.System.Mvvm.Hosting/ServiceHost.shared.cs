@@ -11,8 +11,14 @@ namespace System.Mvvm
 {
     public static partial class ServiceHost
     {
+        #region Fields
+
         private static IHost _host;
         private static IHost _secondaryHost;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the primary global IHost instance
@@ -53,13 +59,12 @@ namespace System.Mvvm
             set { _secondaryHost = value; }
         }
 
-        public static IServiceProvider Provider => Host.Services;
+        #endregion
 
-        public static IServiceProvider SecondaryProvider => SecondaryHost.Services;
 
-        public static IServiceScope Scope => Provider.CreateScope();
+        #region Methods
 
-        public static IServiceScope SecondaryScope => SecondaryProvider.CreateScope();
+
 
         /// <summary>
         /// Gets the required service with an existing scope
@@ -69,46 +74,35 @@ namespace System.Mvvm
         /// <returns></returns>
         public static T GetRequiredService<T>(IServiceScope scope) => scope.ServiceProvider.GetRequiredService<T>();
 
-
         /// <summary>
-        /// Gets the required service with a new scope
+        /// Gets the specified service with a new scope, will return null if not found
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="hostMode">The host to use.</param>
         /// <returns></returns>
-        public static T GetRequiredService<T>(HostMode hostMode = HostMode.Primary)
-        {
-            if (hostMode == HostMode.Primary)
-                return Provider.CreateScope().ServiceProvider.GetRequiredService<T>();
-            else
-                return SecondaryProvider.CreateScope().ServiceProvider.GetRequiredService<T>();
-        }
+        public static T GetService<T>() => Host.Services.CreateScope().ServiceProvider.GetService<T>();
 
         /// <summary>
-        /// Starts the host asynchronously.
+        /// Gets the required service with a new scope, will throw exception if not found
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Task StartAsync(HostMode hostMode = HostMode.Primary, CancellationToken cancellationToken = default)
-        {
-            if (hostMode == HostMode.Primary)
-                return Host.StartAsync(cancellationToken);
-            else
-                return SecondaryHost.StartAsync(cancellationToken);
-        }
+        public static T GetRequiredService<T>() => Host.Services.CreateScope().ServiceProvider.GetRequiredService<T>();
+
 
         /// <summary>
-        /// Stops the host asynchronously.
+        /// Gets the specified service with a new scope from the secondary host, will return null if not found
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Task StopAsync(HostMode hostMode = HostMode.Primary, CancellationToken cancellationToken = default)
-        {
-            if (hostMode == HostMode.Primary)
-                return Host.StopAsync(cancellationToken);
-            else
-                return SecondaryHost.StopAsync(cancellationToken);
-        }
+        public static T GetSecondaryService<T>() => SecondaryHost.Services.CreateScope().ServiceProvider.GetService<T>();
+
+        /// <summary>
+        /// Gets the required service with a new scope, will throw exception if not found
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T GetRequiredSecondaryService<T>() => SecondaryHost.Services.CreateScope().ServiceProvider.GetRequiredService<T>();
+
 
         /// <summary>
         /// Initializes the ServiceHost
@@ -159,7 +153,18 @@ namespace System.Mvvm
             return aHost;
         }
 
+        /// <summary>
+        /// Creates a new scope from the primary Host
+        /// </summary>
+        /// <returns></returns>
+        public static IServiceScope CreateScope() => Host.Services.CreateScope();
 
+        /// <summary>
+        /// Creates a new scope from the secondary Host.
+        /// </summary>
+        /// <returns></returns>
+        public static IServiceScope CreateSecondaryScope() => SecondaryHost.Services.CreateScope();
 
+        #endregion
     }
 }
