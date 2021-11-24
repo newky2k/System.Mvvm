@@ -111,8 +111,6 @@ namespace System.Mvvm
             return (result == ContentDialogResult.Primary);
         }
 
-
-
     }
 
     public interface IUWPPlatformUIProvider : IPlatformCoreUIProvider

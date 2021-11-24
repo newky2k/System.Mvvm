@@ -15,10 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddTransient<IPlatformCoreUIProvider, PlatformUIProvider>();
 
-#if WPF
-            services.TryAddTransient<IWPFPlatformUIProvider, PlatformUIProvider>();
-#endif
-
 #if UAP
             services.TryAddTransient<IUWPPlatformUIProvider, PlatformUIProvider>();
 #endif
