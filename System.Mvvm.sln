@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.UI.WinUI"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.UI.WPF", "System.Mvvm.UI.Wpf\DSoft.System.Mvvm.UI.WPF.csproj", "{9C050090-2B9E-4117-87CD-96F450419953}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.UI.Forms", "System.Mvvm.UI.Forms\DSoft.System.Mvvm.UI.Forms.csproj", "{AC51DC80-5C76-4881-B667-6B2A738C7DA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +150,26 @@ Global
 		{9C050090-2B9E-4117-87CD-96F450419953}.Release|x64.Build.0 = Release|Any CPU
 		{9C050090-2B9E-4117-87CD-96F450419953}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C050090-2B9E-4117-87CD-96F450419953}.Release|x86.Build.0 = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|ARM.Build.0 = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|x64.Build.0 = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Debug|x86.Build.0 = Debug|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|ARM.ActiveCfg = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|ARM.Build.0 = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|ARM64.Build.0 = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|x64.Build.0 = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC51DC80-5C76-4881-B667-6B2A738C7DA0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
