@@ -18,7 +18,7 @@
 		<PackageTags>WPF MVVM NetCore</PackageTags>
 		<PackageReleaseNotes>- Added Host IServiceCollection extensions</PackageReleaseNotes>
 		<Copyright>Copyright © 2021 DSoft</Copyright>
-		<AssemblyName>System.Mvvm.UI</AssemblyName>
+		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 		<EnableDefaultPageItems>false</EnableDefaultPageItems>

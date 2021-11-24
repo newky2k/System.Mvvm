@@ -12,7 +12,7 @@ namespace System.Mvvm
 
         private static IPlatformCoreUIProvider _instance;
 
-        public static IPlatformCoreUIProvider PlatformProvider
+        internal static IPlatformCoreUIProvider PlatformProvider
         {
             get => _instance;
             set => _instance = value;
