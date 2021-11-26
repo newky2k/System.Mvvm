@@ -10,12 +10,12 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>WPF and WinUI 3 (Project.Reunion 0.81+) MVVM UI Manager for .NET Framework, .NET Core 3.1, NET5+ and UWP
+    <Description>Core UI library for System.Mvvm.UI
     </Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>WPF MVVM NetCore</PackageTags>
+    <PackageTags>UI MVVM</PackageTags>
     <PackageReleaseNotes>- Added Host IServiceCollection extensions</PackageReleaseNotes>
     <Copyright>Copyright © 2021 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>

@@ -10,13 +10,13 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>WPF and WinUI 3 (Project.Reunion 0.81+) MVVM UI Manager for .NET Framework, .NET Core 3.1, NET5+ and UWP
+    <Description>WPF platform support for DSoft.System.Mvvm.UI for .NET Framework, .NET Core 3.1 and NET5+
     </Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM NetCore</PackageTags>
-    <PackageReleaseNotes>- Added Host IServiceCollection extensions</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
     <Copyright>Copyright © 2021 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -28,11 +28,6 @@
 	  <UseWPF>true</UseWPF>
 	  <DefineConstants>$(DefineConstants);WPF</DefineConstants>
   </PropertyGroup>
-	<!--
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
-    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
-  </PropertyGroup> -->
   <ItemGroup>
     <None Include="..\readme.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />

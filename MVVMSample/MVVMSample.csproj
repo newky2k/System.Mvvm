@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DSoft.System.Mvvm.Hosting\DSoft.System.Mvvm.Hosting.csproj" />
     <ProjectReference Include="..\System.Mvvm.UI.Wpf\DSoft.System.Mvvm.UI.WPF.csproj" />
     <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
