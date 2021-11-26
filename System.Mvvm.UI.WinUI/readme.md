@@ -34,16 +34,18 @@ The standard `UI` functions can be called directly after adding the `DSoft.Mvvm.
 
 In the shared UWP or WinUI application project that contains the `App` class(or other sub-class of `Application`) to the application, add the `DSoft.System.Mvvm.UI.WinUI` package.
 
-Call the `MvvmManager.Init` method in the shared code, such as `Application.OnStart`
+Call the `MvvmManager.Init` method in the application code, such as `App` constructor.
 
     using System.Mvvm;
     ... 
     public partial class App : Application
     {
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        public App()
         {
-            base.OnStart();
+            this.InitializeComponent();
+            this.Suspending += OnSuspending;
 
             MvvmManager.Init();
+
         }
     }
