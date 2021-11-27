@@ -22,6 +22,9 @@ namespace System.Mvvm
 
     internal partial class PlatformUIProvider : IUWPPlatformUIProvider
     {
+        private static readonly Lazy<PlatformUIProvider> _instance = new Lazy<PlatformUIProvider>(() => new PlatformUIProvider());
+        internal static PlatformUIProvider Instance => _instance.Value;
+
         static bool IsMainThread
         {
             get

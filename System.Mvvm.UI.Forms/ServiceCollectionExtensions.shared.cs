@@ -13,9 +13,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
-            services.TryAddTransient<IPlatformCoreUIProvider, PlatformUIProvider>();
+            services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
 
-            services.TryAddTransient<IXamarinFormsPlatformUIProvider, PlatformUIProvider>();
+            services.TryAddSingleton<IXamarinFormsPlatformUIProvider>(PlatformUIProvider.Instance);
 
             return services;
         }

@@ -11,11 +11,13 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
+        
+
         public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
-            services.TryAddTransient<IPlatformCoreUIProvider, PlatformUIProvider>();
+            services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
 
-            services.TryAddTransient<IWPFPlatformUIProvider, PlatformUIProvider>();
+            services.TryAddSingleton<IWPFPlatformUIProvider>(PlatformUIProvider.Instance);
 
             return services;
         }

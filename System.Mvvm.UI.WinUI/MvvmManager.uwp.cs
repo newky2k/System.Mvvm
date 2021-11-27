@@ -15,7 +15,7 @@ namespace System.Mvvm
         /// </summary>
         public static void Init()
         {
-            UI.PlatformProvider = new PlatformUIProvider();
+            UI.PlatformProvider = PlatformUIProvider.Instance;
 
             //Centralised management of errors notifications through the ViewModel
             ViewModel.OnErrorOccurred += async (object sen, Exception e2) =>

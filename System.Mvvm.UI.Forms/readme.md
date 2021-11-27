@@ -7,10 +7,11 @@ Provides Xamarin.Forms platform implementations for [DSoft.System.Mvvm.UI](https
 - UI
   - Core UI functions for Showing Alerts and Confirmation Dialogs 
   - UI Thread execution
+  - Dependency injection support with `IPlatformCoreUIProvider`
 
 # Using System.Mvvm.UI.Forms
 
-The `UI` static class provides two features
+The `UI` static class provides four methods as defined in the `IPlatformCoreUIProvider` interface.  
 
   - A central interface for calling some simple UI functions
     - `ShowAlert(string title, string message)`  
@@ -49,3 +50,75 @@ Call the `MvvmManager.Init` method in the shared code, such as `Application.OnSt
             MvvmManager.Init();
         }
     }
+
+## Dependency Injection
+
+Instead of using the static `UI` class you can use dependency injection to access the platform implementation of `IPlatformCoreUIProvider` using extensions for `IServiceCollection` provided by the platform specific packages.
+
+After adding `DSoft.System.Mvvm.UI.Forms` to the application project you can register the core UI implementations of  `IPlatformCoreUIProvider` with the ServiceProvider during configuration of the services using the `AddCoreUI` extension method.
+
+    using System.Mvvm;
+    ... 
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
+
+            ServiceHost.Host = new HostBuilder()
+             .ConfigureHostConfiguration(c =>
+             {
+                 c.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
+             })
+             .ConfigureServices(ConfigureServices)
+             .Build();
+        }
+
+        void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
+        {
+           services.AddCoreUI();
+        }
+    }
+
+Once the core UI is registered you can use `IPlatformCoreUIProvider` with dependency injection in class constructors.
+
+    using System.Mvvm;
+    ... 
+    public class SharedClassToDoThingsIn
+    {
+       private readonly IPlatformCoreUIProvider _coreUIProvider;
+
+        public SharedClassToDoThingsIn(IPlatformCoreUIProvider coreUIProvider)
+        {
+            _coreUIProvider = coreUIProvider;
+        }
+
+        public async Task SayHello()
+        {
+            await _coreUIProvider.ShowAlertAsync("Congrats", "You called the ICoreUIProvider instance");
+        }
+    }
+
+Use can also retrieve the implementation directly from the services provider or `ServiceHost` if you are using [DSoft.System.Mvvm.Hosting](https://www.nuget.org/packages/DSoft.System.Mvvm.Hosting)
+
+    using System.Mvvm;
+    ... 
+
+    var _coreUIProvider = ServiceHost.GetRequiredService<IPlatformCoreUIProvider>();
+
+    await _coreUIProvider.ShowAlertAsync("Congrats", "You called the ICoreUIProvider instance");
+
+Using DI instead of the `UI` does not require a call to `MvvmManager.Init` though you do have to call the extension method to register the services.  You can also use both.
+
+## IXamarinFormsPlatformUIProvider
+
+`IXamarinFormsPlatformUIProvider` is a platform specific interface that the platform implementation of `` implements.  It provides access to some additonal Xamarin.Forms properties such as the current `Application`.
+
+Use can retrieve the implementation directly from the services provider or `ServiceHost` if you are using [DSoft.System.Mvvm.Hosting](https://www.nuget.org/packages/DSoft.System.Mvvm.Hosting)
+
+    using System.Mvvm;
+    ... 
+
+    var _formsUIProvider = ServiceHost.GetRequiredService<IXamarinFormsPlatformUIProvider>();
+
+    var currentApp = _formsUIProvider.CurrentApplication;

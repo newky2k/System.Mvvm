@@ -22,27 +22,28 @@ namespace MVVMSample
     /// </summary>
     public partial class App : Application
     {
+        
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             MvvmManager.Init();
 
-            var wpfPlatform = UI.Provider<IWPFPlatformUIProvider>();
-
-            wpfPlatform.ShowAlertOverideFunction = (title, message) => ShowAlertWindow(title, message);
-
-            wpfPlatform.ShowConfirmOverideFunction = (title, message) => ShowConfirmationDialog(title, message);
-
             await ServiceHost
                 .Initialize(ConfigureServices)
                 .StartAsync();
+
+            var wpfPlatform = ServiceHost.GetRequiredService<IWPFPlatformUIProvider>();
+
+            wpfPlatform.ShowAlertOverideFunction = ShowAlertWindow;
+
+            wpfPlatform.ShowConfirmOverideFunction = ShowConfirmationDialog;
 
         }
 
         public static Task ShowAlertWindow(string title, string message)
         {
-            var wpfPlatform = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
+            var wpfPlatform = ServiceHost.GetRequiredService<IWPFPlatformUIProvider>();
 
             var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
 
@@ -53,9 +54,9 @@ namespace MVVMSample
         {
             var tcs = new TaskCompletionSource<bool>();
 
-            var wpfPlatform = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
+            var wpfPlatform = ServiceHost.GetRequiredService<IWPFPlatformUIProvider>();
 
-            System.Mvvm.UI.InvokeOnUIThread(async () =>
+            UI.InvokeOnUIThread(async () =>
             {
                 var currentWindow = wpfPlatform.CurrentWindow as MetroWindow;
 

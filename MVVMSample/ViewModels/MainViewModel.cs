@@ -117,7 +117,7 @@ namespace MVVMSample.ViewModels
                 {
                     await Task.Run(async () =>
                     {
-                        await System.Mvvm.UI.InvokeOnUIThreadAsync(() =>
+                        await UI.InvokeOnUIThreadAsync(() =>
                         {
                             ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                         });
@@ -135,7 +135,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(async () =>
                 {
-                    await System.Mvvm.UI.InvokeOnUIThreadAsync(() =>
+                    await UI.InvokeOnUIThreadAsync(() =>
                     {
                         ((MainWindow)Application.Current.MainWindow).panel.Visibility = Visibility.Visible;
                     });
@@ -150,7 +150,7 @@ namespace MVVMSample.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                  var wpfProvider = System.Mvvm.UI.Provider<IWPFPlatformUIProvider>();
+                  var wpfProvider = ServiceHost.GetRequiredService<IWPFPlatformUIProvider>();
 
                    var mainWindow = wpfProvider.CurrentApplication.MainWindow;
                 });
