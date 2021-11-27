@@ -1,6 +1,6 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.22">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net5.0;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0; uap10.0.16299;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -10,59 +10,30 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>WPF and WinUI 3 (Project.Reunion 0.81+) MVVM UI Manager for .NET Framework, .NET Core 3.1, NET5+ and UWP
+    <Description>Core UI library for System.Mvvm.UI
     </Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>WPF MVVM NetCore</PackageTags>
+    <PackageTags>UI MVVM</PackageTags>
     <PackageReleaseNotes>- Added Host IServiceCollection extensions</PackageReleaseNotes>
     <Copyright>Copyright © 2021 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <Configurations>Debug;Release</Configurations>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <FileVersion>2.2.2102.142</FileVersion>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RootNamespace>System.Mvvm</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0')) ">
-    <UseWPF>true</UseWPF>
-    <DefineConstants>$(DefineConstants);WPF</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
-    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
-    <RootNamespace>System.Mvvm.Ui</RootNamespace>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
-    <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <DefineConstants>$(DefineConstants);UAP</DefineConstants>
-  </PropertyGroup>
   <ItemGroup>
     <None Include="..\readme.md" Pack="true" PackagePath="\" />
-    <Compile Include="**\*.shared.cs" />
-    <Compile Include="**\*.shared.*.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
-  </ItemGroup>  
-  <ItemGroup Condition=" $(TargetFramework.Equals('net461')) Or $(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net5.0-windows7.0'))  ">
-    <Compile Include="**\*.net.cs" />
-    <Compile Include="**\*.net.*.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
-    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.1" />
-    <Compile Include="**\*.uwp.cs" />
-    <Compile Include="**\*.uwp.*.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <!--<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />-->
-    <Compile Include="**\*.uwp.cs" />
-    <Compile Include="**\*.uwp.*.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.Equals('net5.0'))">
-    <Compile Include="**\*.netstandard.cs" />
-    <Compile Include="**\*.netstandard.*.cs" />
-  </ItemGroup>     
+	<ItemGroup>
+	    <InternalsVisibleTo Include="System.Mvvm.UI.WinUI, PublicKey=002400000480000094000000060200000024000052534131000400000100010085529aa44bb5b76cfba9f8f376ec13c1503e7e38ee7b236b946df8c17b6f24d11609eea05229320dd531dc92211156f2b9b7843b7791a680221bd4a358fb785b180fcd35731dc1b7cfaf2fc314b102b20896af562662dacd08d7d2d830a4a4cb84c6df91d7af56a6e5b46f0b65db4259bcac25bc7828791d65dfcefaefac7aad" />
+		<InternalsVisibleTo Include="System.Mvvm.UI.WPF, PublicKey=002400000480000094000000060200000024000052534131000400000100010085529aa44bb5b76cfba9f8f376ec13c1503e7e38ee7b236b946df8c17b6f24d11609eea05229320dd531dc92211156f2b9b7843b7791a680221bd4a358fb785b180fcd35731dc1b7cfaf2fc314b102b20896af562662dacd08d7d2d830a4a4cb84c6df91d7af56a6e5b46f0b65db4259bcac25bc7828791d65dfcefaefac7aad" />
+		<InternalsVisibleTo Include="System.Mvvm.UI.Forms, PublicKey=002400000480000094000000060200000024000052534131000400000100010085529aa44bb5b76cfba9f8f376ec13c1503e7e38ee7b236b946df8c17b6f24d11609eea05229320dd531dc92211156f2b9b7843b7791a680221bd4a358fb785b180fcd35731dc1b7cfaf2fc314b102b20896af562662dacd08d7d2d830a4a4cb84c6df91d7af56a6e5b46f0b65db4259bcac25bc7828791d65dfcefaefac7aad" />
+	</ItemGroup>
 </Project>

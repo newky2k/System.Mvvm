@@ -10,9 +10,13 @@ namespace System.Mvvm
     {
         #region Core Backend
 
-        private static Lazy<IPlatformCoreUIProvider> _instance = new Lazy<IPlatformCoreUIProvider>(() => new PlatformUIProvider());
+        private static IPlatformCoreUIProvider _instance;
 
-        internal static IPlatformCoreUIProvider PlatformProvider => _instance.Value;
+        internal static IPlatformCoreUIProvider PlatformProvider
+        {
+            get => _instance;
+            set => _instance = value;
+        }
 
         #endregion
 
@@ -23,10 +27,8 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="title">The title of the alert</param>
         /// <param name="message">The message to display</param>
-        public static async Task ShowAlertAsync(string title, string message)
-        {
-            await PlatformProvider.ShowAlertAsync(title, message);
-        }
+        public static Task ShowAlertAsync(string title, string message) => PlatformProvider.ShowAlertAsync(title, message);
+        
 
         /// <summary>
         /// Show a confirmation dialog
@@ -34,10 +36,8 @@ namespace System.Mvvm
         /// <param name="title">The title of the alert</param>
         /// <param name="message">The confirmaton message to display</param>
         /// <returns></returns>
-        public static async Task<bool> ShowConfirmationDialogAsync(string title, string message)
-        {
-            return await PlatformProvider.ShowConfirmationDialogAsync(title, message);
-        }
+        public static Task<bool> ShowConfirmationDialogAsync(string title, string message) => PlatformProvider.ShowConfirmationDialogAsync(title, message);
+        
 
         /// <summary>
         /// Invokes the action on the UI thread
@@ -53,9 +53,9 @@ namespace System.Mvvm
         /// <returns></returns>
         public static Task InvokeOnUIThreadAsync(Action action) => PlatformProvider.InvokeOnUIThreadAsync(action);
 
-        public static IPlatformCoreUIProvider Provider() => _instance.Value;
+        public static IPlatformCoreUIProvider Provider() => _instance;
 
-        public static T Provider<T>() where T : IPlatformCoreUIProvider => (T)_instance.Value;
+        public static T Provider<T>() where T : IPlatformCoreUIProvider => (T)_instance;
         #endregion
 
     }

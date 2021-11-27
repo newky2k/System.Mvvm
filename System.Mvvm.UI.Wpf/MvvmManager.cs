@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Mvvm;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace System.Mvvm
 {
     public partial class MvvmManager
     {
         /// <summary>
-        /// Common initialization
+        /// Initializes the MvvmManager, with the assmebly calling the Init method
         /// </summary>
-        private static void CommonInit()
+        public static void Init()
         {
-            PlatformInit();
+            UI.PlatformProvider = PlatformUIProvider.Instance;
 
             //Centralised management of errors notifications through the ViewModel
             ViewModel.OnErrorOccurred += async (object sen, Exception e2) =>
@@ -34,15 +35,20 @@ namespace System.Mvvm
 
             };
 
+            DelegateCommand.ExecuteChanged = (ev, shoudlAdd) =>
+            {
+                if (shoudlAdd)
+                {
+                    CommandManager.RequerySuggested += ev;
+                }
+                else
+                {
+                    CommandManager.RequerySuggested -= ev;
+                }
+            };
         }
 
-        /// <summary>
-        /// Initializes the MvvmManager, with the assmebly calling the Init method
-        /// </summary>
-        public static void Init()
-        {
-            CommonInit();
-        }
+
 
     }
 }

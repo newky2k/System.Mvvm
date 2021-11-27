@@ -1,0 +1,63 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.38">
+	<PropertyGroup>
+		<TargetFrameworks>uap10.0.18362;net5.0-windows10.0.18362;</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageId>DSoft.System.Mvvm.UI.WinUI</PackageId>
+		<Authors>newky2k</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
+		<Version>2.2.2102.142-prerelease</Version>
+		<Description>UWP and WinUI 3 platform support for System.Mvvm.UI for NET5+ and UWP
+		</Description>
+		<PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageTags>UWP WinUI .NET</PackageTags>
+		<PackageReleaseNotes>Initial Releaae</PackageReleaseNotes>
+		<Copyright>Copyright © 2021 DSoft</Copyright>
+		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
+		<Product>$(AssemblyName) ($(TargetFramework))</Product>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<EnableDefaultPageItems>false</EnableDefaultPageItems>
+		<Configurations>Debug;Release</Configurations>
+		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
+		<FileVersion>2.2.2102.142</FileVersion>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<RootNamespace>System.Mvvm</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
+		<TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+		<RootNamespace>System.Mvvm.Ui</RootNamespace>
+		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
+		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+		<DefineConstants>$(DefineConstants);UAP</DefineConstants>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\readme.md" Pack="true" PackagePath="\" />
+		<Compile Include="**\*.shared.cs" />
+		<Compile Include="**\*.shared.*.cs" />
+	</ItemGroup>
+	
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
+		<Compile Include="**\*.uwp.cs" />
+		<Compile Include="**\*.uwp.*.cs" />
+	</ItemGroup>
+	
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+		<Compile Include="**\*.uwp.cs" />
+		<Compile Include="**\*.uwp.*.cs" />
+	</ItemGroup>
+	
+	
+	<ItemGroup>
+		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
+		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+	</ItemGroup>
+</Project>

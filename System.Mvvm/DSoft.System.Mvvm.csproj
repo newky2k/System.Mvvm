@@ -22,7 +22,6 @@
     <FileVersion>2.2.2102.142</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <RepositoryUrl>https://github.com/newky2k/system.mvvm</RepositoryUrl>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

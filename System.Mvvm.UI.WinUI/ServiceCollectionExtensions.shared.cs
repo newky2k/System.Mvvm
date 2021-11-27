@@ -13,18 +13,14 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
-            services.TryAddTransient<IPlatformCoreUIProvider, PlatformUIProvider>();
-
-#if WPF
-            services.TryAddTransient<IWPFPlatformUIProvider, PlatformUIProvider>();
-#endif
+            services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
 
 #if UAP
-            services.TryAddTransient<IUWPPlatformUIProvider, PlatformUIProvider>();
+            services.TryAddSingleton<IUWPPlatformUIProvider>(PlatformUIProvider.Instance);
 #endif
 
 #if WINUI
-            services.TryAddTransient<IUWPPlatformUIProvider, PlatformUIProvider>();
+            services.TryAddSingleton<IUWPPlatformUIProvider>(PlatformUIProvider.Instance);
 #endif
             return services;
         }

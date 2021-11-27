@@ -36,6 +36,8 @@ namespace MVVMSample.ViewModels
         }
         public override async Task RefreshAsync()
         {
+            await Task.Delay(1);
+
             Items = CarRepository.Instance.Cars;
         }
 

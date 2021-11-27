@@ -2,7 +2,7 @@
 
 Model View View Model (MVVM) classes with built in Dependency Injection (DI) for all variants of .NET.
 
-Also provides centralised multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x) and WinUI 3 (Preview 4 and above)(Experimental)
+Also provides centralised multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x) and WinUI 3 (Windows App Sdk v1.0 and above) and Xamarin.Forms for Mobile.
 
 ### Functionality
 
@@ -26,19 +26,16 @@ Also provides centralised multi-platform UI Management for WPF (.NET Framework, 
     - Lists
     - Searchable Lists
     - Tree View Searchable Lists
-- UI
+- UI provided by [DSoft.System.Mvvm.UI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI)
   - Core UI functions for Showing Alerts and Confirmation Dialogs (using platform specific implementations)
-     - UWP and WPF (.NET Framework and .NET Core 3.0)
+     - UWP, WinUI, WPF and Xamarin.Forms
   - UI Dependency Service for calling platform UI code from shared code (details below) 
-- Services
-  - Simple Dependency Service container for dependecy injection service management
 
 # Version 3.0 - Breaking in Changes
 
 `Services` and the dependency injection features have been removed and ported to the `DSoft.ServiceRegistra` 2.0 package.  The API is the same.
 
-All UI functionality has been moved to the `DSoft.System.Ui` package.  The API is the same.
-
+All UI functionality has been moved to the `DSoft.System.UI` package and platforms implementation packages.  The API is the same.
 
 # Classes
 

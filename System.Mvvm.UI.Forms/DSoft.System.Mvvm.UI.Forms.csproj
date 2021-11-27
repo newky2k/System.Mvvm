@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	  <TargetFrameworks>netstandard2.0;</TargetFrameworks>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>DSoft.System.Mvvm.UI.Forms</PackageId>
+    <Authors>newky2k</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
+    <Version>2.2.2102.142-prerelease</Version>
+    <Description>Xamarin.Forms platform support for System.Mvvm.UI
+    </Description>
+    <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Xamarin.Forms NET</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Copyright>Copyright © 2021 DSoft</Copyright>
+    <AssemblyName>System.Mvvm.UI.Forms</AssemblyName>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <Configurations>Debug;Release</Configurations>
+    <AssemblyVersion>2.2.2102.142</AssemblyVersion>
+    <FileVersion>2.2.2102.142</FileVersion>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <RootNamespace>System.Mvvm</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Xamarin.Essentials" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\readme.md" Pack="true" PackagePath="\" />
+    <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
+    <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>  
+</Project>
