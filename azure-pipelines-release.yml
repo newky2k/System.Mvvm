@@ -19,13 +19,13 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '5.0.x'
-  releaseSuffix: '-prerelease'
+  netVersion: '6.0.x'
+  releaseSuffix: ''
 
 name: 3.0.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
 - task: UseDotNet@2
-  displayName: Install .Net 5.x
+  displayName: Install .Net 6.x
   inputs:
     packageType: 'sdk'
     version: '$(netVersion)'
