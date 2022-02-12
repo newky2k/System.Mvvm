@@ -11,7 +11,12 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCoreUI(this IServiceCollection services)
+		/// <summary>
+		/// Adds the core Xamarin.Forms UI providers to the available services
+		/// </summary>
+		/// <param name="services">The services.</param>
+		/// <returns></returns>
+		public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
             services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
 

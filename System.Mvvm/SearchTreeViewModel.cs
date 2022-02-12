@@ -8,7 +8,13 @@ using System.Text;
 
 namespace System.Mvvm
 {
-    public abstract class SearchTreeViewModel<T, T2> : SearchViewModel<T, T2> where T2 : IEnumerable<T>, new()
+	/// <summary>
+	/// Base view model for searchable tree view
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T2">The type of the 2.</typeparam>
+	/// <seealso cref="System.Mvvm.SearchViewModel&lt;T, T2&gt;" />
+	public abstract class SearchTreeViewModel<T, T2> : SearchViewModel<T, T2> where T2 : IEnumerable<T>, new()
     {
 
         #region Properties

@@ -16,6 +16,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.UI.WPF", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.UI.Forms", "System.Mvvm.UI.Forms\DSoft.System.Mvvm.UI.Forms.csproj", "{AC51DC80-5C76-4881-B667-6B2A738C7DA0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ci", ".ci", "{60A224E7-C8BB-46F2-B9FF-B1E514FBB2F2}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines-mergetest.yml = azure-pipelines-mergetest.yml
+		azure-pipelines-release.yml = azure-pipelines-release.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

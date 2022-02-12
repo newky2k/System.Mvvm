@@ -15,10 +15,47 @@ namespace System.Mvvm
 
         private static IHost _host;
         private static IHost _secondaryHost;
-
+        private static IServiceScope _primaryScope;
+        private static IServiceScope _scondaryScope;
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the singleton primary scope, 
+        /// </summary>
+        /// <value>
+        /// The primary scope.
+        /// </value>
+        public static IServiceScope PrimaryFixedScope
+        {
+            get
+            {
+                if (_primaryScope == null)
+                    _primaryScope = Host.Services.CreateScope();
+
+                return _primaryScope;
+            }
+
+        }
+
+        /// <summary>
+        /// Gets the singleton secondary scope, 
+        /// </summary>
+        /// <value>
+        /// The primary scope.
+        /// </value>
+        public static IServiceScope PrimarySecondaryScope
+        {
+            get
+            {
+                if (_scondaryScope == null)
+                    _scondaryScope = Host.Services.CreateScope();
+
+                return _scondaryScope;
+            }
+
+        }
 
         /// <summary>
         /// Gets or sets the primary global IHost instance
@@ -59,12 +96,16 @@ namespace System.Mvvm
             set { _secondaryHost = value; }
         }
 
-        #endregion
+		#endregion
 
+		#region Methods
 
-        #region Methods
-
-
+		/// <summary>
+		/// Creates a new, reuseable scope instance on the spcecified host 
+		/// </summary>
+		/// <param name="mode">The mode.</param>
+		/// <returns></returns>
+		public static IServiceScope CreateScope(HostMode mode = HostMode.Primary) => (mode == HostMode.Primary ? Host.Services.CreateScope() : SecondaryHost.Services.CreateScope());
 
         /// <summary>
         /// Gets the required service with an existing scope

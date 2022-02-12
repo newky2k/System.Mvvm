@@ -4,7 +4,10 @@ using System.Text;
 
 namespace System.Mvvm
 {
-    public enum HostMode
+	/// <summary>
+	/// Mode for hosting
+	/// </summary>
+	public enum HostMode
     {
         Primary,
         Secondary,

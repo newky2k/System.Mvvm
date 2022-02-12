@@ -7,7 +7,13 @@ using System.Windows.Input;
 
 namespace System.Mvvm
 {
-    public abstract class ListViewModel<T, T2> : ViewModel where T2 : IEnumerable<T>, new()
+	/// <summary>
+	/// Base view model for List views
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T2">The type of the 2.</typeparam>
+	/// <seealso cref="System.Mvvm.ViewModel" />
+	public abstract class ListViewModel<T, T2> : ViewModel where T2 : IEnumerable<T>, new()
     {
         #region Fields
         private T selectedItem;

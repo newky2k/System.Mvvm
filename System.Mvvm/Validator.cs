@@ -6,7 +6,10 @@ using System.Text;
 
 namespace System.Mvvm
 {
-    public abstract class Validator
+	/// <summary>
+	/// Validation provider class
+	/// </summary>
+	public abstract class Validator
     {
         #region Fields
         private Dictionary<string, Action<string>> _validators = new Dictionary<string, Action<string>>();

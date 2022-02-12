@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace System.Mvvm
 {
-    public static class UI
+	/// <summary>
+	/// Core UI helper class for calling the Platform 
+	/// </summary>
+	public static class UI
     {
         #region Core Backend
 
@@ -23,7 +26,7 @@ namespace System.Mvvm
         #region Core UI Methods
 
         /// <summary>
-        /// Show an alert
+        /// Shows an alert
         /// </summary>
         /// <param name="title">The title of the alert</param>
         /// <param name="message">The message to display</param>
@@ -31,7 +34,7 @@ namespace System.Mvvm
         
 
         /// <summary>
-        /// Show a confirmation dialog
+        /// Shows a confirmation dialog
         /// </summary>
         /// <param name="title">The title of the alert</param>
         /// <param name="message">The confirmaton message to display</param>
