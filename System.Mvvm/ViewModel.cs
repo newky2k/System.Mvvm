@@ -9,6 +9,11 @@ using System.Windows.Input;
 
 namespace System.Mvvm
 {
+	/// <summary>
+	/// Base view model class for views
+	/// </summary>
+	/// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
+	/// <seealso cref="System.ComponentModel.INotifyDataErrorInfo" />
 	public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 	{
         

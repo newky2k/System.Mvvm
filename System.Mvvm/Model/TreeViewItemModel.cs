@@ -4,7 +4,10 @@ using System.Text;
 
 namespace System.Mvvm.Model
 {
-    public class TreeViewItemModel
+	/// <summary>
+	/// View model base class for Tree view objects
+	/// </summary>
+	public class TreeViewItemModel
     {
         public string Name { get; set; }
 

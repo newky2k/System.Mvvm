@@ -8,7 +8,13 @@ namespace System.Collections.Generic
 {
     public static class EnumerableExtensions
     {
-        public static ObservableCollection<T> ToObservable<T>(this IEnumerable<T> items)
+		/// <summary>
+		/// Converts the source IEnumbable<typeparamref name="T"/> object to an Observable<typeparamref name="T"/>.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="items">The items.</param>
+		/// <returns></returns>
+		public static ObservableCollection<T> ToObservable<T>(this IEnumerable<T> items)
         {
             var cols = new ObservableCollection<T>();
 

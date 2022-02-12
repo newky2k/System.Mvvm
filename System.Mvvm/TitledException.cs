@@ -4,7 +4,11 @@ using System.Text;
 
 namespace System.Mvvm
 {
-    public class TitledException : Exception
+	/// <summary>
+	/// Excption class with a tile as well as a message
+	/// </summary>
+	/// <seealso cref="System.Exception" />
+	public class TitledException : Exception
     {
         private string title;
 

@@ -7,7 +7,13 @@ using System.Windows.Input;
 
 namespace System.Mvvm
 {
-    public abstract class SearchViewModel<T, T2> : ListViewModel<T,T2> where T2 : IEnumerable<T>, new()
+	/// <summary>
+	/// Base view model for searchable view
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T2">The type of the 2.</typeparam>
+	/// <seealso cref="System.Mvvm.ListViewModel&lt;T, T2&gt;" />
+	public abstract class SearchViewModel<T, T2> : ListViewModel<T,T2> where T2 : IEnumerable<T>, new()
     {
         #region Fields
         private String searchText;
