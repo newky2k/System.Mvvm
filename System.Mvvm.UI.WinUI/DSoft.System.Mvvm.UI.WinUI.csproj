@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>uap10.0.18362;net5.0-windows10.0.18362;</TargetFrameworks>
+		<TargetFrameworks>uap10.0.18362;net6.0-windows10.0.18362;</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageId>DSoft.System.Mvvm.UI.WinUI</PackageId>
@@ -9,7 +9,7 @@
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
 		<Version>2.2.2102.142-prerelease</Version>
-		<Description>UWP and WinUI 3 platform support for System.Mvvm.UI for NET5+ and UWP
+		<Description>UWP and WinUI 3 platform support for System.Mvvm.UI for NET6+ and UWP
 		</Description>
 		<PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
@@ -27,7 +27,7 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<RootNamespace>System.Mvvm</RootNamespace>
 	</PropertyGroup>
-	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
 		<TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
 		<RootNamespace>System.Mvvm.Ui</RootNamespace>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
@@ -42,7 +42,7 @@
 		<Compile Include="**\*.shared.*.cs" />
 	</ItemGroup>
 	
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows10')) ">
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
 		<Compile Include="**\*.uwp.cs" />
