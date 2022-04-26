@@ -35,6 +35,11 @@ namespace System.Mvvm
             };
 
             DelegateCommand.RequeryCommandsOnChange = true;
+
+            DelegateCommand.RunOnUiThreadAction = (act) =>
+            {
+                UI.InvokeOnUIThread(act);
+            };
         }
 
     }

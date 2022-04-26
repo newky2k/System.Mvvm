@@ -157,6 +157,19 @@ namespace MVVMSample.ViewModels
             }
         }
 
+        public ICommand ShowCommandBindingWindow
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    var lstWindow = new ThreadingTestWindow();
+                    lstWindow.Owner = Application.Current.MainWindow;
+                    lstWindow.ShowDialog();
+                });
+            }
+        }
+
         #endregion
         public MainViewModel() : base()
         {
