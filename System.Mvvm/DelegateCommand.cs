@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace System.Mvvm
@@ -10,12 +11,15 @@ namespace System.Mvvm
     {
         #region Static Properties
 
+        public static Action<Action> RunOnUiThreadAction {get; set;} = delegate {};
+
         public static Action<EventHandler, bool> ExecuteChanged { get; set; }
 
         /// <summary>
         /// If set, the ViewModels will requery an ICommand properties when NotifyPropertyChanged is set
         /// </summary>
         public static bool RequeryCommandsOnChange { get; set; }
+
         #endregion
 
         #region Fields
@@ -32,18 +36,8 @@ namespace System.Mvvm
         #region Events
 
 
-        public event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                ExecuteChanged?.Invoke(value, true);
+        public event EventHandler CanExecuteChanged;
 
-            }
-            remove
-            {
-                ExecuteChanged?.Invoke(value, false);
-            }
-        }
         #endregion
 
         #region Constructors
@@ -141,12 +135,36 @@ namespace System.Mvvm
                 executeMethodWithParam(parameter);
         }
 
-        public void RaiseCanExecuteChanged()
+        public void RaiseCanExecuteChanged(bool onUIThread = true)
         {
+            if (onUIThread == true)
+            {
+                RunOnUiThreadAction?.Invoke(() =>
+                {
+                    CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                });
+            }
+            else
+            {
+                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            }
 
+            //
         }
         #endregion
 
+        #region Static Methods
+
+        public static void BulkNotifyRaiseCanExecuteChanged(IEnumerable<DelegateCommand> commands)
+        {
+            //update all on the ui in a single call to the UI
+            RunOnUiThreadAction?.Invoke(() =>
+            {
+                foreach (var command in commands) 
+                    command.RaiseCanExecuteChanged(false);
+            });
+        }
+        #endregion
 
     }
 }

@@ -596,14 +596,35 @@ namespace System.Mvvm
 
             if (aType != null)
             {
-                var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));
+               
 
+                var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));              
+                
                 if (commands.Any())
                 {
                     foreach (var command in commands)
                     {
                         PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
                     }
+                }
+
+                var commandsField = aType.GetRuntimeFields().Where(x => x.FieldType.Equals(typeof(ICommand))).ToList();
+
+                if (commandsField.Any())
+                {
+                    var dCommands = new List<DelegateCommand>();
+
+                    foreach (var command in commandsField)
+                    {
+                        var actualObject = command.GetValue(this) as DelegateCommand;
+
+                        if (actualObject != null)
+                            dCommands.Add(actualObject);
+                    }
+                    
+                    //notify in one go
+                    if (dCommands.Any())
+                        DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
                 }
             }
         }
