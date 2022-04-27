@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>uap10.0.18362;net6.0-windows10.0.18362;</TargetFrameworks>
+		<TargetFrameworks>uap10.0.18362;net6.0-windows10.0.19041;</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageId>DSoft.System.Mvvm.UI.WinUI</PackageId>
@@ -28,7 +28,7 @@
 		<RootNamespace>System.Mvvm</RootNamespace>
 	</PropertyGroup>
 	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
-		<TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
 		<RootNamespace>System.Mvvm.Ui</RootNamespace>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>

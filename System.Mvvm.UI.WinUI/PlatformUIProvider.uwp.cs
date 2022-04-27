@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 
 namespace System.Mvvm
 {
