@@ -246,7 +246,7 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="propertyName">Name of the property that has changed</param>
         /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
 
         /// <summary>
         /// Called when [properties changed].
@@ -259,7 +259,7 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="propertyName">Name of the property that has changed</param>
         /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true)
         {
             if (hasChanged == true)
                 DataHasChanged = true;
@@ -271,6 +271,8 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
+            else
+                NotifyCommandsCanExecuteChanged();
         }
 
         /// <summary>
@@ -297,6 +299,8 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
+            else
+                NotifyCommandsCanExecuteChanged();
         }
 
         /// <summary>
@@ -316,6 +320,8 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
+            else
+                NotifyCommandsCanExecuteChanged();
         }
 
         /// <summary>
@@ -629,6 +635,10 @@ namespace System.Mvvm
             }
         }
 
+        protected virtual void NotifyCommandsCanExecuteChanged()
+        {
+
+        }
         #endregion
     }
 }
