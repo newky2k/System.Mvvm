@@ -17,7 +17,7 @@
 - Updated to NET 6</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
-    <Product>System.Mvvm</Product>
+	<Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <Version>2.2.2102.142-prerelease</Version>
     <FileVersion>2.2.2102.142</FileVersion>
