@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
@@ -19,7 +20,7 @@ namespace System.Mvvm
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     [System.Diagnostics.Conditional(""MVVMViewModelAttribute_DEBUG"")]
-    sealed class MVVMViewModelAttribute : Attribute
+    public sealed class MVVMViewModelAttribute : Attribute
     {
         public MVVMViewModelAttribute()
         {
@@ -73,9 +74,7 @@ namespace System.Mvvm
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
 
             // begin building the generated source
-            StringBuilder source = new StringBuilder($@"
-
-using System.Linq;
+            StringBuilder source = new StringBuilder($@"using System.Linq;
 using System.Mvvm;
 using System.Collections.Generic;
 
@@ -94,77 +93,37 @@ namespace {namespaceName}
 
             if (fields.Count > 0)
             {
-                source.Append($@"protected void NotifyCommandsCanExecuteChanged()
-{{
-
-    var dCommands = new List<DelegateCommand>();");
+                source.Append($@"
+        protected override void NotifyCommandsCanExecuteChanged()
+        {{
+            var dCommands = new List<DelegateCommand>();");
 
                 //create properties for each field
                 foreach (IFieldSymbol fieldSymbol in fields)
                 {
-                    ProcessField(source, fieldSymbol, attributeSymbol);
+                    string fieldName = fieldSymbol.Name;
+
+                    source.Append($@"
+
+            if ({fieldName} != null)
+                dCommands.Add({fieldName});");
+
                 }
+
+                source.Append($@"
+
+            if (dCommands.Any())
+                DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
+        }}");
             }
 
-            source.Append($@"if (dCommands.Any())
-                        DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
+            source.Append($@"
+    }}
 }}");
 
-            source.Append("} }");
-            return source.ToString();
-        }
+            string sourceString = source.ToString();
 
-        private void ProcessField(StringBuilder source, IFieldSymbol fieldSymbol, ISymbol attributeSymbol)
-        {
-            // get the name and type of the field
-            string fieldName = fieldSymbol.Name;
-            ITypeSymbol fieldType = fieldSymbol.Type;
-
-            // get the AutoNotify attribute from the field, and any associated data
-            //AttributeData attributeData = fieldSymbol.GetAttributes().Single(ad => ad.AttributeClass.Equals(attributeSymbol, SymbolEqualityComparer.Default));
-            //TypedConstant overridenNameOpt = attributeData.NamedArguments.SingleOrDefault(kvp => kvp.Key == "PropertyName").Value;
-
-            //string propertyName = chooseName(fieldName, overridenNameOpt);
-            //if (propertyName.Length == 0 || propertyName == fieldName)
-            //{
-            //    //TODO: issue a diagnostic that we can't process this field
-            //    return;
-            //}
-
-            //            source.Append($@"
-            //public {fieldType} {propertyName} 
-            //{{
-            //    get 
-            //    {{
-            //        return this.{fieldName};
-            //    }}
-
-            //    set
-            //    {{
-            //        this.{fieldName} = value;
-            //        this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof({propertyName})));
-            //    }}
-            //}}
-
-            //");
-
-            string chooseName(string fieldName, TypedConstant overridenNameOpt)
-            {
-                if (!overridenNameOpt.IsNull)
-                {
-                    return overridenNameOpt.Value.ToString();
-                }
-
-                fieldName = fieldName.TrimStart('_');
-                if (fieldName.Length == 0)
-                    return string.Empty;
-
-                if (fieldName.Length == 1)
-                    return fieldName.ToUpper();
-
-                return fieldName.Substring(0, 1).ToUpper() + fieldName.Substring(1);
-            }
-
+            return sourceString;
         }
 
         /// <summary>

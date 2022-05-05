@@ -42,8 +42,5 @@ namespace System.Mvvm
                 UI.InvokeOnUIThread(act);
             };
         }
-
-
-
     }
 }
