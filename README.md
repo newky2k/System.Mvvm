@@ -2,7 +2,7 @@
 
 Model View View Model (MVVM) classes with built in Dependency Injection (DI) for all variants of .NET.
 
-Also provides centralised multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x) and WinUI 3 (Preview 4 and above)(Experimental)
+Also provides centralised multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 6.x), WinUI 3, UWP and Xamarin.Forms for calling UI functionality from your Non-UI shared code.
 
 ### Functionality
 
@@ -28,7 +28,7 @@ Also provides centralised multi-platform UI Management for WPF (.NET Framework, 
     - Tree View Searchable Lists
 - UI
   - Core UI functions for Showing Alerts and Confirmation Dialogs (using platform specific implementations)
-     - UWP, WinUI and WPF (.NET Framework and .NET Core 3.1, .NET 5+) and Xamarin.Forms
+     - UWP, WinUI and WPF (.NET Framework and .NET Core 3.1, .NET 6+) and Xamarin.Forms
 
 # Classes
 
@@ -85,12 +85,12 @@ To create a notifiable property create a property with a backing field using the
  - [WPF](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WPF)
    - .NET Framework 4.6.1 and above
    - .NET Core 3.1
-   - .NET 5.x and above
-     - Windows 10 is supported for both net5.0-windows7 and 10.0.18362.0 target framework monikers (TFMs) incase you want to use the Windows 10 SDK in your WPF app.
+   - .NET 6.x and above
+     - Windows 10 and above is supported for both net6.0-windows7 and net6.0-windows10.0.18362.0 target framework monikers (TFMs) incase you want to use the Windows 10 SDK in your WPF app.
  - [UWP/WinUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WinUI)
-   - UWP Windows 10 version 1903 (18362) and above
-   - WinUI using Windows App SDK 1.0 or above using .NET 5.0 or above
-     - Windows 10 version 1903 (18362) and above
+   - UWP Windows 10 version 2004 (19041) and above
+   - WinUI using Windows App SDK 1.0 or above using .NET 6.0 or above
+     - Windows 10 version 2004 (19041) and above
  - [Xamarin.Forms](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.Forms)
    - Xamarin.Forms 5.x for .Net Standard 2.0 and above
      - Use on the shared project containing the Xamarin Application not the platform specific mobile apps.
