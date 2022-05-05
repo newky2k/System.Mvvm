@@ -22,6 +22,7 @@
             <Button Margin="5" Content="InvokeOnUiThread - Off UI thread" Command="{Binding TestInvokeUIThreadOffUIThread}" />
             <Button Margin="5" Content="InvokeOnUiThread - On UI thread" Command="{Binding TestInvokeUIThreadOnUIThread}" />
             <Button Margin="5" Content="Get UIProvider" Command="{Binding GetUIProviderService}" />
+            <Button Margin="5" Content="Command Binding" Command="{Binding ShowCommandBindingWindow}" />
         </StackPanel>
         <Grid Grid.Column="1">
             <Rectangle x:Name="panel" Visibility="Hidden" Fill="Red" Width="100" Height="100"/>

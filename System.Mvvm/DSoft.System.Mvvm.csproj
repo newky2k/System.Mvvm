@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; net5.0;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; net6.0;</TargetFrameworks>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>DSoft.System.Mvvm</PackageId>
     <Authors>newky2k</Authors>
@@ -10,13 +10,14 @@
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.Mvvm</Title>
-    <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 5.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
+    <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 6.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Removed obsolete methods and properties</PackageReleaseNotes>
+    <PackageReleaseNotes>Update DelegateCommand and View Model to improve auto notificaiton for CanExecute changes  
+- Updated to NET 6</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
-    <Product>System.Mvvm</Product>
+	<Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <Version>2.2.2102.142-prerelease</Version>
     <FileVersion>2.2.2102.142</FileVersion>
@@ -26,7 +27,7 @@
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>GIT</RepositoryType>
-    <Copyright>Copyright © 2021 DSoft</Copyright>
+    <Copyright>Copyright © 2022 DSoft</Copyright>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>

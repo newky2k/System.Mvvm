@@ -246,7 +246,7 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="propertyName">Name of the property that has changed</param>
         /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
 
         /// <summary>
         /// Called when [properties changed].
@@ -259,7 +259,7 @@ namespace System.Mvvm
         /// </summary>
         /// <param name="propertyName">Name of the property that has changed</param>
         /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true)
         {
             if (hasChanged == true)
                 DataHasChanged = true;
@@ -271,6 +271,8 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
+            else
+                NotifyCommandFieldsCanExecuteChanged();
         }
 
         /// <summary>
@@ -297,6 +299,8 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
+            else
+                NotifyCommandFieldsCanExecuteChanged();
         }
 
         /// <summary>
@@ -306,7 +310,7 @@ namespace System.Mvvm
         {
             DataHasChanged = true;
 
-            PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
+            PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
 
             foreach (var prop in _propertyChangeActions.Keys)
             {
@@ -316,6 +320,8 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
+            else
+                NotifyCommandFieldsCanExecuteChanged();
         }
 
         /// <summary>
@@ -592,22 +598,57 @@ namespace System.Mvvm
 
         private void RequeryCommands()
         {
+            NotifyCommandsPropertiesChanged();
+
+            NotifyCommandFieldsCanExecuteChanged();
+        }
+
+        protected void SimpleNotififyPropertyChanged(string propName) => PropertyChanged(this, new PropertyChangedEventArgs(propName));
+
+        protected virtual void NotifyCommandsPropertiesChanged()
+        {
             var aType = GetType();
 
-            if (aType != null)
-            {
-                var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));
+            if (aType == null)
+                return;
 
-                if (commands.Any())
+            var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));
+
+            if (commands.Any())
+            {
+                foreach (var command in commands)
                 {
-                    foreach (var command in commands)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
-                    }
+                    PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
                 }
             }
         }
 
+        protected virtual void NotifyCommandFieldsCanExecuteChanged()
+        {
+            var aType = GetType();
+
+            if (aType == null)
+                return;
+
+            var commandsField = aType.GetRuntimeFields().Where(x => x.FieldType.Equals(typeof(ICommand))).ToList();
+
+            if (commandsField.Any())
+            {
+                var dCommands = new List<DelegateCommand>();
+
+                foreach (var command in commandsField)
+                {
+                    var actualObject = command.GetValue(this) as DelegateCommand;
+
+                    if (actualObject != null)
+                        dCommands.Add(actualObject);
+                }
+
+                //notify in one go
+                if (dCommands.Any())
+                    DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
+            }
+        }
         #endregion
     }
 }

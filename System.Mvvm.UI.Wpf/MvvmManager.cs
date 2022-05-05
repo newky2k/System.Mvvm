@@ -35,20 +35,8 @@ namespace System.Mvvm
 
             };
 
-            DelegateCommand.ExecuteChanged = (ev, shoudlAdd) =>
-            {
-                if (shoudlAdd)
-                {
-                    CommandManager.RequerySuggested += ev;
-                }
-                else
-                {
-                    CommandManager.RequerySuggested -= ev;
-                }
-            };
+            DelegateCommand.RunOnUiThreadAction = (act) => PlatformUIProvider.Instance.InvokeOnUIThread(act);
+
         }
-
-
-
     }
 }

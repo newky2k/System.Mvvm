@@ -1,6 +1,6 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.38">
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows7.0;net5.0-windows10.0.18362.0;</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net6.0-windows7.0;net6.0-windows10.0.18362.0;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -10,14 +10,15 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>WPF platform support for DSoft.System.Mvvm.UI for .NET Framework, .NET Core 3.1 and NET5+
+    <Description>WPF platform support for DSoft.System.Mvvm.UI for NET Core 3.1 and NET5+
     </Description>
     <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM NetCore</PackageTags>
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
-    <Copyright>Copyright © 2021 DSoft</Copyright>
+    <PackageReleaseNotes>Improved updating of Command CanExecute binding
+	</PackageReleaseNotes>
+    <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <Configurations>Debug;Release</Configurations>

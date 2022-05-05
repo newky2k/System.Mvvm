@@ -16,8 +16,8 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>UI MVVM</PackageTags>
-    <PackageReleaseNotes>- Added Host IServiceCollection extensions</PackageReleaseNotes>
-    <Copyright>Copyright © 2021 DSoft</Copyright>
+    <PackageReleaseNotes>- Updated to NET 6</PackageReleaseNotes>
+    <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <Configurations>Debug;Release</Configurations>
