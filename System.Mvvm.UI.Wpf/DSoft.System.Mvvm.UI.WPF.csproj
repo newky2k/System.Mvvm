@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net6.0-windows7.0;net6.0-windows10.0.18362.0;</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net6.0-windows7.0;net6.0-windows10.0.18362.0;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM NetCore</PackageTags>
-    <PackageReleaseNotes>Dropped net461 support and improved updating of Command CanExecute binding
+    <PackageReleaseNotes>Improved updating of Command CanExecute binding
 	</PackageReleaseNotes>
     <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
