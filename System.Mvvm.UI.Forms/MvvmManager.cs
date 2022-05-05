@@ -35,6 +35,8 @@ namespace System.Mvvm
 
             };
 
+            DelegateCommand.RunOnUiThreadAction = (act) => PlatformUIProvider.Instance.InvokeOnUIThread(act);
+
         }
 
 

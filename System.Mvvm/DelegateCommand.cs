@@ -18,7 +18,7 @@ namespace System.Mvvm
         /// <summary>
         /// If set, the ViewModels will requery an ICommand properties when NotifyPropertyChanged is set
         /// </summary>
-        public static bool RequeryCommandsOnChange { get; set; }
+        public static bool RequeryCommandsOnChange { get; set; } = true;
 
         #endregion
 

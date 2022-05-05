@@ -34,8 +34,9 @@ namespace System.Mvvm
         public void Initialize(GeneratorInitializationContext context)
         {
 
-            //Debugger.Launch();
-
+#if DEBUG
+            Debugger.Launch();
+#endif
             // Register the attribute source
             context.RegisterForPostInitialization((i) => i.AddSource("MVVMViewModelAttribute", attributeText));
 
@@ -53,7 +54,7 @@ namespace System.Mvvm
             INamedTypeSymbol attributeSymbol = context.Compilation.GetTypeByMetadataName("System.Mvvm.MVVMViewModelAttribute");
             INamedTypeSymbol notifySymbol = context.Compilation.GetTypeByMetadataName("System.Mvvm.ViewModel");
 
-            string classSource = ProcessClass(receiver.ClassTypeSymbol, receiver.Fields, attributeSymbol, notifySymbol, context);
+            string classSource = ProcessClass(receiver.ClassTypeSymbol, receiver.CommandFields, attributeSymbol, notifySymbol, context, receiver.Properties);
             context.AddSource($"{receiver.ClassTypeSymbol}_viewModel.cs", SourceText.From(classSource, Encoding.UTF8));
 
             // group the fields by class, and generate the source
@@ -64,11 +65,23 @@ namespace System.Mvvm
             //}
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, List<IFieldSymbol> fields, ISymbol attributeSymbol, ISymbol notifySymbol, GeneratorExecutionContext context)
+        private string ProcessClass(INamedTypeSymbol classSymbol, List<IFieldSymbol> fields, ISymbol attributeSymbol, ISymbol notifySymbol, GeneratorExecutionContext context, List<IPropertySymbol> Properties)
         {
             if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
             {
                 return null; //TODO: issue a diagnostic that it must be top level
+            }
+
+            var baseTypeText = string.Empty;
+
+            if (classSymbol.BaseType != null)
+            {
+                var baseType = classSymbol.BaseType.ToDisplayString();
+
+                if (baseType.Equals("object"))
+                {
+                    baseTypeText = $": {notifySymbol.ToDisplayString()}";
+                }
             }
 
             string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
@@ -80,16 +93,37 @@ using System.Collections.Generic;
 
 namespace {namespaceName}
 {{
-    public partial class {classSymbol.Name} : {notifySymbol.ToDisplayString()}
+    public partial class {classSymbol.Name} {baseTypeText}
     {{
 ");
 
-            // if the class doesn't implement INotifyPropertyChanged already, add it
-            //if (!classSymbol.Interfaces.Contains(notifySymbol, SymbolEqualityComparer.Default))
-            //{
-            //    ;// source.Append("public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;");
-            //}
+#if DEBUG
 
+            source.Append($@"        public bool IsDebug {{ get; set;}}");
+
+#endif
+
+            if (Properties.Count > 0)
+            {
+                source.Append($@"
+        protected override void NotifyCommandsPropertiesChanged()
+        {{");
+                //create properties for each field
+                foreach (IPropertySymbol propertySymbol in Properties)
+                {
+                    string propName = propertySymbol.Name;
+
+                    source.Append($@"
+            SimpleNotififyPropertyChanged(""{propName}"");");
+
+                }
+
+                source.Append($@"
+        }}");
+
+                source.AppendLine();
+
+            }
 
             if (fields.Count > 0)
             {
@@ -131,7 +165,9 @@ namespace {namespaceName}
         /// </summary>
         class SyntaxReceiver : ISyntaxContextReceiver
         {
-            public List<IFieldSymbol> Fields { get; } = new List<IFieldSymbol>();
+            public List<IFieldSymbol> CommandFields { get; } = new List<IFieldSymbol>();
+
+            public List<IPropertySymbol> Properties { get; } = new List<IPropertySymbol>();
 
             public INamedTypeSymbol ClassTypeSymbol { get; set; }
 
@@ -148,6 +184,7 @@ namespace {namespaceName}
                     {
                         ClassTypeSymbol = classTypeSymbol;
 
+                        var props = classDeclaration.Members.OfType<PropertyDeclarationSyntax>();
 
                         ImmutableArray<ISymbol> members = ClassTypeSymbol.GetMembers();
 
@@ -157,26 +194,60 @@ namespace {namespaceName}
                             {
                                 if (fieldSymbol.Type.ToDisplayString() == "System.Mvvm.DelegateCommand")
                                 {
-                                    Fields.Add(fieldSymbol);
+                                    CommandFields.Add(fieldSymbol);
                                 }
                             }
                         }
+
+                        
+
+                        //check to see if any properties are exposed
+                        if (props.Any())
+                        {
+                            var commandFieldnames = new List<string>();
+
+                            var fieldsToRemove = new List<IFieldSymbol>();
+
+                            //work through each property
+                            foreach (PropertyDeclarationSyntax propertySyntax in props)
+                            {
+                               
+                                IPropertySymbol propertySymbol = context.SemanticModel.GetDeclaredSymbol(propertySyntax);
+
+                                if (propertySymbol.Type.ToDisplayString() == "System.Windows.Input.ICommand" || (propertySymbol.Type.ToDisplayString() == "System.Mvvm.DelegateCommand"))
+                                {
+                                    var propCode = propertySyntax.ToString();
+
+                                    if (CommandFields.Any())
+                                    {
+                                        foreach (var command in CommandFields)
+                                        {
+                                            if (propCode.Contains(command.Name))
+                                            {
+                                                //don't notify the field as its cheaper to call the OnPropertyChanged notification
+                                                fieldsToRemove.Add(command);
+                                            }
+                                        }
+
+                                    }
+
+                                    Properties.Add(propertySymbol);
+
+                                }
+
+                            }
+
+
+                           //remove removed fields :-)
+                           foreach (var field in fieldsToRemove)
+                                CommandFields.Remove(field);
+                        }
+
+
+                       
                     }
                 }
-                //// any field with at least one attribute is a candidate for property generation
-                //if (context.Node is FieldDeclarationSyntax fieldDeclarationSyntax
-                //    && fieldDeclarationSyntax.AttributeLists.Count > 0)
-                //{
-                //    foreach (VariableDeclaratorSyntax variable in fieldDeclarationSyntax.Declaration.Variables)
-                //    {
-                //        // Get the symbol being declared by the field, and keep it if its annotated
-                //        IFieldSymbol fieldSymbol = context.SemanticModel.GetDeclaredSymbol(variable) as IFieldSymbol;
-                //        if (fieldSymbol.GetAttributes().Any(ad => ad.AttributeClass.ToDisplayString() == "AutoNotify.AutoNotifyAttribute"))
-                //        {
-                //            Fields.Add(fieldSymbol);
-                //        }
-                //    }
-                //}
+
             }
         }
     }

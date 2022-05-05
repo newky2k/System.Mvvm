@@ -310,7 +310,7 @@ namespace System.Mvvm
         {
             DataHasChanged = true;
 
-            PropertyChanged(this, new PropertyChangedEventArgs(String.Empty));
+            PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
 
             foreach (var prop in _propertyChangeActions.Keys)
             {
@@ -603,6 +603,8 @@ namespace System.Mvvm
             NotifyCommandFieldsCanExecuteChanged();
         }
 
+        protected void SimpleNotififyPropertyChanged(string propName) => PropertyChanged(this, new PropertyChangedEventArgs(propName));
+
         protected virtual void NotifyCommandsPropertiesChanged()
         {
             var aType = GetType();
@@ -620,6 +622,7 @@ namespace System.Mvvm
                 }
             }
         }
+
         protected virtual void NotifyCommandFieldsCanExecuteChanged()
         {
             var aType = GetType();

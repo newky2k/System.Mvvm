@@ -13,7 +13,7 @@ namespace MVVMSample.ViewModels
 	{
 
 		private DelegateCommand _okCommand;
-
+		private ICommand _didCommand;
 		private DelegateCommand _cancelCommand;
 
 		public ICommand OkCommand
@@ -33,6 +33,52 @@ namespace MVVMSample.ViewModels
 				});
 			}
 		}
+
+
+
+		public ICommand DoSomethingCommand
+		{
+			get
+			{
+				return new DelegateCommand(() =>
+				{
+					try
+					{
+
+					}
+					catch (Exception ex)
+					{
+#if DEBUG
+						this.IsDebug = true;
+#endif
+						NotifyErrorOccurred(ex);
+					}
+				});
+			}
+		}
+
+
+
+		public ICommand DidSomethingOnce
+		{
+			get
+			{
+				return _didCommand ??= new DelegateCommand(() =>
+				{
+					try
+					{
+
+					}
+					catch (Exception ex)
+					{
+
+						NotifyErrorOccurred(ex);
+					}
+				});
+			}
+		}
+
+
 
 	}
 
