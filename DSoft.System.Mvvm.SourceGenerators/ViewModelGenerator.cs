@@ -34,7 +34,7 @@ namespace System.Mvvm
         public void Initialize(GeneratorInitializationContext context)
         {
 
-            Debugger.Launch();
+            //Debugger.Launch();
 
             // Register the attribute source
             context.RegisterForPostInitialization((i) => i.AddSource("MVVMViewModelAttribute", attributeText));
@@ -94,7 +94,7 @@ namespace {namespaceName}
             if (fields.Count > 0)
             {
                 source.Append($@"
-        protected override void NotifyCommandsCanExecuteChanged()
+        protected override void NotifyCommandFieldsCanExecuteChanged()
         {{
             var dCommands = new List<DelegateCommand>();");
 

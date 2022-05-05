@@ -272,7 +272,7 @@ namespace System.Mvvm
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
             else
-                NotifyCommandsCanExecuteChanged();
+                NotifyCommandFieldsCanExecuteChanged();
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace System.Mvvm
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
             else
-                NotifyCommandsCanExecuteChanged();
+                NotifyCommandFieldsCanExecuteChanged();
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace System.Mvvm
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
             else
-                NotifyCommandsCanExecuteChanged();
+                NotifyCommandFieldsCanExecuteChanged();
         }
 
         /// <summary>
@@ -598,46 +598,53 @@ namespace System.Mvvm
 
         private void RequeryCommands()
         {
+            NotifyCommandsPropertiesChanged();
+
+            NotifyCommandFieldsCanExecuteChanged();
+        }
+
+        protected virtual void NotifyCommandsPropertiesChanged()
+        {
             var aType = GetType();
 
-            if (aType != null)
+            if (aType == null)
+                return;
+
+            var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));
+
+            if (commands.Any())
             {
-               
-
-                var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));              
-                
-                if (commands.Any())
+                foreach (var command in commands)
                 {
-                    foreach (var command in commands)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
-                    }
-                }
-
-                var commandsField = aType.GetRuntimeFields().Where(x => x.FieldType.Equals(typeof(ICommand))).ToList();
-
-                if (commandsField.Any())
-                {
-                    var dCommands = new List<DelegateCommand>();
-
-                    foreach (var command in commandsField)
-                    {
-                        var actualObject = command.GetValue(this) as DelegateCommand;
-
-                        if (actualObject != null)
-                            dCommands.Add(actualObject);
-                    }
-                    
-                    //notify in one go
-                    if (dCommands.Any())
-                        DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
+                    PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
                 }
             }
         }
-
-        protected virtual void NotifyCommandsCanExecuteChanged()
+        protected virtual void NotifyCommandFieldsCanExecuteChanged()
         {
+            var aType = GetType();
 
+            if (aType == null)
+                return;
+
+            var commandsField = aType.GetRuntimeFields().Where(x => x.FieldType.Equals(typeof(ICommand))).ToList();
+
+            if (commandsField.Any())
+            {
+                var dCommands = new List<DelegateCommand>();
+
+                foreach (var command in commandsField)
+                {
+                    var actualObject = command.GetValue(this) as DelegateCommand;
+
+                    if (actualObject != null)
+                        dCommands.Add(actualObject);
+                }
+
+                //notify in one go
+                if (dCommands.Any())
+                    DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
+            }
         }
         #endregion
     }
