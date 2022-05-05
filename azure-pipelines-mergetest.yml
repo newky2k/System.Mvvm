@@ -13,13 +13,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: UseDotNet@2
-  displayName: Install .Net 6.x
-  inputs:
-    packageType: 'sdk'
-    version: '6.0.x'
-  
+steps:  
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
 
