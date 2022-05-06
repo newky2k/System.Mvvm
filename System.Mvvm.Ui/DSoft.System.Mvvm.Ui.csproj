@@ -27,7 +27,7 @@
     <RootNamespace>System.Mvvm</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\readme.md" Pack="true" PackagePath="\" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
   </ItemGroup>

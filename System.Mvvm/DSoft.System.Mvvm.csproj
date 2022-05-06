@@ -31,7 +31,7 @@
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\readme.md" Pack="true" PackagePath="\" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
     <PackageReference Update="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 </Project>
