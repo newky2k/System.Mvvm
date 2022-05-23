@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1; net6.0;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; net6.0;</TargetFrameworks>
     <PackageId>DSoft.System.Mvvm.Hosting</PackageId>
     <Authors>newky2k</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -13,7 +13,7 @@
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Updated to NET 6</PackageReleaseNotes>
+	  <PackageReleaseNotes>Reverted support to  .Net standard 2.0</PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>

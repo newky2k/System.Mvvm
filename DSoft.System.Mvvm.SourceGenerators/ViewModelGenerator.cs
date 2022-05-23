@@ -35,7 +35,7 @@ namespace System.Mvvm
         {
 
 #if DEBUG
-            //Debugger.Launch();
+            Debugger.Launch();
 #endif
             // Register the attribute source
             context.RegisterForPostInitialization((i) => i.AddSource("MVVMViewModelAttribute", attributeText));

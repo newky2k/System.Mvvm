@@ -13,8 +13,7 @@
     <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 6.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Update DelegateCommand and View Model to improve auto notificaiton for CanExecute changes  
-- Updated to NET 6</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated viewmodel and delegate command for source generator support</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
 	<Product>$(AssemblyName) ($(TargetFramework))</Product>
