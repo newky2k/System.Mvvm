@@ -30,7 +30,7 @@
     <None Remove="Xamarin.Essentials" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\readme.md" Pack="true" PackagePath="\" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />

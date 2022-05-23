@@ -16,10 +16,14 @@ namespace System.Mvvm
         public static Action<EventHandler, bool> ExecuteChanged { get; set; }
 
         /// <summary>
-        /// If set, the ViewModels will requery an ICommand properties when NotifyPropertyChanged is set
+        /// If set, the ViewModels will requery CanExecute on any ICommand properties when NotifyPropertyChanged is set
         /// </summary>
         public static bool RequeryCommandsOnChange { get; set; } = true;
 
+        /// <summary>
+        /// If set, the ViewModels will requery CanExecute any ICommand fields when NotifyPropertyChanged is set
+        /// </summary> 
+        public static bool UpdateICommandFields { get; set; } = false;
         #endregion
 
         #region Fields

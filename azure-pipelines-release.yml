@@ -20,16 +20,10 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   netVersion: '6.0.x'
-  releaseSuffix: '-beta1'
+  releaseSuffix: ''
 
 name: 3.1.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
-- task: UseDotNet@2
-  displayName: Install .Net 6.x
-  inputs:
-    packageType: 'sdk'
-    version: '$(netVersion)'
-
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
 

@@ -271,7 +271,7 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
-            else
+            else if (DelegateCommand.UpdateICommandFields)
                 NotifyCommandFieldsCanExecuteChanged();
         }
 
@@ -299,7 +299,7 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
-            else
+            else if (DelegateCommand.UpdateICommandFields)
                 NotifyCommandFieldsCanExecuteChanged();
         }
 
@@ -320,7 +320,7 @@ namespace System.Mvvm
 
             if (DelegateCommand.RequeryCommandsOnChange)
                 RequeryCommands();
-            else
+            else if (DelegateCommand.UpdateICommandFields)
                 NotifyCommandFieldsCanExecuteChanged();
         }
 

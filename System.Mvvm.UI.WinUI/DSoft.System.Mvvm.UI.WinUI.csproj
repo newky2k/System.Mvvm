@@ -38,7 +38,7 @@
 		<DefineConstants>$(DefineConstants);UAP</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="..\readme.md" Pack="true" PackagePath="\" />
+		<None Include="readme.md" Pack="true" PackagePath="\" />
 		<Compile Include="**\*.shared.cs" />
 		<Compile Include="**\*.shared.*.cs" />
 	</ItemGroup>
