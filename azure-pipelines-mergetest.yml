@@ -21,7 +21,7 @@ steps:
     displayName: Install MAUI
     inputs:
     targetType: 'inline'
-    script: |
+    script: 
         dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
 
 - task: NuGetCommand@2
