@@ -8,8 +8,8 @@ using System.Windows.Input;
 
 namespace MVVMSample.ViewModels
 {
-	[MVVMViewModel]
-	public partial class SourceGeneratorViewModel
+	//[MVVMViewModel]
+	public partial class SourceGeneratorViewModel : ViewModel
 	{
 
 		private DelegateCommand _okCommand;
@@ -49,7 +49,7 @@ namespace MVVMSample.ViewModels
 					catch (Exception ex)
 					{
 #if DEBUG
-						this.IsDebug = true;
+						//this.IsDebug = true;
 #endif
 						NotifyErrorOccurred(ex);
 					}
