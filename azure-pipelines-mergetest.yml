@@ -18,11 +18,11 @@ steps:
   displayName: Install Latest Nuget
 
 - task: Bash@3
-    displayName: Install MAUI
-    inputs:
+  displayName: Install MAUI
+  inputs:
     targetType: 'inline'
     script: 
-        dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
+      dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
 
 - task: NuGetCommand@2
   displayName: Nuget Restore
