@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Xamarin.Forms NET</PackageTags>
-    <PackageReleaseNotes>Point release</PackageReleaseNotes>
+    <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
     <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.Forms</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>

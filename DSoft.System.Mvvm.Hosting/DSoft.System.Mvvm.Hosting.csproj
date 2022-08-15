@@ -13,7 +13,7 @@
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <PackageReleaseNotes>Reverted support to  .Net standard 2.0</PackageReleaseNotes>
+	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>

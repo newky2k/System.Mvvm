@@ -15,8 +15,7 @@
 		<RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageTags>UWP WinUI .NET</PackageTags>
-		<PackageReleaseNotes>- Updated to NET 6
--Updated to Windows 10 - SDK 19041</PackageReleaseNotes>
+		<PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
 		<Copyright>Copyright © 2022 DSoft</Copyright>
 		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
