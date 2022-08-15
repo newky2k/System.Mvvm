@@ -33,9 +33,7 @@ The standard `UI` functions can be called directly after adding the `DSoft.Mvvm.
     if (result)
         await UI.ShowAlertAsync("YAY!", "You confirmed that");
 
-In the shared Xamarin.Forms project that contains the `App` class(or other sub-class of `Application`), add  the `DSoft.System.Mvvm.UI.Forms` package.
-
-***Note: do not add System.Mvvm.UI.Forms directly to the mobile application for iOS, Android or UWP***
+In the MAUI project that contains the `App` class(or other sub-class of `Application`), add  the `DSoft.System.Mvvm.UI.MAUI` package.
 
 Call the `MvvmManager.Init` method in the shared code, such as `Application.OnStart`
 
@@ -55,29 +53,27 @@ Call the `MvvmManager.Init` method in the shared code, such as `Application.OnSt
 
 Instead of using the static `UI` class you can use dependency injection to access the platform implementation of `IPlatformCoreUIProvider` using extensions for `IServiceCollection` provided by the platform specific packages.
 
-After adding `DSoft.System.Mvvm.UI.Forms` to the application project you can register the core UI implementations of  `IPlatformCoreUIProvider` with the ServiceProvider during configuration of the services using the `AddCoreUI` extension method.
+After adding `DSoft.System.Mvvm.UI.MAUI` to the application project you can register the core UI implementations of  `IPlatformCoreUIProvider` with the ServiceProvider during configuration of the services using the `AddCoreUI` extension method.
 
     using System.Mvvm;
     ... 
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+    public static class MauiProgram
+	{
+		public static MauiApp CreateMauiApp()
+		{
+			var builder = MauiApp.CreateBuilder();
+			builder
+				.UseMauiApp<App>()
+				.ConfigureFonts(fonts =>
+				{
+					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				});
 
-            ServiceHost.Host = new HostBuilder()
-             .ConfigureHostConfiguration(c =>
-             {
-                 c.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
-             })
-             .ConfigureServices(ConfigureServices)
-             .Build();
-        }
+            builder.Services.AddCore();
 
-        void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
-        {
-           services.AddCoreUI();
-        }
+			return builder.Build();
+		}
     }
 
 Once the core UI is registered you can use `IPlatformCoreUIProvider` with dependency injection in class constructors.
@@ -99,7 +95,56 @@ Once the core UI is registered you can use `IPlatformCoreUIProvider` with depend
         }
     }
 
-Use can also retrieve the implementation directly from the services provider or `ServiceHost` if you are using [DSoft.System.Mvvm.Hosting](https://www.nuget.org/packages/DSoft.System.Mvvm.Hosting)
+### ISevicesCollection extensions
+
+On other platforms, when configuring the services there is normally a `ConfigureServices` extension to make it easier to parse a delegate to configure the services.  With `MauiAppBuilder` this is not available so we created `MauiExtensions` to add this functionality back in.
+
+		public static MauiApp CreateMauiApp()
+		{
+			var builder = MauiApp.CreateBuilder();
+			builder
+				.UseMauiApp<App>()
+				.ConfigureFonts(fonts =>
+				{
+					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				})
+				.ConfigureServices(services =>
+                {
+                    services.AddCoreUI();
+                });
+
+			return builder.Build();
+		}
+
+### MauiHostProxy
+
+`MauiApp` does not implement `IHost` and so it cannot be used directly with [DSoft.System.Mvvm.Hosting](https://www.nuget.org/packages/DSoft.System.Mvvm.Hosting).  This makes it harder to access the `IServiceProvider` instance to retrieve the services.
+We've created `MauiHostProxy` to allow you to use `MauiApp` with [DSoft.System.Mvvm.Hosting](https://www.nuget.org/packages/DSoft.System.Mvvm.Hosting) by providing a simple wrapper around it which does implement `IHost`.
+
+You simply instatiate a new instance of `MauiHostProxy` with the output of `MauiAppBuilder.Build` and assigned it to `ServiceHost.Host` as usual.
+
+        public static MauiApp CreateMauiApp()
+        {
+          var builder = MauiApp.CreateBuilder();
+          builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+              fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+              fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            })
+            .ConfigureServices(ConfigureServices);
+
+          var app = builder.Build();
+
+          //configure the servicehost host
+          ServiceHost.Host = new MauiHostProxy(app);
+
+          return app;
+        }
+
+You can then retrieve the implementation directly from `ServiceHost` as before, theres not need to keep a refernce to `MauiApp` in your shared code.
 
     using System.Mvvm;
     ... 
@@ -108,11 +153,9 @@ Use can also retrieve the implementation directly from the services provider or 
 
     await _coreUIProvider.ShowAlertAsync("Congrats", "You called the ICoreUIProvider instance");
 
-Using DI instead of the `UI` does not require a call to `MvvmManager.Init` though you do have to call the extension method to register the services.  You can also use both.
-
 ## IMAUIPlatformUIProvider
 
-`IMAUIPlatformUIProvider` is a platform specific interface that the platform implementation of `` implements.  It provides access to some additonal Xamarin.Forms properties such as the current `Application`.
+`IMAUIPlatformUIProvider` is a platform specific interface that the platform implementation of `IPlatformCoreUIProvider` implements.  It provides access to some additonal MAUI properties such as the current `Application`.
 
 Use can retrieve the implementation directly from the services provider or `ServiceHost` if you are using [DSoft.System.Mvvm.Hosting](https://www.nuget.org/packages/DSoft.System.Mvvm.Hosting)
 
