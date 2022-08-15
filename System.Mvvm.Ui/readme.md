@@ -1,12 +1,12 @@
 # System.Mvvm.UI
 
-Multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x), UWP and WinUI 3 (Windows Aop SDK 1.0 and above)(Experimental) and Xamarin.Forms for Mobile.
+Multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x), UWP and WinUI 3 (Windows Aop SDK 1.0 and above)(Experimental) and Xamarin.Forms and MAUI for Mobile.
 
 ### Functionality
 
 - UI
   - Core UI functions for Showing Alerts and Confirmation Dialogs (using platform specific implementations)
-     - UWP and WPF (.NET Framework, .NET Core 3.1, NET 5.0 and above) and Xamarin.Forms 5.x for mobile
+     - UWP and WPF (.NET Framework, .NET Core 3.1, NET 5.0 and above) and Xamarin.Forms 5.x and MAUI for mobile
   - UI Thread execution
   - Dependency injection support with `IPlatformCoreUIProvider`
   - .NET Standard 2.0 and above not dependecies other than `DSoft.System.Mvvm` so it can be used in shared code projects.
@@ -67,6 +67,7 @@ Using DI instead of the `UI` does not require a call to `MvvmManager.Init` thoug
  - [Xamarin.Forms](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.Forms)
    - Xamarin.Forms 5.x for .Net Standard 2.0 and above
      - Use on the shared project containing the Xamarin Application not the platform specific mobile apps.
+ - [MAUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.MAUI)
 
 ### MvvmManager
 `MvvmManager` is a class that is found in the platform packages for `Dsoft.System.Mvvm.UI` and registers the standard UI implementation for each platform.
