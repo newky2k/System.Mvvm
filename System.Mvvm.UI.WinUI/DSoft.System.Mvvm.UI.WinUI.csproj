@@ -15,8 +15,7 @@
 		<RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageTags>UWP WinUI .NET</PackageTags>
-		<PackageReleaseNotes>- Updated to NET 6
--Updated to Windows 10 - SDK 19041</PackageReleaseNotes>
+		<PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
 		<Copyright>Copyright © 2022 DSoft</Copyright>
 		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -45,7 +44,7 @@
 	
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
 		<Compile Include="**\*.uwp.cs" />
 		<Compile Include="**\*.uwp.*.cs" />
 	</ItemGroup>
@@ -59,6 +58,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
 	</ItemGroup>
 </Project>

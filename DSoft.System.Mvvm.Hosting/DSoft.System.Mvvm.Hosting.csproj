@@ -13,7 +13,7 @@
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <PackageReleaseNotes>Reverted support to  .Net standard 2.0</PackageReleaseNotes>
+	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -38,7 +38,7 @@
     <Compile Include="**\*.shared.*.cs" />
     <Compile Include="HostMode.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.Equals('netstandard2.0'))">

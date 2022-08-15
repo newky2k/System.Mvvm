@@ -14,7 +14,7 @@
 	  <Description>Source generators for DSoft.System.Mvvm</Description>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <PackageReleaseNotes>Initial release of Source generators
+	  <PackageReleaseNotes>MAUI Updates
 	  </PackageReleaseNotes>
 	  <AssemblyName>System.Mvvm.SourceGenerators</AssemblyName>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -36,7 +36,7 @@
 		<None Include="readme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
   </ItemGroup>
 

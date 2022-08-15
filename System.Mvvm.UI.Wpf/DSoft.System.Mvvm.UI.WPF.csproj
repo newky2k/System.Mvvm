@@ -16,8 +16,7 @@
     <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>WPF MVVM NetCore</PackageTags>
-    <PackageReleaseNotes>Improved updating of Command CanExecute binding
-	</PackageReleaseNotes>
+	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
     <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -33,6 +32,6 @@
     <None Include="readme.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
   </ItemGroup>  
 </Project>
