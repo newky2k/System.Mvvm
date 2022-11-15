@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace MVVMSample.ViewModels
 {
-	//[MVVMViewModel]
+	[MVVMViewModel]
 	public partial class SourceGeneratorViewModel : ViewModel
 	{
 

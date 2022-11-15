@@ -2,6 +2,7 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>netstandard2.0;</TargetFrameworks>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
 	  <PackOnBuild>true</PackOnBuild>
 	  <PackageId>DSoft.System.Mvvm.SourceGenerators</PackageId>
 	  <Authors>newky2k</Authors>
@@ -36,8 +37,11 @@
 		<None Include="readme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
