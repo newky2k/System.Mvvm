@@ -2,25 +2,13 @@
   <PropertyGroup>
     <TargetFrameworks>net461;netcoreapp3.1;net6.0-windows7.0;net6.0-windows10.0.18362.0;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>DSoft.System.Mvvm.UI.WPF</PackageId>
-    <Authors>newky2k</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>WPF platform support for DSoft.System.Mvvm.UI for NET Core 3.1 and NET5+
-    </Description>
-    <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
+    <Description>WPF platform support for DSoft.System.Mvvm.UI for NET Core 3.1 and NET5+</Description>
     <PackageTags>WPF MVVM NetCore</PackageTags>
 	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
-    <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <Configurations>Debug;Release</Configurations>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <FileVersion>2.2.2102.142</FileVersion>
     <PackageReadmeFile>readme.md</PackageReadmeFile>

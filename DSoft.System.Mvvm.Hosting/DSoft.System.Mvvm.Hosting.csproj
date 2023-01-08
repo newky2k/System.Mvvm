@@ -3,32 +3,18 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0; net6.0;</TargetFrameworks>
     <PackageId>DSoft.System.Mvvm.Hosting</PackageId>
-    <Authors>newky2k</Authors>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <Owners>newky2k</Owners>
-    <PackageProjectUrl>https://github.com/newky2k/system.mvvm</PackageProjectUrl>
     <Summary>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>DSoft.System.Mvvm.Hosting</Title>
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <Product>System.Mvvm</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <Version>2.2.2102.142-prerelease</Version>
     <FileVersion>2.2.2102.142</FileVersion>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
-    <RepositoryUrl>https://github.com/newky2k/system.mvvm</RepositoryUrl>
-    <PackageLicenseFile></PackageLicenseFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryType>GIT</RepositoryType>
-    <Copyright>Copyright © 2022 DSoft</Copyright>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 

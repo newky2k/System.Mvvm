@@ -11,7 +11,11 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
-		<!-- Display name -->
+    <SignAssembly>false</SignAssembly>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+  <!-- Display name -->
 		<ApplicationTitle>MauiSample</ApplicationTitle>
 
 		<!-- App Identifier -->
