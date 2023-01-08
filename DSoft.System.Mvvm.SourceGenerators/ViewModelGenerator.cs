@@ -11,7 +11,12 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace DSoft.System.Mvvm.SourceGenerators
 {
-    [Generator]
+	/// <summary>
+	/// Class ViewModelGenerator.
+	/// Implements the <see cref="ISourceGenerator" />
+	/// </summary>
+	/// <seealso cref="ISourceGenerator" />
+	[Generator]
     public class ViewModelGenerator : ISourceGenerator
     {
         private const string attributeText = @"
@@ -31,7 +36,12 @@ namespace System.Mvvm
 }
 ";
 
-        public void Initialize(GeneratorInitializationContext context)
+		/// <summary>
+		/// Called before generation occurs. A generator can use the <paramref name="context" />
+		/// to register callbacks required to perform generation.
+		/// </summary>
+		/// <param name="context">The <see cref="T:Microsoft.CodeAnalysis.GeneratorInitializationContext" /> to register callbacks on</param>
+		public void Initialize(GeneratorInitializationContext context)
         {
 
 #if DEBUG
@@ -44,7 +54,18 @@ namespace System.Mvvm
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }
 
-        public void Execute(GeneratorExecutionContext context)
+		/// <summary>
+		/// Called to perform source generation. A generator can use the <paramref name="context" />
+		/// to add source files via the <see cref="M:Microsoft.CodeAnalysis.GeneratorExecutionContext.AddSource(System.String,Microsoft.CodeAnalysis.Text.SourceText)" />
+		/// method.
+		/// </summary>
+		/// <param name="context">The <see cref="T:Microsoft.CodeAnalysis.GeneratorExecutionContext" /> to add source to</param>
+		/// <remarks>This call represents the main generation step. It is called after a <see cref="T:Microsoft.CodeAnalysis.Compilation" /> is
+		/// created that contains the user written code.
+		/// A generator can use the <see cref="P:Microsoft.CodeAnalysis.GeneratorExecutionContext.Compilation" /> property to
+		/// discover information about the users compilation and make decisions on what source to
+		/// provide.</remarks>
+		public void Execute(GeneratorExecutionContext context)
         {
             // retrieve the populated receiver 
             if (!(context.SyntaxContextReceiver is SyntaxReceiver receiver))
@@ -65,7 +86,17 @@ namespace System.Mvvm
             //}
         }
 
-        private string ProcessClass(INamedTypeSymbol classSymbol, List<IFieldSymbol> fields, ISymbol attributeSymbol, ISymbol notifySymbol, GeneratorExecutionContext context, List<IPropertySymbol> Properties)
+		/// <summary>
+		/// Processes the class.
+		/// </summary>
+		/// <param name="classSymbol">The class symbol.</param>
+		/// <param name="fields">The fields.</param>
+		/// <param name="attributeSymbol">The attribute symbol.</param>
+		/// <param name="notifySymbol">The notify symbol.</param>
+		/// <param name="context">The context.</param>
+		/// <param name="Properties">The properties.</param>
+		/// <returns>System.String.</returns>
+		private string ProcessClass(INamedTypeSymbol classSymbol, List<IFieldSymbol> fields, ISymbol attributeSymbol, ISymbol notifySymbol, GeneratorExecutionContext context, List<IPropertySymbol> Properties)
         {
             if (!classSymbol.ContainingSymbol.Equals(classSymbol.ContainingNamespace, SymbolEqualityComparer.Default))
             {
@@ -160,21 +191,34 @@ namespace {namespaceName}
             return sourceString;
         }
 
-        /// <summary>
-        /// Created on demand before each generation pass
-        /// </summary>
-        class SyntaxReceiver : ISyntaxContextReceiver
+		/// <summary>
+		/// Created on demand before each generation pass
+		/// </summary>
+		class SyntaxReceiver : ISyntaxContextReceiver
         {
-            public List<IFieldSymbol> CommandFields { get; } = new List<IFieldSymbol>();
+			/// <summary>
+			/// Gets the command fields.
+			/// </summary>
+			/// <value>The command fields.</value>
+			public List<IFieldSymbol> CommandFields { get; } = new List<IFieldSymbol>();
 
-            public List<IPropertySymbol> Properties { get; } = new List<IPropertySymbol>();
+			/// <summary>
+			/// Gets the properties.
+			/// </summary>
+			/// <value>The properties.</value>
+			public List<IPropertySymbol> Properties { get; } = new List<IPropertySymbol>();
 
-            public INamedTypeSymbol ClassTypeSymbol { get; set; }
+			/// <summary>
+			/// Gets or sets the class type symbol.
+			/// </summary>
+			/// <value>The class type symbol.</value>
+			public INamedTypeSymbol ClassTypeSymbol { get; set; }
 
-            /// <summary>
-            /// Called for every syntax node in the compilation, we can inspect the nodes and save any information useful for generation
-            /// </summary>
-            public void OnVisitSyntaxNode(GeneratorSyntaxContext context)
+			/// <summary>
+			/// Called for every syntax node in the compilation, we can inspect the nodes and save any information useful for generation
+			/// </summary>
+			/// <param name="context">The context.</param>
+			public void OnVisitSyntaxNode(GeneratorSyntaxContext context)
             {
                 if (context.Node is ClassDeclarationSyntax classDeclaration)
                 {

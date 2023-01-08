@@ -2,42 +2,30 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>netstandard2.0;</TargetFrameworks>
-	  <PackOnBuild>true</PackOnBuild>
+    <!--<IncludeBuildOutput>false</IncludeBuildOutput>-->
 	  <PackageId>DSoft.System.Mvvm.SourceGenerators</PackageId>
-	  <Authors>newky2k</Authors>
-	  <PackageLicenseUrl></PackageLicenseUrl>
-	  <Owners>newky2k</Owners>
-	  <PackageProjectUrl>https://github.com/newky2k/system.mvvm</PackageProjectUrl>
 	  <Summary>Source generators library for DSoft.System.Mvvm</Summary>
 	  <PackageTags>MVVM SourceGenerators</PackageTags>
 	  <Title>System.Mvvm.SourceGenerators</Title>
 	  <Description>Source generators for DSoft.System.Mvvm</Description>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <PackageReleaseNotes>MAUI Updates
-	  </PackageReleaseNotes>
+	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
 	  <AssemblyName>System.Mvvm.SourceGenerators</AssemblyName>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>
 	  <AssemblyVersion>2.2.2102.142</AssemblyVersion>
 	  <Version>2.2.2102.142-prerelease</Version>
 	  <FileVersion>2.2.2102.142</FileVersion>
-	  <SignAssembly>true</SignAssembly>
-	  <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
-	  <RepositoryUrl>https://github.com/newky2k/system.mvvm</RepositoryUrl>
-	  <PackageLicenseFile></PackageLicenseFile>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <RepositoryType>GIT</RepositoryType>
-	  <Copyright>Copyright © 2022 DSoft</Copyright>
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
-	  <LangVersion>Latest</LangVersion>
   </PropertyGroup>
 
 	<ItemGroup>
 		<None Include="readme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

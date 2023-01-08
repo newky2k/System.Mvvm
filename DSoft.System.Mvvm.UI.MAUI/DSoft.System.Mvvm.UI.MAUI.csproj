@@ -9,26 +9,13 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageId>DSoft.System.Mvvm.UI.MAUI</PackageId>
-		<Authors>newky2k</Authors>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
 		<Version>2.2.2102.142-prerelease</Version>
-		<Description>
-			MAUI platform support for System.Mvvm.UI
-		</Description>
-		<PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
-		<RepositoryType>Git</RepositoryType>
+		<Description>MAUI platform support for System.Mvvm.UI</Description>
 		<PackageTags>MAUI NET</PackageTags>
 		<PackageReleaseNotes>Point release</PackageReleaseNotes>
-		<Copyright>Copyright © 2022 DSoft</Copyright>
 		<AssemblyName>System.Mvvm.UI.MAUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
-		<Configurations>Debug;Release</Configurations>
 		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
 		<FileVersion>2.2.2102.142</FileVersion>
 		<RootNamespace>System.Mvvm</RootNamespace>
@@ -39,6 +26,8 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
+    <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -47,6 +36,14 @@
 
 	<ItemGroup>
 		<None Include="readme.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\" />
+	  <Folder Include="Platforms\iOS\" />
+	  <Folder Include="Platforms\MacCatalyst\" />
+	  <Folder Include="Platforms\Tizen\" />
+	  <Folder Include="Platforms\Windows\" />
 	</ItemGroup>
 
 </Project>

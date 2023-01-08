@@ -1,12 +1,12 @@
 # System.Mvvm.UI.WinUI
 
-Provides UWP and Win UI 3 platform implementations for [DSoft.System.Mvvm.UI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI)
+Provides Win UI 3 platform implementations for [DSoft.System.Mvvm.UI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI)
 
 ### Functionality
  - Core UI functions for Showing Alerts and Confirmation Dialogs 
  - UI Thread execution
  - Dependency injection support with `IPlatformCoreUIProvider`
- - Works with UWP and Win UI 3 (Windows App SDK 1.0 and above)
+ - Works with Win UI 3 (Windows App SDK 1.0 and above)
   
 # Using System.Mvvm.UI.WinUI
 

@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+	/// <summary>
+	/// IServiceCollection Extensions.
+	/// </summary>
 	public static class ServiceCollectionExtensions
 	{
 		/// <summary>
 		/// Adds the core MAUI UI providers to the available services
 		/// </summary>
 		/// <param name="services">The services.</param>
-		/// <returns></returns>
+		/// <returns>IServiceCollection.</returns>
 		public static IServiceCollection AddCoreUI(this IServiceCollection services)
 		{
 			services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);

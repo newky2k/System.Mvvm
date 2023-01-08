@@ -20,15 +20,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ci", ".ci", "{60A224E7-C8B
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines-mergetest.yml = azure-pipelines-mergetest.yml
 		azure-pipelines-release.yml = azure-pipelines-release.yml
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.SourceGenerators", "DSoft.System.Mvvm.SourceGenerators\DSoft.System.Mvvm.SourceGenerators.csproj", "{A991169B-7D24-4594-9CBA-736F3A378AA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSoft.System.Mvvm.UI.MAUI", "DSoft.System.Mvvm.UI.MAUI\DSoft.System.Mvvm.UI.MAUI.csproj", "{6BD8A518-5587-4773-946B-1D34637A54DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSoft.System.Mvvm.UI.MAUI", "DSoft.System.Mvvm.UI.MAUI\DSoft.System.Mvvm.UI.MAUI.csproj", "{6BD8A518-5587-4773-946B-1D34637A54DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A3E1E428-0B67-4C50-92CD-D5D502F46295}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiSample", "MauiSample\MauiSample.csproj", "{55A915C3-19C7-430C-B938-7FF3DF19F53F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiSample", "MauiSample\MauiSample.csproj", "{55A915C3-19C7-430C-B938-7FF3DF19F53F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

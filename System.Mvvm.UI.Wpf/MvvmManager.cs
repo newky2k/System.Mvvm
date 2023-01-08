@@ -9,12 +9,15 @@ using System.Windows.Input;
 
 namespace System.Mvvm
 {
-    public partial class MvvmManager
+	/// <summary>
+	/// MvvmManager management class for initializing System.Mvvm.UI on WPF
+	/// </summary>
+	public partial class MvvmManager
     {
-        /// <summary>
-        /// Initializes the MvvmManager, with the assmebly calling the Init method
-        /// </summary>
-        public static void Init()
+		/// <summary>
+		/// Initializes the MvvmManager, with the assmebly calling the Init method
+		/// </summary>
+		public static void Init()
         {
             UI.PlatformProvider = PlatformUIProvider.Instance;
 

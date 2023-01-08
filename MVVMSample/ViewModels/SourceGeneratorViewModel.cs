@@ -8,13 +8,12 @@ using System.Windows.Input;
 
 namespace MVVMSample.ViewModels
 {
-	//[MVVMViewModel]
+	[MVVMViewModel]
 	public partial class SourceGeneratorViewModel : ViewModel
 	{
 
 		private DelegateCommand _okCommand;
 		private ICommand _didCommand;
-		private DelegateCommand _cancelCommand;
 
 		public ICommand OkCommand
 		{

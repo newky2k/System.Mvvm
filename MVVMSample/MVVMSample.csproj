@@ -4,6 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows7</TargetFramework>
     <UseWPF>true</UseWPF>
+    <SignAssembly>false</SignAssembly>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DSoft.System.Mvvm.Hosting\DSoft.System.Mvvm.Hosting.csproj" />
+    <ProjectReference Include="..\DSoft.System.Mvvm.SourceGenerators\DSoft.System.Mvvm.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\System.Mvvm.UI.Wpf\DSoft.System.Mvvm.UI.WPF.csproj" />
     <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />

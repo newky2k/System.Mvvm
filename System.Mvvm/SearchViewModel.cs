@@ -17,31 +17,30 @@ namespace System.Mvvm
     {
         #region Fields
         private String searchText;
-        #endregion
+		#endregion
 
-        #region Events
+		#region Events
 
-        public event EventHandler<T> ItemDoubleClicked = delegate { };
+		/// <summary>
+		/// Occurs when [item double clicked].
+		/// </summary>
+		public event EventHandler<T> ItemDoubleClicked = delegate { };
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the unfiltered items.
-        /// </summary>
-        /// <value>
-        /// The unfiltered items.
-        /// </value>
-        public T2 UnfilteredItems => base.Items;
+		/// <summary>
+		/// Gets the unfiltered items.
+		/// </summary>
+		/// <value>The unfiltered items.</value>
+		public T2 UnfilteredItems => base.Items;
 
-        /// <summary>
-        /// Gets or sets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        public override T2 Items
+		/// <summary>
+		/// Gets or sets the items.
+		/// </summary>
+		/// <value>The items.</value>
+		public override T2 Items
         {
             get
             {
@@ -59,13 +58,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets the search text.
-        /// </summary>
-        /// <value>
-        /// The search text.
-        /// </value>
-        public virtual string SearchText
+		/// <summary>
+		/// Gets or sets the search text.
+		/// </summary>
+		/// <value>The search text.</value>
+		public virtual string SearchText
         {
             get { return searchText; }
             set
@@ -78,13 +75,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets the clear search command.
-        /// </summary>
-        /// <value>
-        /// The clear search command.
-        /// </value>
-        public ICommand ClearSearchCommand
+		/// <summary>
+		/// Gets the clear search command.
+		/// </summary>
+		/// <value>The clear search command.</value>
+		public ICommand ClearSearchCommand
         {
             get
             {
@@ -96,13 +91,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets the refresh command.
-        /// </summary>
-        /// <value>
-        /// The refresh command.
-        /// </value>
-        public override ICommand RefreshCommand
+		/// <summary>
+		/// Gets the refresh command.
+		/// </summary>
+		/// <value>The refresh command.</value>
+		public override ICommand RefreshCommand
         {
             get
             {
@@ -115,25 +108,35 @@ namespace System.Mvvm
             }
         }
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseSearchViewModel"/> class.
-        /// </summary>
-        /// <param name="searchText">The search text.</param>
-        public SearchViewModel(string searchText = null)
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SearchViewModel{T, T2}"/> class.
+		/// </summary>
+		/// <param name="searchText">The search text.</param>
+		public SearchViewModel(string searchText = null)
         {
             this.searchText = searchText;
         }
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        protected abstract T2 ApplyFilter(T2 data);
+		/// <summary>
+		/// Applies the filter.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <returns>T2.</returns>
+		protected abstract T2 ApplyFilter(T2 data);
 
-        public virtual void DidDoubleClick(T item)
+		/// <summary>
+		/// Dids the double click.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		public virtual void DidDoubleClick(T item)
         {
             ItemDoubleClicked(this, item);
         }

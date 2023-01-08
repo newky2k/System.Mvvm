@@ -6,14 +6,17 @@ using System.Text;
 
 namespace System.Collections.Generic
 {
-    public static class EnumerableExtensions
+	/// <summary>
+	/// Extensions for IEnumerable
+	/// </summary>
+	public static class EnumerableExtensions
     {
 		/// <summary>
-		/// Converts the source IEnumbable<typeparamref name="T"/> object to an Observable<typeparamref name="T"/>.
+		/// Converts the source IEnumbable<typeparamref name="T" /> object to an Observable<typeparamref name="T" />.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="items">The items.</param>
-		/// <returns></returns>
+		/// <returns>ObservableCollection&lt;T&gt;.</returns>
 		public static ObservableCollection<T> ToObservable<T>(this IEnumerable<T> items)
         {
             var cols = new ObservableCollection<T>();

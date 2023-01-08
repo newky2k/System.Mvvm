@@ -9,20 +9,22 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+	/// <summary>
+	/// IServiceCollection Extensions.
+	/// </summary>
+	public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCoreUI(this IServiceCollection services)
+		/// <summary>
+		/// Adds the core UI services
+		/// </summary>
+		/// <param name="services">The services.</param>
+		/// <returns>IServiceCollection.</returns>
+		public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
             services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
+			services.TryAddSingleton<IDesktopPlatformUIProvider>(PlatformUIProvider.Instance);
 
-#if UAP
-            services.TryAddSingleton<IUWPPlatformUIProvider>(PlatformUIProvider.Instance);
-#endif
-
-#if WINUI
-            services.TryAddSingleton<IUWPPlatformUIProvider>(PlatformUIProvider.Instance);
-#endif
-            return services;
+			return services;
         }
     }
 }

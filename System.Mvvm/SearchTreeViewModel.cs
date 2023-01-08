@@ -21,14 +21,22 @@ namespace System.Mvvm
 
         private string[] _groupingNames;
 
-        public string[] GroupingNames
+		/// <summary>
+		/// Gets or sets the grouping names.
+		/// </summary>
+		/// <value>The grouping names.</value>
+		public string[] GroupingNames
         {
             get { return _groupingNames; }
             set { _groupingNames = value; }
         }
 
 
-        public virtual IReadOnlyCollection<TreeViewObject> TreePath
+		/// <summary>
+		/// Gets the tree path.
+		/// </summary>
+		/// <value>The tree path.</value>
+		public virtual IReadOnlyCollection<TreeViewObject> TreePath
         {
             get
             {
@@ -39,28 +47,40 @@ namespace System.Mvvm
             }
         }
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseSearchViewModel"/> class.
-        /// </summary>
-        /// <param name="searchText">The search text.</param>
-        public SearchTreeViewModel(string searchText = null) : base(searchText)
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SearchTreeViewModel{T, T2}"/> class.
+		/// </summary>
+		/// <param name="searchText">The search text.</param>
+		public SearchTreeViewModel(string searchText = null) : base(searchText)
         {
             WhenPropertyChanged(nameof(Items), () => NotifyPropertyChanged("TreePath"));
         }
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        private IReadOnlyCollection<TreeViewObject> BuildTreePath(IEnumerable<T> data)
+		/// <summary>
+		/// Builds the tree path.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <returns>IReadOnlyCollection&lt;TreeViewObject&gt;.</returns>
+		private IReadOnlyCollection<TreeViewObject> BuildTreePath(IEnumerable<T> data)
         {
             return BuildPath(data, GroupingNames);
         }
 
-        private IReadOnlyCollection<TreeViewObject> BuildPath(IEnumerable<T> data, string[] groupNames)
+		/// <summary>
+		/// Builds the path.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="groupNames">The group names.</param>
+		/// <returns>IReadOnlyCollection&lt;TreeViewObject&gt;.</returns>
+		private IReadOnlyCollection<TreeViewObject> BuildPath(IEnumerable<T> data, string[] groupNames)
         {
             var groupby2 = groupNames[1];
 
@@ -94,7 +114,15 @@ namespace System.Mvvm
             return rootFolderVMs;
         }
 
-        private TreeViewItemModel BuildTree(List<TreeViewItemModel> data, T dataItem, string groupByName)
+		/// <summary>
+		/// Builds the tree.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="dataItem">The data item.</param>
+		/// <param name="groupByName">Name of the group by.</param>
+		/// <returns>TreeViewItemModel.</returns>
+		/// <exception cref="System.Exception">Cannot find property named {groupByName}</exception>
+		private TreeViewItemModel BuildTree(List<TreeViewItemModel> data, T dataItem, string groupByName)
         {
             var aProp = dataItem.GetType().GetTypeInfo().GetDeclaredProperty(groupByName);
 

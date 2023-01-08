@@ -2,25 +2,13 @@
   <PropertyGroup>
 	 <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>DSoft.System.Mvvm.UI.Forms</PackageId>
-    <Authors>newky2k</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
     <Version>2.2.2102.142-prerelease</Version>
-    <Description>Xamarin.Forms platform support for System.Mvvm.UI
-    </Description>
-    <PackageProjectUrl>https://github.com/newky2k/System.Mvvm</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/newky2k/System.Mvvm</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
+    <Description>Xamarin.Forms platform support for System.Mvvm.UI</Description>
     <PackageTags>Xamarin.Forms NET</PackageTags>
     <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
-    <Copyright>Copyright © 2022 DSoft</Copyright>
     <AssemblyName>System.Mvvm.UI.Forms</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <Configurations>Debug;Release</Configurations>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
     <FileVersion>2.2.2102.142</FileVersion>
     <PackageReadmeFile>readme.md</PackageReadmeFile>

@@ -1,9 +1,4 @@
-﻿#if UAP
-using Windows.UI.Xaml.Controls;
-#else
-using Microsoft.UI.Xaml.Controls;
-#endif
-//
+﻿using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,12 +14,27 @@ using Windows.UI.Core;
 namespace System.Mvvm
 {
 
-    internal partial class PlatformUIProvider : IUWPPlatformUIProvider
-    {
-        private static readonly Lazy<PlatformUIProvider> _instance = new Lazy<PlatformUIProvider>(() => new PlatformUIProvider());
-        internal static PlatformUIProvider Instance => _instance.Value;
 
-        static bool IsMainThread
+	/// <summary>
+	/// WinUI implementaion of PlatformUIProvider.
+	/// Implements the <see cref="IDesktopPlatformUIProvider" />
+	/// </summary>
+	/// <seealso cref="IDesktopPlatformUIProvider" />
+	internal partial class PlatformUIProvider : IDesktopPlatformUIProvider
+	{
+        private static readonly Lazy<PlatformUIProvider> _instance = new Lazy<PlatformUIProvider>(() => new PlatformUIProvider());
+
+		/// <summary>
+		/// Gets the instance.
+		/// </summary>
+		/// <value>The instance.</value>
+		internal static PlatformUIProvider Instance => _instance.Value;
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is main thread.
+		/// </summary>
+		/// <value><c>true</c> if this instance is main thread; otherwise, <c>false</c>.</value>
+		static bool IsMainThread
         {
             get
             {
@@ -46,7 +56,12 @@ namespace System.Mvvm
             }
         }
 
-        public Task InvokeOnUIThreadAsync(Action action)
+		/// <summary>
+		/// Invokes the on UI thread asynchronous.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		/// <returns>Task.</returns>
+		public Task InvokeOnUIThreadAsync(Action action)
         {
             if (IsMainThread)
             {
@@ -76,7 +91,12 @@ namespace System.Mvvm
 
         }
 
-        public void InvokeOnUIThread(Action action)
+		/// <summary>
+		/// Invokes the on UI thread.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		/// <exception cref="System.InvalidOperationException">Unable to find main thread.</exception>
+		public void InvokeOnUIThread(Action action)
         {
             var dispatcher = CoreApplication.MainView?.CoreWindow?.Dispatcher;
 
@@ -86,7 +106,13 @@ namespace System.Mvvm
             dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action()).WatchForError();
         }
 
-        public async Task ShowAlertAsync(string title, string message)
+		/// <summary>
+		/// Show alert as an asynchronous operation.
+		/// </summary>
+		/// <param name="title">The title.</param>
+		/// <param name="message">The message.</param>
+		/// <returns>A Task representing the asynchronous operation.</returns>
+		public async Task ShowAlertAsync(string title, string message)
         {
             ContentDialog noWifiDialog = new ContentDialog
             {
@@ -98,7 +124,13 @@ namespace System.Mvvm
             await noWifiDialog.ShowAsync();
         }
 
-        public async Task<bool> ShowConfirmationDialogAsync(string title, string message)
+		/// <summary>
+		/// Show confirmation dialog as an asynchronous operation.
+		/// </summary>
+		/// <param name="title">The title.</param>
+		/// <param name="message">The message.</param>
+		/// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+		public async Task<bool> ShowConfirmationDialogAsync(string title, string message)
         {
             var locationPromptDialog = new ContentDialog
             {
@@ -115,12 +147,17 @@ namespace System.Mvvm
 
     }
 
-    public interface IUWPPlatformUIProvider : IPlatformCoreUIProvider
-    {
+	/// <summary>
+	/// IDesktopPlatformUIProvider for WINUI and UWP
+	/// Extends the <see cref="IDesktopPlatformUIProvider" />
+	/// </summary>
+	/// <seealso cref="IDesktopPlatformUIProvider" />
+	public interface IDesktopPlatformUIProvider : IPlatformCoreUIProvider
+	{
 
-    }
+	}
 
-    internal static partial class MainThreadExtensions
+	internal static partial class MainThreadExtensions
     {
         internal static void WatchForError(this IAsyncAction self) =>
             self.AsTask().WatchForError();

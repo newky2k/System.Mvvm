@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 
 namespace System.Mvvm
 {
-    public class MvvmManager
+	/// <summary>
+	/// MvvmManager management class for initializing System.Mvvm.UI on WinUI
+	/// </summary>
+	public class MvvmManager
     {
-        /// <summary>
-        /// Initializes the MvvmManager, with the assmebly calling the Init method
-        /// </summary>
-        public static void Init()
+		/// <summary>
+		/// Initializes the MvvmManager, with the assmebly calling the Init method
+		/// </summary>
+		public static void Init()
         {
             UI.PlatformProvider = PlatformUIProvider.Instance;
 

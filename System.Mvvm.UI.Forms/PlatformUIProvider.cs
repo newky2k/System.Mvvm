@@ -9,25 +9,68 @@ using Xamarin.Forms;
 
 namespace System.Mvvm
 {
-    internal partial class PlatformUIProvider : IXamarinFormsPlatformUIProvider
+	/// <summary>
+	/// Xamarin.Form immplementation of PlatformUIProvider
+	/// Implements the <see cref="IXamarinFormsPlatformUIProvider" />
+	/// </summary>
+	/// <seealso cref="IXamarinFormsPlatformUIProvider" />
+	internal partial class PlatformUIProvider : IXamarinFormsPlatformUIProvider
     {
         private static readonly Lazy<PlatformUIProvider> _instance = new Lazy<PlatformUIProvider>(() => new PlatformUIProvider());
-        internal static PlatformUIProvider Instance => _instance.Value;
+		/// <summary>
+		/// Gets the instance.
+		/// </summary>
+		/// <value>The instance.</value>
+		internal static PlatformUIProvider Instance => _instance.Value;
 
-        public Application CurrentApplication => Application.Current;
+		/// <summary>
+		/// Gets the current application.
+		/// </summary>
+		/// <value>The current application.</value>
+		public Application CurrentApplication => Application.Current;
 
-        public Task ShowAlertAsync(string title, string message) => CurrentApplication.MainPage.DisplayAlert(title, message, "OK");
+		/// <summary>
+		/// Shows an alert
+		/// </summary>
+		/// <param name="title">The title.</param>
+		/// <param name="message">The message.</param>
+		/// <returns>Task.</returns>
+		public Task ShowAlertAsync(string title, string message) => CurrentApplication.MainPage.DisplayAlert(title, message, "OK");
 
-        public Task<bool> ShowConfirmationDialogAsync(string title, string message) => CurrentApplication.MainPage.DisplayAlert(title, message, "Ok", "Cancel");
+		/// <summary>
+		/// Show a confirmation dialog
+		/// </summary>
+		/// <param name="title">The title.</param>
+		/// <param name="message">The message.</param>
+		/// <returns>Task&lt;System.Boolean&gt;.</returns>
+		public Task<bool> ShowConfirmationDialogAsync(string title, string message) => CurrentApplication.MainPage.DisplayAlert(title, message, "Ok", "Cancel");
 
-        public void InvokeOnUIThread(Action action) => Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(action);
+		/// <summary>
+		/// Invokes the on UI thread.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		public void InvokeOnUIThread(Action action) => Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(action);
 
-        public Task InvokeOnUIThreadAsync(Action action) => Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(action);
+		/// <summary>
+		/// Invokes the on UI thread asynchronous.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		/// <returns>Task.</returns>
+		public Task InvokeOnUIThreadAsync(Action action) => Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(action);
 
     }
 
-    public interface IXamarinFormsPlatformUIProvider : IPlatformCoreUIProvider
+	/// <summary>
+	/// Xamarin.Forms interface for  IPlatformCoreUIProvider
+	/// Extends the <see cref="IPlatformCoreUIProvider" />
+	/// </summary>
+	/// <seealso cref="IPlatformCoreUIProvider" />
+	public interface IXamarinFormsPlatformUIProvider : IPlatformCoreUIProvider
     {
-        Application CurrentApplication { get; }
+		/// <summary>
+		/// Gets the current application.
+		/// </summary>
+		/// <value>The current application.</value>
+		Application CurrentApplication { get; }
     }
 }

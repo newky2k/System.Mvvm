@@ -25,48 +25,51 @@ namespace System.Mvvm
         private bool _disableIsBusyChanged;
         private Dictionary<string, Action> _propertyChangeActions = new Dictionary<string, Action>();
         private Validator _validator;
-        #endregion
+		#endregion
 
-        #region Events
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+		#region Events
+		/// <summary>
+		/// Occurs when a property value changes.
+		/// </summary>
+		/// <returns></returns>
+		public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        /// <summary>
-        /// Called when an exception is thrown
-        /// </summary>
-        public static event EventHandler<Exception> OnErrorOccurred = delegate { };
+		/// <summary>
+		/// Called when an exception is thrown
+		/// </summary>
+		public static event EventHandler<Exception> OnErrorOccurred = delegate { };
 
-        /// <summary>
-        /// Occurs when [on is busy changed].
-        /// </summary>
-        public event EventHandler<bool> OnIsBusyChanged = delegate { };
+		/// <summary>
+		/// Occurs when [on is busy changed].
+		/// </summary>
+		public event EventHandler<bool> OnIsBusyChanged = delegate { };
 
-        /// <summary>
-        /// Occurs when then IsLoaded Changes
-        /// </summary>
-        public event EventHandler<bool> OnLoadedChanged = delegate { };
+		/// <summary>
+		/// Occurs when then IsLoaded Changes
+		/// </summary>
+		public event EventHandler<bool> OnLoadedChanged = delegate { };
 
-        /// <summary>
-        /// Occurs when the workflow is complete, such as to close a window or view
-        /// </summary>
-        public event EventHandler<bool> OnComplete = delegate { };
+		/// <summary>
+		/// Occurs when the workflow is complete, such as to close a window or view
+		/// </summary>
+		public event EventHandler<bool> OnComplete = delegate { };
 
-        /// <summary>
-        /// Occurs when the validation errors have changed for a property or for the entire
-        //     entity.
-        /// </summary>
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = delegate { };
+		/// <summary>
+		/// Occurs when the validation errors have changed for a property or for the entire
+		/// entity.
+		/// </summary>
+		/// <returns></returns>
+		public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged = delegate { };
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [data has changed].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [data has changed]; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool DataHasChanged
+		/// <summary>
+		/// Gets or sets a value indicating whether [data has changed].
+		/// </summary>
+		/// <value><c>true</c> if [data has changed]; otherwise, <c>false</c>.</value>
+		public virtual bool DataHasChanged
         {
             get { return _dataHasChanged; }
             set
@@ -78,13 +81,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is loaded.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is loaded; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool IsLoaded
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is loaded.
+		/// </summary>
+		/// <value><c>true</c> if this instance is loaded; otherwise, <c>false</c>.</value>
+		public virtual bool IsLoaded
         {
             get { return _isLoaded; }
             set
@@ -98,13 +99,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is busy.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool IsBusy
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is busy.
+		/// </summary>
+		/// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+		public virtual bool IsBusy
         {
             get { return _isBusy; }
             set
@@ -125,23 +124,21 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets value to disable the IsBusyChanged Notification
-        /// </summary>
-        /// <value><c>true</c> if [disable is busy changed]; otherwise, <c>false</c>.</value>
-        public virtual bool DisableIsBusyChanged
+		/// <summary>
+		/// Gets or sets value to disable the IsBusyChanged Notification
+		/// </summary>
+		/// <value><c>true</c> if [disable is busy changed]; otherwise, <c>false</c>.</value>
+		public virtual bool DisableIsBusyChanged
         {
             get { return _disableIsBusyChanged; }
             set { _disableIsBusyChanged = value; }
         }
 
-        /// <summary>
-        /// Get the reverse of IsBusy
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if IsBusy reversed; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool IsBusyReversed
+		/// <summary>
+		/// Get the reverse of IsBusy
+		/// </summary>
+		/// <value><c>true</c> if IsBusy reversed; otherwise, <c>false</c>.</value>
+		public virtual bool IsBusyReversed
         {
             get
             {
@@ -149,7 +146,11 @@ namespace System.Mvvm
             }
         }
 
-        public virtual Validator Validator
+		/// <summary>
+		/// Gets or sets the validator.
+		/// </summary>
+		/// <value>The validator.</value>
+		public virtual Validator Validator
         {
             get
             {
@@ -168,18 +169,30 @@ namespace System.Mvvm
             }
         }
 
-        public virtual bool IsValid
+		/// <summary>
+		/// Returns true if ... is valid.
+		/// </summary>
+		/// <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
+		public virtual bool IsValid
         {
             get { return !this.Validator.HasErrors; }
 
         }
 
-        public virtual bool HasErrors
+		/// <summary>
+		/// Gets a value that indicates whether the entity has validation errors.
+		/// </summary>
+		/// <value><c>true</c> if this instance has errors; otherwise, <c>false</c>.</value>
+		public virtual bool HasErrors
         {
             get { return (Validator.Errors.Count > 0); }
         }
 
-        public virtual Dictionary<string, List<string>> Errors
+		/// <summary>
+		/// Gets the errors.
+		/// </summary>
+		/// <value>The errors.</value>
+		public virtual Dictionary<string, List<string>> Errors
         {
             get
             {
@@ -187,7 +200,11 @@ namespace System.Mvvm
             }
         }
 
-        public virtual string ErrorMessages
+		/// <summary>
+		/// Gets the error messages.
+		/// </summary>
+		/// <value>The error messages.</value>
+		public virtual string ErrorMessages
         {
             get
             {
@@ -195,13 +212,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is editable.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is editable; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool IsEditable
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is editable.
+		/// </summary>
+		/// <value><c>true</c> if this instance is editable; otherwise, <c>false</c>.</value>
+		public virtual bool IsEditable
         {
             get { return _isEditable; }
             set
@@ -212,13 +227,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is editable reversed.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is editable reversed; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool IsEditableReversed
+		/// <summary>
+		/// Gets a value indicating whether this instance is editable reversed.
+		/// </summary>
+		/// <value><c>true</c> if this instance is editable reversed; otherwise, <c>false</c>.</value>
+		public virtual bool IsEditableReversed
         {
             get
             {
@@ -226,40 +239,43 @@ namespace System.Mvvm
             }
         }
 
-        
-        #endregion
 
-        #region Constructors
-        public ViewModel()
+		#endregion
+
+		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ViewModel"/> class.
+		/// </summary>
+		public ViewModel()
 		{
 
 		}
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        #region Property Change Notification Methods
+		#region Property Change Notification Methods
 
-        /// <summary>
-        /// Call to notify that a property has changed
-        /// </summary>
-        /// <param name="propertyName">Name of the property that has changed</param>
-        /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
+		/// <summary>
+		/// Call to notify that a property has changed
+		/// </summary>
+		/// <param name="propertyName">Name of the property that has changed</param>
+		/// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
+		protected void OnPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true) => NotifyPropertyChanged(propertyName, hasChanged);
 
-        /// <summary>
-        /// Called when [properties changed].
-        /// </summary>
-        /// <param name="propertyNames">The property names that have changed</param>
-        protected void OnPropertiesChanged(params string[] propertyNames) => NotifyPropertiesChanged(propertyNames);
+		/// <summary>
+		/// Called when [properties changed].
+		/// </summary>
+		/// <param name="propertyNames">The property names that have changed</param>
+		protected void OnPropertiesChanged(params string[] propertyNames) => NotifyPropertiesChanged(propertyNames);
 
-        /// <summary>
-        /// Notifies the property changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property that has changed</param>
-        /// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true)
+		/// <summary>
+		/// Notifies the property changed.
+		/// </summary>
+		/// <param name="propertyName">Name of the property that has changed</param>
+		/// <param name="hasChanged">if set to <c>true</c> [has changed].</param>
+		protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null, bool hasChanged = true)
         {
             if (hasChanged == true)
                 DataHasChanged = true;
@@ -275,11 +291,11 @@ namespace System.Mvvm
                 NotifyCommandFieldsCanExecuteChanged();
         }
 
-        /// <summary>
-        /// Notify that the specified properties have changed
-        /// </summary>
-        /// <param name="propertyNames">The property names that have changed</param>
-        protected void NotifyPropertiesChanged(params string[] propertyNames)
+		/// <summary>
+		/// Notify that the specified properties have changed
+		/// </summary>
+		/// <param name="propertyNames">The property names that have changed</param>
+		protected void NotifyPropertiesChanged(params string[] propertyNames)
         {
             if (propertyNames == null || propertyNames.Length == 0)
             {
@@ -303,10 +319,10 @@ namespace System.Mvvm
                 NotifyCommandFieldsCanExecuteChanged();
         }
 
-        /// <summary>
-        /// All Properties Changed (ie the Model changed).
-        /// </summary>
-        public void NotifyAllPropertiesDidChange()
+		/// <summary>
+		/// All Properties Changed (ie the Model changed).
+		/// </summary>
+		public void NotifyAllPropertiesDidChange()
         {
             DataHasChanged = true;
 
@@ -324,12 +340,12 @@ namespace System.Mvvm
                 NotifyCommandFieldsCanExecuteChanged();
         }
 
-        /// <summary>
-        /// When the specified property changes execute the specified action
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <param name="propchangedAction">The action to perform</param>
-        protected void WhenPropertyChanged(string propertyName, Action actionToPerform)
+		/// <summary>
+		/// When the specified property changes execute the specified action
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <param name="actionToPerform">The action to perform.</param>
+		protected void WhenPropertyChanged(string propertyName, Action actionToPerform)
         {
             if (_propertyChangeActions.ContainsKey(propertyName))
             {
@@ -352,61 +368,65 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Notify that the property has changed and validate the new value at the same time
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <param name="hasChanged"></param>
-        protected void NotifyAndValidateProperty([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
+		/// <summary>
+		/// Notify that the property has changed and validate the new value at the same time
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <param name="hasChanged">The has changed.</param>
+		protected void NotifyAndValidateProperty([CallerMemberName] string propertyName = null, Boolean hasChanged = true)
         {
             NotifyPropertyChanged(propertyName, hasChanged);
 
             ValidateProperty(propertyName);
         }
 
-        #endregion
+		#endregion
 
-        #region Event Methods
+		#region Event Methods
 
-        private void NotifyLoadedChanged(bool value)
+		/// <summary>
+		/// Notifies the loaded changed.
+		/// </summary>
+		/// <param name="value">if set to <c>true</c> [value].</param>
+		private void NotifyLoadedChanged(bool value)
         {
             OnLoadedChanged(this, value);
         }
 
 
-        /// <summary>
-        /// Notifies that the process has completed.  Call the OnComplete event handlers
-        /// </summary>
-        /// <param name="result">if set to <c>true</c> [result].</param>
-        protected void NotifyOnComplete(bool result)
+		/// <summary>
+		/// Notifies that the process has completed.  Call the OnComplete event handlers
+		/// </summary>
+		/// <param name="result">if set to <c>true</c> [result].</param>
+		protected void NotifyOnComplete(bool result)
         {
             this.OnComplete?.Invoke(this, result);
         }
 
-        #endregion
+		#endregion
 
 
-        #region Value Update Methods
+		#region Value Update Methods
 
-        /// <summary>
-        /// Updates the value and notifies that the property has changed
-        /// </summary>
-        /// <param name="action">The update action to perform</param>
-        /// <param name="propertyName">The name of the property that has changed</param>
-        public void UpdateValueAndNotify(Action action, [CallerMemberName] string propertyName = null)
+		/// <summary>
+		/// Updates the value and notifies that the property has changed
+		/// </summary>
+		/// <param name="action">The update action to perform</param>
+		/// <param name="propertyName">The name of the property that has changed</param>
+		public void UpdateValueAndNotify(Action action, [CallerMemberName] string propertyName = null)
         {
             action();
 
             NotifyPropertyChanged(propertyName);
         }
 
-        /// <summary>
-        /// Updates the value and notifies that the property has changed, if the validator returns true
-        /// </summary>
-        /// <param name="action">The update action to perform</param>
-        /// <param name="validator">The validation function to be evaluated.</param>
-        /// <param name="propertyName">The name of the property that has changed</param>
-        public void UpdateValueAndNotify(Action action, Func<bool> validator, [CallerMemberName] string propertyName = null)
+		/// <summary>
+		/// Updates the value and notifies that the property has changed, if the validator returns true
+		/// </summary>
+		/// <param name="action">The update action to perform</param>
+		/// <param name="validator">The validation function to be evaluated.</param>
+		/// <param name="propertyName">The name of the property that has changed</param>
+		public void UpdateValueAndNotify(Action action, Func<bool> validator, [CallerMemberName] string propertyName = null)
         {
             if (validator == null)
                 UpdateValueAndNotify(action, propertyName);
@@ -420,25 +440,25 @@ namespace System.Mvvm
             
         }
 
-        /// <summary>
-        /// Updates the value and notifies that the specified properties have changed
-        /// </summary>
-        /// <param name="action">The update action to perform</param>
-        /// <param name="propertyNames">The property names that have changed</param>
-        public void UpdateValueAndNotify(Action action, params string[] propertyNames)
+		/// <summary>
+		/// Updates the value and notifies that the specified properties have changed
+		/// </summary>
+		/// <param name="action">The update action to perform</param>
+		/// <param name="propertyNames">The property names that have changed</param>
+		public void UpdateValueAndNotify(Action action, params string[] propertyNames)
         {
             action();
 
             NotifyPropertiesChanged(propertyNames);
         }
 
-        /// <summary>
-        /// Updates the value and notifies that the specified properties have changed, if the validator returns true
-        /// </summary>
-        /// <param name="action">The update action to perform</param>
-        /// <param name="validator">The validation function to be evaluated.</param>
-        /// <param name="propertyNames">The property names that have changed</param>
-        public void UpdateValueAndNotify(Action action, Func<bool> validator, params string[] propertyNames)
+		/// <summary>
+		/// Updates the value and notifies that the specified properties have changed, if the validator returns true
+		/// </summary>
+		/// <param name="action">The update action to perform</param>
+		/// <param name="validator">The validation function to be evaluated.</param>
+		/// <param name="propertyNames">The property names that have changed</param>
+		public void UpdateValueAndNotify(Action action, Func<bool> validator, params string[] propertyNames)
         {
             if (validator == null)
                 UpdateValueAndNotify(action, propertyNames);
@@ -452,15 +472,16 @@ namespace System.Mvvm
 
         }
 
-        #endregion
+		#endregion
 
-        #region Error Notifications
+		#region Error Notifications
 
-        /// <summary>
-        /// Notifies that an error occurred.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        protected void NotifyErrorOccurred(Exception ex, string title = null)
+		/// <summary>
+		/// Notifies that an error occurred.
+		/// </summary>
+		/// <param name="ex">The ex.</param>
+		/// <param name="title">The title.</param>
+		protected void NotifyErrorOccurred(Exception ex, string title = null)
         {
             IsBusy = false;
 
@@ -473,37 +494,38 @@ namespace System.Mvvm
                 OnErrorOccurred(this, new TitledException(title, ex));
             }
         }
-        #endregion
-        #endregion
+		#endregion
+		#endregion
 
-        #region Error Handling
+		#region Error Handling
 
-        /// <summary>
-        /// Gets the validation errors for a specified property or for the entire entity.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        public IEnumerable GetErrors(string propertyName)
+		/// <summary>
+		/// Gets the validation errors for a specified property or for the entire entity.
+		/// </summary>
+		/// <param name="propertyName">The name of the property to retrieve validation errors for; or null or <see cref="F:System.String.Empty"></see>, to retrieve entity-level errors.</param>
+		/// <returns>The validation errors for the property or entity.</returns>
+		public IEnumerable GetErrors(string propertyName)
         {
             return Validator.GetErrors(propertyName);
         }
 
-        /// <summary>
-        /// Add a validator
-        /// </summary>
-        /// <param name="propertyName">The name of the property to validate</param>
-        /// <param name="validator">Function returning an error message if validation fails</param>
-        public void AddValidator(string propertyName, string errorMessage, Func<bool> validator)
+		/// <summary>
+		/// Add a validator
+		/// </summary>
+		/// <param name="propertyName">The name of the property to validate</param>
+		/// <param name="errorMessage">The error message.</param>
+		/// <param name="validator">Function returning an error message if validation fails</param>
+		public void AddValidator(string propertyName, string errorMessage, Func<bool> validator)
         {
             Validator.AddValidation(propertyName, errorMessage, validator);
 
         }
 
-        /// <summary>
-        /// Remove the validator
-        /// </summary>
-        /// <param name="propertyName"></param>
-        public void RemoveValidator(string propertyName)
+		/// <summary>
+		/// Remove the validator
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		public void RemoveValidator(string propertyName)
         {
 
             if (Validator.Validators.ContainsKey(propertyName))
@@ -517,21 +539,19 @@ namespace System.Mvvm
 
         }
 
-        /// <summary>
-        /// Validate the property
-        /// </summary>
-        /// <param name="propertyName">property name</param>
-        /// <param name="message">Error message to show</param>
-        /// <param name="validator">validate function</param>
-        public void ValidateProperty([CallerMemberName] string propertyName = null)
+		/// <summary>
+		/// Validate the property
+		/// </summary>
+		/// <param name="propertyName">property name</param>
+		public void ValidateProperty([CallerMemberName] string propertyName = null)
         {
             Validator.ValidateProperty(propertyName);
         }
 
-        /// <summary>
-        /// This will validate all properties with registered validators
-        /// </summary>
-        public void ValidateAllProperties()
+		/// <summary>
+		/// This will validate all properties with registered validators
+		/// </summary>
+		public void ValidateAllProperties()
         {
             var properties = Validator.Validators.Keys.ToList();
 
@@ -541,15 +561,19 @@ namespace System.Mvvm
         }
 
 
-        private void NotifyErrorChanged(string propertyName)
+		/// <summary>
+		/// Notifies the error changed.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		private void NotifyErrorChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Validate the ViewModel
-        /// </summary>
-        public void Validate()
+		/// <summary>
+		/// Validate the ViewModel
+		/// </summary>
+		public void Validate()
         {
             Errors.Clear();
 
@@ -567,20 +591,20 @@ namespace System.Mvvm
 
         }
 
-        /// <summary>
-        /// Validate the selected properties
-        /// </summary>
-        /// <param name="properties">List of property names</param>
-        public void Validate(IEnumerable<string> properties)
+		/// <summary>
+		/// Validate the selected properties
+		/// </summary>
+		/// <param name="properties">List of property names</param>
+		public void Validate(IEnumerable<string> properties)
         {
             Validate(properties.ToArray());
         }
 
-        /// <summary>
-        /// Validate the selected properties
-        /// </summary>
-        /// <param name="propertyNames">List of property names</param>
-        public void Validate(params string[] properties)
+		/// <summary>
+		/// Validate the selected properties
+		/// </summary>
+		/// <param name="properties">The properties.</param>
+		public void Validate(params string[] properties)
         {
             Errors.Clear();
             DataHasChanged = true;
@@ -592,20 +616,30 @@ namespace System.Mvvm
 
             }
         }
-        #endregion
+		#endregion
 
-        #region Private
+		#region Private
 
-        private void RequeryCommands()
+		/// <summary>
+		/// Requeries the commands.
+		/// </summary>
+		private void RequeryCommands()
         {
             NotifyCommandsPropertiesChanged();
 
             NotifyCommandFieldsCanExecuteChanged();
         }
 
-        protected void SimpleNotififyPropertyChanged(string propName) => PropertyChanged(this, new PropertyChangedEventArgs(propName));
+		/// <summary>
+		/// Simples the notifify property changed.
+		/// </summary>
+		/// <param name="propName">Name of the property.</param>
+		protected void SimpleNotififyPropertyChanged(string propName) => PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-        protected virtual void NotifyCommandsPropertiesChanged()
+		/// <summary>
+		/// Notifies the commands properties changed.
+		/// </summary>
+		protected virtual void NotifyCommandsPropertiesChanged()
         {
             var aType = GetType();
 
@@ -623,7 +657,10 @@ namespace System.Mvvm
             }
         }
 
-        protected virtual void NotifyCommandFieldsCanExecuteChanged()
+		/// <summary>
+		/// Notifies the command fields can execute changed.
+		/// </summary>
+		protected virtual void NotifyCommandFieldsCanExecuteChanged()
         {
             var aType = GetType();
 

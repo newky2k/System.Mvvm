@@ -56,9 +56,18 @@ namespace System.Mvvm
         /// <returns></returns>
         public static Task InvokeOnUIThreadAsync(Action action) => PlatformProvider.InvokeOnUIThreadAsync(action);
 
-        public static IPlatformCoreUIProvider Provider() => _instance;
+		/// <summary>
+		/// Get the provider instance
+		/// </summary>
+		/// <returns>IPlatformCoreUIProvider.</returns>
+		public static IPlatformCoreUIProvider Provider() => _instance;
 
-        public static T Provider<T>() where T : IPlatformCoreUIProvider => (T)_instance;
+		/// <summary>
+		/// Get the provider instance as the specified type
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>T.</returns>
+		public static T Provider<T>() where T : IPlatformCoreUIProvider => (T)_instance;
         #endregion
 
     }
