@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace System.Mvvm
 {
+	/// <summary>
+	/// MvvmManager management class for initializing System.Mvvm.UI on MAUI
+	/// </summary>
 	public partial class MvvmManager
 	{
 		/// <summary>

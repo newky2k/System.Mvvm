@@ -7,7 +7,12 @@ using System.Text;
 
 namespace System.Mvvm.Model
 {
-    public class TreeViewObject : INotifyPropertyChanged
+	/// <summary>
+	/// Tree View Object.
+	/// Implements the <see cref="INotifyPropertyChanged" />
+	/// </summary>
+	/// <seealso cref="INotifyPropertyChanged" />
+	public class TreeViewObject : INotifyPropertyChanged
     {
         #region Data
 
@@ -18,16 +23,25 @@ namespace System.Mvvm.Model
         bool _isExpanded;
         bool _isSelected;
 
-        #endregion 
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public TreeViewObject(TreeViewItemModel item)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TreeViewObject"/> class.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		public TreeViewObject(TreeViewItemModel item)
             : this(item, null)
         {
         }
 
-        private TreeViewObject(TreeViewItemModel item, TreeViewObject parent)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TreeViewObject"/> class.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		/// <param name="parent">The parent.</param>
+		private TreeViewObject(TreeViewItemModel item, TreeViewObject parent)
         {
             _Item = item;
             _parent = parent;
@@ -38,36 +52,49 @@ namespace System.Mvvm.Model
                      .ToList<TreeViewObject>());
         }
 
-        #endregion // Constructors
+		#endregion // Constructors
 
-        #region Folder Properties
+		#region Folder Properties
 
-        public TreeViewItemModel Item
+		/// <summary>
+		/// Gets the item.
+		/// </summary>
+		/// <value>The item.</value>
+		public TreeViewItemModel Item
         {
             get { return _Item; }
         }
 
-        public ReadOnlyCollection<TreeViewObject> Children
+		/// <summary>
+		/// Gets the children.
+		/// </summary>
+		/// <value>The children.</value>
+		public ReadOnlyCollection<TreeViewObject> Children
         {
             get { return _children; }
         }
 
-        public string Name
+		/// <summary>
+		/// Gets the name.
+		/// </summary>
+		/// <value>The name.</value>
+		public string Name
         {
             get { return _Item.Name; }
         }
 
-        #endregion // Person Properties
+		#endregion // Person Properties
 
-        #region Presentation Members
+		#region Presentation Members
 
-        #region IsExpanded
+		#region IsExpanded
 
-        /// <summary>
-        /// Gets/sets whether the TreeViewItem 
-        /// associated with this object is expanded.
-        /// </summary>
-        public bool IsExpanded
+		/// <summary>
+		/// Gets/sets whether the TreeViewItem
+		/// associated with this object is expanded.
+		/// </summary>
+		/// <value><c>true</c> if this instance is expanded; otherwise, <c>false</c>.</value>
+		public bool IsExpanded
         {
             get { return _isExpanded; }
             set
@@ -84,15 +111,16 @@ namespace System.Mvvm.Model
             }
         }
 
-        #endregion // IsExpanded
+		#endregion // IsExpanded
 
-        #region IsSelected
+		#region IsSelected
 
-        /// <summary>
-        /// Gets/sets whether the TreeViewItem 
-        /// associated with this object is selected.
-        /// </summary>
-        public bool IsSelected
+		/// <summary>
+		/// Gets/sets whether the TreeViewItem
+		/// associated with this object is selected.
+		/// </summary>
+		/// <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
+		public bool IsSelected
         {
             get { return _isSelected; }
             set
@@ -105,11 +133,16 @@ namespace System.Mvvm.Model
             }
         }
 
-        #endregion // IsSelected
+		#endregion // IsSelected
 
-        #region NameContainsText
+		#region NameContainsText
 
-        public bool NameContainsText(string text)
+		/// <summary>
+		/// Names the contains text.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+		public bool NameContainsText(string text)
         {
             if (String.IsNullOrEmpty(text) || String.IsNullOrEmpty(this.Name))
                 return false;
@@ -117,24 +150,36 @@ namespace System.Mvvm.Model
             return this.Name.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) > -1;
         }
 
-        #endregion // NameContainsText
+		#endregion // NameContainsText
 
-        #region Parent
+		#region Parent
 
-        public TreeViewObject Parent
+		/// <summary>
+		/// Gets the parent.
+		/// </summary>
+		/// <value>The parent.</value>
+		public TreeViewObject Parent
         {
             get { return _parent; }
         }
 
-        #endregion // Parent
+		#endregion // Parent
 
-        #endregion // Presentation Members        
+		#endregion // Presentation Members        
 
-        #region INotifyPropertyChanged Members
+		#region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		/// <summary>
+		/// Occurs when a property value changes.
+		/// </summary>
+		/// <returns></returns>
+		public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+		/// <summary>
+		/// Called when [property changed].
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		protected virtual void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

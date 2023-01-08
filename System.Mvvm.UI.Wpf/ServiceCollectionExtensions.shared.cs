@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+	/// <summary>
+	/// IServiceCollection Extensions.
+	/// </summary>
+	public static class ServiceCollectionExtensions
     {
-        
-
-        public static IServiceCollection AddCoreUI(this IServiceCollection services)
+		/// <summary>
+		/// Adds the core UI for WPF
+		/// </summary>
+		/// <param name="services">The services.</param>
+		/// <returns>IServiceCollection.</returns>
+		public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
             services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
 

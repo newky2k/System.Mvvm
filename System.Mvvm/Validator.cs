@@ -14,18 +14,30 @@ namespace System.Mvvm
         #region Fields
         private Dictionary<string, Action<string>> _validators = new Dictionary<string, Action<string>>();
         private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        public bool HasErrors
+		/// <summary>
+		/// Gets a value indicating whether this instance has errors.
+		/// </summary>
+		/// <value><c>true</c> if this instance has errors; otherwise, <c>false</c>.</value>
+		public bool HasErrors
         {
             get { return (this._errors.Count > 0); }
         }
 
-        public Action<string> NotificationAction = delegate { };
+		/// <summary>
+		/// Gets or sets the notification action.
+		/// </summary>
+		/// <value>The notification action.</value>
+		public Action<string> NotificationAction { get; set; }  = delegate { };
 
-        public Dictionary<string, Action<string>> Validators
+		/// <summary>
+		/// Gets the validators.
+		/// </summary>
+		/// <value>The validators.</value>
+		public Dictionary<string, Action<string>> Validators
         {
             get
             {
@@ -33,7 +45,11 @@ namespace System.Mvvm
             }
         }
 
-        public Dictionary<string, List<string>> Errors
+		/// <summary>
+		/// Gets the errors.
+		/// </summary>
+		/// <value>The errors.</value>
+		public Dictionary<string, List<string>> Errors
         {
             get
             {
@@ -41,7 +57,11 @@ namespace System.Mvvm
             }
         }
 
-        public string ErrorMessages
+		/// <summary>
+		/// Gets the error messages.
+		/// </summary>
+		/// <value>The error messages.</value>
+		public string ErrorMessages
         {
             get
             {
@@ -63,41 +83,61 @@ namespace System.Mvvm
             }
         }
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public Validator()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Validator"/> class.
+		/// </summary>
+		public Validator()
         {
 
         }
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        public IEnumerable GetErrors(string propertyName)
+		/// <summary>
+		/// Gets the errors.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <returns>IEnumerable.</returns>
+		public IEnumerable GetErrors(string propertyName)
         {
             if (this._errors.ContainsKey(propertyName))
                 return this._errors[propertyName];
             return null;
         }
 
-        public void ClearErrors()
+		/// <summary>
+		/// Clears the errors.
+		/// </summary>
+		public void ClearErrors()
         {
             _errors = new Dictionary<string, List<string>>();
             NotifyErrorsChanged(String.Empty);
 
         }
 
-        public void AddError(string propertyName, string error)
+		/// <summary>
+		/// Add an error.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <param name="error">The error.</param>
+		public void AddError(string propertyName, string error)
         {
             // Add error to list
             this._errors[propertyName] = new List<string>() { error };
             NotifyErrorsChanged(propertyName);
         }
 
-        public void RemoveError(string propertyName)
+		/// <summary>
+		/// Remove error.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		public void RemoveError(string propertyName)
         {
             // remove error
             if (this._errors.ContainsKey(propertyName))
@@ -108,13 +148,13 @@ namespace System.Mvvm
 
         }
 
-        /// <summary>
-        /// Resets the error. If the validation fails it adds the error with the message, otherwise it clears the error
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <param name="error">The error.</param>
-        /// <param name="validation">The validation.</param>
-        public void ResetError(string propertyName, string error, Func<bool> validation)
+		/// <summary>
+		/// Resets the error. If the validation fails it adds the error with the message, otherwise it clears the error
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <param name="error">The error.</param>
+		/// <param name="validation">The validation.</param>
+		public void ResetError(string propertyName, string error, Func<bool> validation)
         {
             var result = validation();
 
@@ -126,12 +166,20 @@ namespace System.Mvvm
             NotifyErrorsChanged(propertyName);
         }
 
-        private void NotifyErrorsChanged(string propertyName)
+		/// <summary>
+		/// Notifies the errors changed.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		private void NotifyErrorsChanged(string propertyName)
         {
             NotificationAction?.Invoke(propertyName);
         }
 
-        public void ValidateProperty([CallerMemberName] string propertyName = null)
+		/// <summary>
+		/// Validates the property.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		public void ValidateProperty([CallerMemberName] string propertyName = null)
         {
             if (Validators.ContainsKey(propertyName))
             {
@@ -140,7 +188,11 @@ namespace System.Mvvm
 
         }
 
-        public void ValidateProperties(params string[] propertyNames)
+		/// <summary>
+		/// Validates the properties.
+		/// </summary>
+		/// <param name="propertyNames">The property names.</param>
+		public void ValidateProperties(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -148,7 +200,13 @@ namespace System.Mvvm
             }
         }
 
-        public void AddValidation(string propertyName, string errorMessage, Func<bool> validation)
+		/// <summary>
+		/// Adds the validation.
+		/// </summary>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <param name="errorMessage">The error message.</param>
+		/// <param name="validation">The validation.</param>
+		public void AddValidation(string propertyName, string errorMessage, Func<bool> validation)
         {
 
             if (Validators.ContainsKey(propertyName))
@@ -167,27 +225,57 @@ namespace System.Mvvm
             }
         }
 
-        public abstract void ValidateItem(object item);
+		/// <summary>
+		/// Validates the item.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		public abstract void ValidateItem(object item);
         #endregion
 
     }
 
-    public class EmptyValidator : Validator
+	/// <summary>
+	/// Empty Validator class
+	/// Implements the <see cref="System.Mvvm.Validator" />
+	/// </summary>
+	/// <seealso cref="System.Mvvm.Validator" />
+	public class EmptyValidator : Validator
     {
-        public override void ValidateItem(object item)
+		/// <summary>
+		/// Validates the item.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		public override void ValidateItem(object item)
         {
 
         }
     }
 
-    public abstract class Validator<T> : Validator
+	/// <summary>
+	/// Abstract Validator class with Generic Type support
+	/// Implements the <see cref="System.Mvvm.Validator" />
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <seealso cref="System.Mvvm.Validator" />
+	public abstract class Validator<T> : Validator
     {
-        public Validator()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Validator{T}"/> class.
+		/// </summary>
+		public Validator()
         {
         }
 
-        public override void ValidateItem(object item) => Validate((T)item);
+		/// <summary>
+		/// Validates the item.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		public override void ValidateItem(object item) => Validate((T)item);
 
-        public abstract void Validate(T item);
+		/// <summary>
+		/// Validates the specified item.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		public abstract void Validate(T item);
     }
 }

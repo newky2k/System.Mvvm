@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>netstandard2.0;</TargetFrameworks>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <!--<IncludeBuildOutput>false</IncludeBuildOutput>-->
 	  <PackageId>DSoft.System.Mvvm.SourceGenerators</PackageId>
 	  <Summary>Source generators library for DSoft.System.Mvvm</Summary>
 	  <PackageTags>MVVM SourceGenerators</PackageTags>

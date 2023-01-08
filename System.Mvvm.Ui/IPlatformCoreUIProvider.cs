@@ -24,7 +24,7 @@ namespace System.Mvvm
 		Task InvokeOnUIThreadAsync(Action action);
 
 		/// <summary>
-		/// Shows and alert
+		/// Shows an alert
 		/// </summary>
 		/// <param name="title">The title.</param>
 		/// <param name="message">The message.</param>

@@ -9,7 +9,13 @@ namespace System.Mvvm
 	/// </summary>
 	public enum HostMode
     {
-        Primary,
-        Secondary,
+		/// <summary>
+		/// Primary service host
+		/// </summary>
+		Primary,
+		/// <summary>
+		/// Secondary service host
+		/// </summary>
+		Secondary,
     }
 }

@@ -14,7 +14,6 @@ namespace MVVMSample.ViewModels
 
 		private DelegateCommand _okCommand;
 		private ICommand _didCommand;
-		private DelegateCommand _cancelCommand;
 
 		public ICommand OkCommand
 		{

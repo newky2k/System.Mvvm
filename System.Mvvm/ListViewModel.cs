@@ -17,26 +17,34 @@ namespace System.Mvvm
     {
         #region Fields
         private T selectedItem;
-        protected int itemCount;
-        private T2 items;
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+		protected int itemCount;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+		private T2 items;
         private T2 selectedItems;
-        #endregion
+		#endregion
 
-        #region Events
+		#region Events
 
-        public event EventHandler<T> SelectedItemChanged = delegate { };
+		/// <summary>
+		/// Occurs when [selected item changed].
+		/// </summary>
+		public event EventHandler<T> SelectedItemChanged = delegate { };
 
-        public event EventHandler OnDataRefreshed = delegate { };
+		/// <summary>
+		/// Occurs when [on data refreshed].
+		/// </summary>
+		public event EventHandler OnDataRefreshed = delegate { };
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the selected items.
-        /// </summary>
-        /// <value>The selected items.</value>
-        public virtual T2 SelectedItems
+		/// <summary>
+		/// Gets or sets the selected items.
+		/// </summary>
+		/// <value>The selected items.</value>
+		public virtual T2 SelectedItems
         {
             get
             {
@@ -49,13 +57,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        public virtual T2 Items
+		/// <summary>
+		/// Gets or sets the items.
+		/// </summary>
+		/// <value>The items.</value>
+		public virtual T2 Items
         {
             get
             {
@@ -76,7 +82,11 @@ namespace System.Mvvm
             }
         }
 
-        public virtual string ItemCount
+		/// <summary>
+		/// Gets the item count.
+		/// </summary>
+		/// <value>The item count.</value>
+		public virtual string ItemCount
         {
             get
             {
@@ -86,13 +96,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets the refresh command.
-        /// </summary>
-        /// <value>
-        /// The refresh command.
-        /// </value>
-        public virtual ICommand RefreshCommand
+		/// <summary>
+		/// Gets the refresh command.
+		/// </summary>
+		/// <value>The refresh command.</value>
+		public virtual ICommand RefreshCommand
         {
             get
             {
@@ -103,11 +111,11 @@ namespace System.Mvvm
             }
         }
 
-        /// <summary>
-        /// Gets or sets the selected item.
-        /// </summary>
-        /// <value>The selected item.</value>
-        public virtual T SelectedItem
+		/// <summary>
+		/// Gets or sets the selected item.
+		/// </summary>
+		/// <value>The selected item.</value>
+		public virtual T SelectedItem
         {
             get { return selectedItem; }
             set
@@ -119,35 +127,48 @@ namespace System.Mvvm
             }
         }
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseSearchViewModel"/> class.
-        /// </summary>
-        /// <param name="searchText">The search text.</param>
-        public ListViewModel()
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ListViewModel{T, T2}"/> class.
+		/// </summary>
+		public ListViewModel()
         {
             
         }
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Reloads the data asynchronously
-        /// </summary>
-        /// <returns>Task.</returns>
-        public abstract Task RefreshAsync();
+		/// <summary>
+		/// Reloads the data asynchronously
+		/// </summary>
+		/// <returns>Task.</returns>
+		public abstract Task RefreshAsync();
 
-        public void DidRefreshData()
-        {
-            OnDataRefreshed(this, new EventArgs());
+		/// <summary>
+		/// Dids the refresh data.
+		/// </summary>
+		[Obsolete("Use NotifyDataRefreshed instead")]
+		public void DidRefreshData() => NotifyDataRefreshed();
 
-        }
+		/// <summary>
+		/// Notifies that the data has been refreshed.
+		/// </summary>
+		public void NotifyDataRefreshed()
+		{
+			OnDataRefreshed(this, new EventArgs());
 
-        protected virtual void HandleItemSelection(T selection)
+		}
+
+		/// <summary>
+		/// Handles the item selection.
+		/// </summary>
+		/// <param name="selection">The selection.</param>
+		protected virtual void HandleItemSelection(T selection)
         {
 
         }

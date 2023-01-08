@@ -12,12 +12,21 @@ namespace System.Mvvm
     {
         private string title;
 
-        public string Title
+		/// <summary>
+		/// Gets the title.
+		/// </summary>
+		/// <value>The title.</value>
+		public string Title
         {
             get { return title; }
         }
 
-        public TitledException(String title, Exception ex) : base(ex.Message, ex)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TitledException"/> class.
+		/// </summary>
+		/// <param name="title">The title.</param>
+		/// <param name="ex">The ex.</param>
+		public TitledException(String title, Exception ex) : base(ex.Message, ex)
         {
             this.title = title;
         }
