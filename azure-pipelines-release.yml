@@ -22,30 +22,29 @@ variables:
   netVersion: '6.0.x'
   releaseSuffix: ''
 
-name: 3.1.$(date:yyMM).$(date:dd)$(rev:r)
+name: 3.2.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
 
 - task: Bash@3
   displayName: Install MAUI
+
   inputs:
     targetType: 'inline'
     script: 
       dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
 
-- task: NuGetCommand@2
-  displayName: Nuget Restore
+- task: DotNetCoreCLI@2
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  displayName: Build Solution
+    command: 'restore'
+    projects: '$(solution)'
+  
+- task: DotNetCoreCLI@2
+  displayName: dotnet build
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:Version=$(Build.BuildNumber)$(releaseSuffix) /p:AssemblyVersion=$(Build.BuildNumber) /p:FileVersion=$(Build.BuildNumber)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    projects: '$(solution)'
+    arguments: '--configuration=$(buildConfiguration) /p:Platform="$(buildPlatform)" /p:Version=$(Build.BuildNumber) /p:AssemblyVersion=$(Build.BuildNumber) /p:FileVersion=$(Build.BuildNumber) '
     
 - task: CopyFiles@2
   displayName: Copy Files to $(build.artifactstagingdirectory)
