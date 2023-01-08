@@ -1,10 +1,10 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>uap10.0.19041;net6.0-windows10.0.19041;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows10.0.19041;</TargetFrameworks>
 		<PackageId>DSoft.System.Mvvm.UI.WinUI</PackageId>
 		<Version>2.2.2102.142-prerelease</Version>
-		<Description>UWP and WinUI 3 platform support for System.Mvvm.UI for NET6+ and UWP</Description>
-		<PackageTags>UWP WinUI .NET</PackageTags>
+		<Description>WinUI 3 platform support for System.Mvvm.UI for NET6+ and UWP</Description>
+		<PackageTags>WinUI .NET</PackageTags>
 		<PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>

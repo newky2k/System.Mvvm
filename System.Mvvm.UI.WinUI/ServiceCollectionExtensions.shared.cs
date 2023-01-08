@@ -22,16 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
 		public static IServiceCollection AddCoreUI(this IServiceCollection services)
         {
             services.TryAddSingleton<IPlatformCoreUIProvider>(PlatformUIProvider.Instance);
-
-#if UAP
-            services.TryAddSingleton<IUWPPlatformUIProvider>(PlatformUIProvider.Instance);
 			services.TryAddSingleton<IDesktopPlatformUIProvider>(PlatformUIProvider.Instance);
-#endif
 
-#if WINUI
-			services.TryAddSingleton<IUWPPlatformUIProvider>(PlatformUIProvider.Instance);
-			services.TryAddSingleton<IDesktopPlatformUIProvider>(PlatformUIProvider.Instance);
-#endif
 			return services;
         }
     }

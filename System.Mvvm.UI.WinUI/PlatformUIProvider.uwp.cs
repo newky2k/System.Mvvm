@@ -1,9 +1,4 @@
-﻿#if UAP
-using Windows.UI.Xaml.Controls;
-#else
-using Microsoft.UI.Xaml.Controls;
-#endif
-//
+﻿using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,12 +14,13 @@ using Windows.UI.Core;
 namespace System.Mvvm
 {
 
+
 	/// <summary>
-	/// Class PlatformUIProvider.
-	/// Implements the <see cref="IUWPPlatformUIProvider" />
+	/// WinUI implementaion of PlatformUIProvider.
+	/// Implements the <see cref="IDesktopPlatformUIProvider" />
 	/// </summary>
-	/// <seealso cref="IUWPPlatformUIProvider" />
-	internal partial class PlatformUIProvider : IUWPPlatformUIProvider, IDesktopPlatformUIProvider
+	/// <seealso cref="IDesktopPlatformUIProvider" />
+	internal partial class PlatformUIProvider : IDesktopPlatformUIProvider
 	{
         private static readonly Lazy<PlatformUIProvider> _instance = new Lazy<PlatformUIProvider>(() => new PlatformUIProvider());
 
@@ -148,18 +144,6 @@ namespace System.Mvvm
 
             return (result == ContentDialogResult.Primary);
         }
-
-    }
-
-
-	/// <summary>
-	/// Interface IUWPPlatformUIProvider
-	/// Extends the <see cref="IPlatformCoreUIProvider" />
-	/// </summary>
-	/// <seealso cref="IPlatformCoreUIProvider" />
-	[Obsolete("Use IDesktopPlatformUIProvider instead")]
-	public interface IUWPPlatformUIProvider : IPlatformCoreUIProvider
-    {
 
     }
 
