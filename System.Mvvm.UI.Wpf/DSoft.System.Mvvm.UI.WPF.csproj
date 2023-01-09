@@ -6,7 +6,9 @@
     <Version>2.2.2102.142-prerelease</Version>
     <Description>WPF platform support for DSoft.System.Mvvm.UI for NET Core 3.1 and NET5+</Description>
     <PackageTags>WPF MVVM NetCore</PackageTags>
-	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
+	  <PackageReleaseNotes>- Updated packaging
+- Updated inline comments
+    </PackageReleaseNotes>
     <AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>

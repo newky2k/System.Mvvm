@@ -5,8 +5,9 @@
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.Mvvm</Title>
-    <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 6.+, UWP, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and .Net Framework</Description>
-    <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
+    <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 6.+, .Net Framework, Win UI 3, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and MAUI</Description>
+    <PackageReleaseNotes> - Updated packaging  
+- Updated inline comments</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>

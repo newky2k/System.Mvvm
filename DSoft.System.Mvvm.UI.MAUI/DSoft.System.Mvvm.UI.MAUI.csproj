@@ -13,7 +13,9 @@
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>MAUI platform support for System.Mvvm.UI</Description>
 		<PackageTags>MAUI NET</PackageTags>
-		<PackageReleaseNotes>Point release</PackageReleaseNotes>
+		<PackageReleaseNotes>- Updated packaging
+- Updated inline comments
+    </PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.UI.MAUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
