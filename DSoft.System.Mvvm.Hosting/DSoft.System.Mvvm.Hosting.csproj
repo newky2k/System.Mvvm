@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0; net6.0;</TargetFrameworks>
@@ -7,7 +7,9 @@
     <PackageTags>MVVM</PackageTags>
     <Title>DSoft.System.Mvvm.Hosting</Title>
     <Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
-	  <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
+	  <PackageReleaseNotes> - Updated packaging
+- Updated inline comments
+    </PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Hosting</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>

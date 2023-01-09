@@ -6,7 +6,9 @@
     <Version>2.2.2102.142-prerelease</Version>
     <Description>Xamarin.Forms platform support for System.Mvvm.UI</Description>
     <PackageTags>Xamarin.Forms NET</PackageTags>
-    <PackageReleaseNotes>MAUI Updates</PackageReleaseNotes>
+    <PackageReleaseNotes>- Updated packaging
+- Updated inline comments
+    </PackageReleaseNotes>
     <AssemblyName>System.Mvvm.UI.Forms</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>
