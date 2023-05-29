@@ -26,7 +26,7 @@
     <Compile Include="**\*.shared.*.cs" />
     <Compile Include="HostMode.cs" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.Equals('netstandard2.0'))">
