@@ -53,12 +53,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
 	</ItemGroup>
 	
 	<ItemGroup>
 	  <ProjectReference Include="..\DSoft.System.Mvvm.Hosting\DSoft.System.Mvvm.Hosting.csproj" />
 	  <ProjectReference Include="..\DSoft.System.Mvvm.UI.MAUI\DSoft.System.Mvvm.UI.MAUI.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
 	</ItemGroup>
 
 </Project>
