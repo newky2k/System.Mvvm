@@ -45,7 +45,7 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240227000" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
 		<Compile Include="**\*.uwp.cs" />
 		<Compile Include="**\*.uwp.*.cs" />
