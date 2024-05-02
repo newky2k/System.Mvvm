@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows10.0.19041;</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows10.0.19041; net8.0-windows10.0.19041;</TargetFrameworks>
 		<PackageId>DSoft.System.Mvvm.UI.WinUI</PackageId>
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>WinUI 3 platform support for System.Mvvm.UI for NET6+ and UWP</Description>
 		<PackageTags>WinUI .NET</PackageTags>
-		<PackageReleaseNotes>- Updated packaging
-- Updated inline comments
-- Removed UWP support     
-    </PackageReleaseNotes>
+		<PackageReleaseNotes>Updated packages and added .NET 8.0 Support</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -26,9 +23,18 @@
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
+	
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net8.0-windows10')) ">
+		<TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+		<RootNamespace>System.Mvvm.Ui</RootNamespace>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64;</RuntimeIdentifiers>
+		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
+	</PropertyGroup>
+	
 	<PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
 		<DefineConstants>$(DefineConstants);UAP</DefineConstants>
 	</PropertyGroup>
+	
 	<ItemGroup>
 		<None Include="readme.md" Pack="true" PackagePath="\" />
 		<Compile Include="**\*.shared.cs" />
@@ -36,8 +42,15 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
+		<Compile Include="**\*.uwp.cs" />
+		<Compile Include="**\*.uwp.*.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net8.0-windows10')) ">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240227000" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
 		<Compile Include="**\*.uwp.cs" />
 		<Compile Include="**\*.uwp.*.cs" />
 	</ItemGroup>
@@ -47,10 +60,9 @@
 		<Compile Include="**\*.uwp.*.cs" />
 	</ItemGroup>
 	
-	
 	<ItemGroup>
 		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 </Project>

@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; net6.0;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; net6.0; net8.0;</TargetFrameworks>
     <PackageId>DSoft.System.Mvvm</PackageId>
     <Summary>Core MVVM library for .Net</Summary>
     <PackageTags>MVVM</PackageTags>
     <Title>System.Mvvm</Title>
     <Description>Powerful Cross-platform MVVM class library for .Net Core, Net 6.+, .Net Framework, Win UI 3, Xamarin.iOS, Xamarin.Mac, Xamarin.Android and MAUI</Description>
-    <PackageReleaseNotes> - Updated packaging  
-- Updated inline comments</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated packages and added .NET 8.0 Support</PackageReleaseNotes>
     <AssemblyName>System.Mvvm</AssemblyName>
     <RootNamespace>System.Mvvm</RootNamespace>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>

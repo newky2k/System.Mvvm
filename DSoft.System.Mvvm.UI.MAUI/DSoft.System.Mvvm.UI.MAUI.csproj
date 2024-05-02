@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<UseMaui>true</UseMaui>
@@ -13,9 +13,7 @@
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>MAUI platform support for System.Mvvm.UI</Description>
 		<PackageTags>MAUI NET</PackageTags>
-		<PackageReleaseNotes>- Updated packaging
-- Updated inline comments
-    </PackageReleaseNotes>
+		<PackageReleaseNotes>Updated packages and updated to .NET 8.0 Support</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.UI.MAUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
@@ -32,6 +30,12 @@
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+	
 	<ItemGroup>
 	  <ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 	</ItemGroup>
