@@ -2,26 +2,21 @@
 
 namespace MauiSample
 {
-	public partial class MainPage : ContentPage
-	{
-		public MainPage()
-		{
-			InitializeComponent();
-		}
+    public partial class MainPage : ContentPage
+    {
+        int count = 0;
 
-		private async void OnCounterClicked(object sender, EventArgs e)
-		{
-			var coreUIServices = ServiceHost.GetRequiredService<IPlatformCoreUIProvider>();
+        public MainPage()
+        {
+            InitializeComponent();
+        }
 
-			await coreUIServices.ShowAlertAsync("Hi", "Hello world");
-			//count++;
+        private async void OnCounterClicked(object sender, EventArgs e)
+        {
+            var coreUIServices = ServiceHost.GetRequiredService<IPlatformCoreUIProvider>();
 
-			//if (count == 1)
-			//	CounterBtn.Text = $"Clicked {count} time";
-			//else
-			//	CounterBtn.Text = $"Clicked {count} times";
+            await coreUIServices.ShowAlertAsync("Hi", "Hello world");
+        }
+    }
 
-			//SemanticScreenReader.Announce(CounterBtn.Text);
-		}
-	}
 }
