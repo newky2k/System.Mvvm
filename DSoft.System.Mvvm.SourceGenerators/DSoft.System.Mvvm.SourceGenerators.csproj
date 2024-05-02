@@ -8,9 +8,7 @@
 	  <PackageTags>MVVM SourceGenerators</PackageTags>
 	  <Title>System.Mvvm.SourceGenerators</Title>
 	  <Description>Source generators for DSoft.System.Mvvm</Description>
-	  <PackageReleaseNotes>- Updated packaging
-- Updated inline comments
-    </PackageReleaseNotes>
+	  <PackageReleaseNotes>No Changes</PackageReleaseNotes>
 	  <AssemblyName>System.Mvvm.SourceGenerators</AssemblyName>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>
 	  <AssemblyVersion>2.2.2102.142</AssemblyVersion>

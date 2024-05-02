@@ -6,9 +6,7 @@
     <Version>2.2.2102.142-prerelease</Version>
     <Description>Core UI library for System.Mvvm.UI</Description>
     <PackageTags>UI MVVM</PackageTags>
-    <PackageReleaseNotes>- Updated packaging
-- Updated inline comments
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Updated packages</PackageReleaseNotes>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>2.2.2102.142</AssemblyVersion>

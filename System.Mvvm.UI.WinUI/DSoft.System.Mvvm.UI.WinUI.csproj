@@ -5,10 +5,7 @@
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>WinUI 3 platform support for System.Mvvm.UI for NET6+ and UWP</Description>
 		<PackageTags>WinUI .NET</PackageTags>
-		<PackageReleaseNotes>- Updated packaging
-- Updated inline comments
-- Removed UWP support     
-    </PackageReleaseNotes>
+		<PackageReleaseNotes>Updated packages and added .NET 8.0 Support</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.UI.WinUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
