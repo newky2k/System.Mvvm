@@ -380,15 +380,36 @@ namespace System.Mvvm
             ValidateProperty(propertyName);
         }
 
-		#endregion
+        /// <summary>
+        /// Sets the property by setting the backing store field and notifing of the changes
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="backingStore">The backing store.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        protected bool SetProperty<T>(ref T backingStore, T value,  [CallerMemberName] string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
+                return false;
+            }
 
-		#region Event Methods
+            backingStore = value;
+            NotifyPropertyChanged(propertyName);
 
-		/// <summary>
-		/// Notifies the loaded changed.
-		/// </summary>
-		/// <param name="value">if set to <c>true</c> [value].</param>
-		private void NotifyLoadedChanged(bool value)
+            return true;
+        }
+
+        #endregion
+
+        #region Event Methods
+
+        /// <summary>
+        /// Notifies the loaded changed.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        private void NotifyLoadedChanged(bool value)
         {
             OnLoadedChanged(this, value);
         }
@@ -404,7 +425,6 @@ namespace System.Mvvm
         }
 
 		#endregion
-
 
 		#region Value Update Methods
 
