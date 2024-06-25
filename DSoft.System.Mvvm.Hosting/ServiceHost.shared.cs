@@ -91,24 +91,42 @@ namespace System.Mvvm
             set { _secondaryHost = value; }
         }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		/// <summary>
-		/// Creates a new, reuseable scope instance on the spcecified host
-		/// </summary>
-		/// <param name="mode">The mode.</param>
-		/// <returns>IServiceScope.</returns>
-		public static IServiceScope CreateScope(HostMode mode = HostMode.Primary) => (mode == HostMode.Primary ? Host.Services.CreateScope() : SecondaryHost.Services.CreateScope());
+        #region Scopes
 
-		/// <summary>
-		/// Gets the required service with an existing scope
-		/// </summary>
-		/// <typeparam name="T">Service Type</typeparam>
-		/// <param name="scope">The current scope.</param>
-		/// <returns>T.</returns>
-		public static T GetRequiredService<T>(IServiceScope scope) => scope.ServiceProvider.GetRequiredService<T>();
+        /// <summary>
+        /// Creates a new, reuseable scope instance on the spcecified host
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        /// <returns>IServiceScope.</returns>
+        public static IServiceScope CreateScope(HostMode mode = HostMode.Primary) => (mode == HostMode.Primary ? Host.Services.CreateScope() : SecondaryHost.Services.CreateScope());
+
+        /// <summary>
+        /// Creates a new scope from the primary Host
+        /// </summary>
+        /// <returns>IServiceScope.</returns>
+        public static IServiceScope CreateScope() => Host.Services.CreateScope();
+
+        /// <summary>
+        /// Creates a new scope from the secondary Host.
+        /// </summary>
+        /// <returns>IServiceScope.</returns>
+        public static IServiceScope CreateSecondaryScope() => SecondaryHost.Services.CreateScope();
+
+        #endregion
+
+        #region Generics
+
+        /// <summary>
+        /// Gets the required service with an existing scope
+        /// </summary>
+        /// <typeparam name="T">Service Type</typeparam>
+        /// <param name="scope">The current scope.</param>
+        /// <returns>T.</returns>
+        public static T GetRequiredService<T>(IServiceScope scope) => scope.ServiceProvider.GetRequiredService<T>();
 
 		/// <summary>
 		/// Gets the specified service with a new scope, will return null if not found
@@ -124,7 +142,6 @@ namespace System.Mvvm
 		/// <returns>T.</returns>
 		public static T GetRequiredService<T>() => Host.Services.CreateScope().ServiceProvider.GetRequiredService<T>();
 
-
 		/// <summary>
 		/// Gets the specified service with a new scope from the secondary host, will return null if not found
 		/// </summary>
@@ -139,15 +156,61 @@ namespace System.Mvvm
 		/// <returns>T.</returns>
 		public static T GetRequiredSecondaryService<T>() => SecondaryHost.Services.CreateScope().ServiceProvider.GetRequiredService<T>();
 
+        #endregion
 
-		/// <summary>
-		/// Initializes the ServiceHost
-		/// </summary>
-		/// <param name="hostConfigurationBuilder">The host configuration builder.</param>
-		/// <param name="servicesConfigurationAction">The services configuration action.</param>
-		/// <param name="hostMode">The host mode.</param>
-		/// <returns>IHost.</returns>
-		public static IHost Initialize(Action<IConfigurationBuilder> hostConfigurationBuilder, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction, HostMode hostMode = HostMode.Primary)
+        #region Type based
+
+        /// <summary>
+        /// Gets the required service, by type with an existing scope
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="type">The service type.</param>
+        /// <returns></returns>
+        public static object GetRequiredService(IServiceScope scope, Type type) => scope.ServiceProvider.GetRequiredService(type);
+
+        /// <summary>
+        /// Gets the specified service with a new scope, by type, will return null if not found
+        /// </summary>
+        /// <param name="type">The service type.</param>
+        /// <returns></returns>
+        public static object GetService(Type type) => Host.Services.CreateScope().ServiceProvider.GetService(type);
+
+        /// <summary>
+        /// Gets the required service.
+        /// </summary>
+        /// <param name="type">The service type.</param>
+        /// <returns></returns>
+        public static object GetRequiredService(Type type) => Host.Services.CreateScope().ServiceProvider.GetRequiredService(type);
+
+        /// <summary>
+        /// Gets the specified service with a new scope from the secondary host, by type, will return null if not found
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        public static object GetSecondaryService(Type type) => SecondaryHost.Services.CreateScope().ServiceProvider.GetService(type);
+
+        /// <summary>
+        /// Gets the specified service with a new scope from the secondary host, by type, will return null if not found
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        public static object GetRequiredSecondaryService(Type type) => SecondaryHost.Services.CreateScope().ServiceProvider.GetRequiredService(type);
+
+        #endregion
+
+        #region Init - Deperecated
+
+        /// <summary>
+        /// Initializes the ServiceHost
+        /// </summary>
+        /// <param name="hostConfigurationBuilder">The host configuration builder.</param>
+        /// <param name="servicesConfigurationAction">The services configuration action.</param>
+        /// <param name="hostMode">The host mode.</param>
+        /// <returns>
+        /// IHost.
+        /// </returns>
+        [Obsolete("Do not use init methods, they will be removed")]
+        public static IHost Initialize(Action<IConfigurationBuilder> hostConfigurationBuilder, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction, HostMode hostMode = HostMode.Primary)
         {
 
             IHostBuilder builder = new HostBuilder();
@@ -168,22 +231,25 @@ namespace System.Mvvm
             return aHost;
         }
 
-		/// <summary>
-		/// Initializes the ServiceHost with a specified root path.
-		/// </summary>
-		/// <param name="rootPath">The root path.</param>
-		/// <param name="servicesConfigurationAction">The services configuration action.</param>
-		/// <param name="hostMode">The host mode.</param>
-		/// <returns>IHost.</returns>
-		public static IHost Initialize(string rootPath, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction, HostMode hostMode = HostMode.Primary) => Initialize((c) => { c.AddCommandLine(new string[] { $"ContentRoot={rootPath}" }); }, servicesConfigurationAction, hostMode);
+        /// <summary>
+        /// Initializes the ServiceHost with a specified root path.
+        /// </summary>
+        /// <param name="rootPath">The root path.</param>
+        /// <param name="servicesConfigurationAction">The services configuration action.</param>
+        /// <param name="hostMode">The host mode.</param>
+        /// <returns>IHost.</returns>
+        [Obsolete("Do not use init methods, they will be removed")]
+        public static IHost Initialize(string rootPath, Action<HostBuilderContext, IServiceCollection> servicesConfigurationAction, HostMode hostMode = HostMode.Primary) => Initialize((c) => { c.AddCommandLine(new string[] { $"ContentRoot={rootPath}" }); }, servicesConfigurationAction, hostMode);
 
-		/// <summary>
-		/// Initializes the ServiceHost
-		/// </summary>
-		/// <param name="configAction">The configuration action.</param>
-		/// <param name="hostMode">The host mode.</param>
-		/// <returns>IHost.</returns>
-		public static IHost Initialize(Action<HostBuilderContext, IServiceCollection> configAction, HostMode hostMode = HostMode.Primary)
+
+        /// <summary>
+        /// Initializes the ServiceHost
+        /// </summary>
+        /// <param name="configAction">The configuration action.</param>
+        /// <param name="hostMode">The host mode.</param>
+        /// <returns>IHost.</returns>
+        [Obsolete("Do not use init methods, they will be removed")]
+        public static IHost Initialize(Action<HostBuilderContext, IServiceCollection> configAction, HostMode hostMode = HostMode.Primary)
         {
             var aHost = new HostBuilder().ConfigureServices(configAction).Build();
 
@@ -195,17 +261,7 @@ namespace System.Mvvm
             return aHost;
         }
 
-		/// <summary>
-		/// Creates a new scope from the primary Host
-		/// </summary>
-		/// <returns>IServiceScope.</returns>
-		public static IServiceScope CreateScope() => Host.Services.CreateScope();
-
-		/// <summary>
-		/// Creates a new scope from the secondary Host.
-		/// </summary>
-		/// <returns>IServiceScope.</returns>
-		public static IServiceScope CreateSecondaryScope() => SecondaryHost.Services.CreateScope();
+        #endregion
 
         #endregion
     }

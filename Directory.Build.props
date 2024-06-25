@@ -11,7 +11,7 @@
    <Authors>newky2k</Authors>
    <Owners>newky2k</Owners>
    <LangVersion>Latest</LangVersion>
- 		<Configurations>Debug;Release</Configurations>
+   <Configurations>Debug;Release</Configurations>
    <NoWarn>1701;1702;CS8002</NoWarn>
  </PropertyGroup>
 

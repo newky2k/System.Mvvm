@@ -23,15 +23,15 @@ namespace MVVMSample
     public partial class App : Application
     {
         
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             MvvmManager.Init();
 
-            await ServiceHost
-                .Initialize(ConfigureServices)
-                .StartAsync();
+            ServiceHost.Host = new HostBuilder()
+                        .ConfigureServices(ConfigureServices)
+                        .Build();
 
             var wpfPlatform = ServiceHost.GetRequiredService<IWPFPlatformUIProvider>();
 
