@@ -1,12 +1,11 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>net462;net6.0-windows7.0;net6.0-windows10.0.18362.0;net8.0-windows7.0;net8.0-windows10.0.18362.0;</TargetFrameworks>
+		<TargetFrameworks>net462;net6.0-windows7.0;net6.0-windows10.0.18362.0;net8.0-windows7.0;net8.0-windows10.0.18362.0;net9.0-windows7.0;net9.0-windows10.0.18362.0;</TargetFrameworks>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<PackageId>DSoft.System.Mvvm.UI.WPF</PackageId>
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>WPF platform support for DSoft.System.Mvvm.UI for .NET Framework 4.62 AND NET6+</Description>
 		<PackageTags>WPF MVVM NetCore</PackageTags>
-		<PackageReleaseNotes>Updates to DSoft.System.Mvvm.Hosting</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
@@ -20,6 +19,6 @@
 		<None Include="readme.md" Pack="true" PackagePath="\" />
 		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
 	</ItemGroup>
 </Project>

@@ -25,6 +25,7 @@ steps:
 #       dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
 
 - task: DotNetCoreCLI@2
+  displayName: dotnet restore
   inputs:
     command: 'restore'
     projects: '*.sln'

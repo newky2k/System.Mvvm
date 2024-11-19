@@ -13,6 +13,7 @@
    <LangVersion>Latest</LangVersion>
    <Configurations>Debug;Release</Configurations>
    <NoWarn>1701;1702;CS8002</NoWarn>
+   <PackageReleaseNotes>Updated to .NET 9.0 and latest packages</PackageReleaseNotes>
  </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
