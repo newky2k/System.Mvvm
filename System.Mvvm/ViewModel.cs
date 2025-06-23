@@ -25,14 +25,15 @@ namespace System.Mvvm
         private bool _disableIsBusyChanged;
         private Dictionary<string, Action> _propertyChangeActions = new Dictionary<string, Action>();
         private Validator _validator;
-		#endregion
+        private string _status = string.Empty;
+        #endregion
 
-		#region Events
-		/// <summary>
-		/// Occurs when a property value changes.
-		/// </summary>
-		/// <returns></returns>
-		public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        #region Events
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        /// <returns></returns>
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
 		/// <summary>
 		/// Called when an exception is thrown
@@ -239,14 +240,23 @@ namespace System.Mvvm
             }
         }
 
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>The status.</value>
+        public string Status
+        {
+            get { return _status; }
+            set { _status = value; NotifyPropertyChanged(nameof(Status)); }
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructors
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ViewModel"/> class.
-		/// </summary>
-		public ViewModel()
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewModel"/> class.
+        /// </summary>
+        public ViewModel()
 		{
 
 		}
@@ -514,7 +524,9 @@ namespace System.Mvvm
                 OnErrorOccurred(this, new TitledException(title, ex));
             }
         }
+
 		#endregion
+
 		#endregion
 
 		#region Error Handling
@@ -580,7 +592,6 @@ namespace System.Mvvm
 
         }
 
-
 		/// <summary>
 		/// Notifies the error changed.
 		/// </summary>
@@ -636,6 +647,7 @@ namespace System.Mvvm
 
             }
         }
+
 		#endregion
 
 		#region Private
@@ -654,7 +666,7 @@ namespace System.Mvvm
 		/// Simples the notifify property changed.
 		/// </summary>
 		/// <param name="propName">Name of the property.</param>
-		protected void SimpleNotififyPropertyChanged(string propName) => PropertyChanged(this, new PropertyChangedEventArgs(propName));
+		protected void SimpleNotifyPropertyChanged(string propName) => PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
 		/// <summary>
 		/// Notifies the commands properties changed.
@@ -706,6 +718,7 @@ namespace System.Mvvm
                     DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
             }
         }
+
         #endregion
     }
 }

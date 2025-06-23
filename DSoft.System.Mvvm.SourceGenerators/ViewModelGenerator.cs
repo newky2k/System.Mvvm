@@ -145,7 +145,7 @@ namespace {namespaceName}
                     string propName = propertySymbol.Name;
 
                     source.Append($@"
-            SimpleNotififyPropertyChanged(""{propName}"");");
+            SimpleNotifyPropertyChanged(""{propName}"");");
 
                 }
 
