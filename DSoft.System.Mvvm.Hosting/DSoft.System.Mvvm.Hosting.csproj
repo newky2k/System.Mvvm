@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0; net6.0; net8.0;net9.0;</TargetFrameworks>
 		<PackageId>DSoft.System.Mvvm.Hosting</PackageId>
 		<Summary>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Summary>
 		<PackageTags>MVVM</PackageTags>
-		<Title>DSoft.System.Mvvm.Hosting</Title>
 		<Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
 		<AssemblyName>System.Mvvm.Hosting</AssemblyName>
 		<RootNamespace>System.Mvvm</RootNamespace>

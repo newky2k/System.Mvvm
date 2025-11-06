@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-windows</TargetFrameworks>
+		<PackageId>DSoft.System.Mvvm.VisualStudio.Extensibility.UI</PackageId>
+		<Summary>Core MVVM library for the new Visual Studio Extensibility SDK </Summary>
+		<PackageTags>MVVM VisualStudio.Extensibility.UI</PackageTags>
+		<Title>DSoft.System.Mvvm.VisualStudio.Extensibility.UI</Title>
+		<Description>MVVM classes for Visual Studio Extensibility</Description>
+		<PackageReleaseNotes>Initial release</PackageReleaseNotes>
+		<RootNamespace>System.Mvvm</RootNamespace>
+		<Version>2.2.2102.142-prerelease</Version>
+		<FileVersion>2.2.2102.142</FileVersion>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="readme.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Extensibility.Framework" Version="17.14.2098" />
+		<PackageReference Include="Nerdbank.Streams" Version="2.11.90" />
+	</ItemGroup>
+
+</Project>
