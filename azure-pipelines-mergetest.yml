@@ -12,10 +12,24 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  netVersion: '10.x'
 
 steps:  
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
+
+- task: UseDotNet@2
+  displayName: 'Install .NET sdk'
+  inputs:
+    packageType: 'sdk'
+    version: $(netVersion)
+
+- task: Bash@3
+  displayName: Restore Workloads
+  inputs:
+    targetType: 'inline'
+    script: 
+      dotnet workload restore
 
 # - task: Bash@3
 #   displayName: Install MAUI
