@@ -20,7 +20,7 @@
 	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.VisualStudio.Extensibility.Framework" Version="17.14.2098" />
-		<PackageReference Include="Nerdbank.Streams" Version="2.11.90" />
+		<PackageReference Include="Nerdbank.Streams" Version="2.13.16" />
 	</ItemGroup>
 
 </Project>

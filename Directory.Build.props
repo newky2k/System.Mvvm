@@ -13,7 +13,7 @@
 		<Owners>newky2k</Owners>
 		<LangVersion>Latest</LangVersion>
 		<Configurations>Debug;Release</Configurations>
-		<NoWarn>1701;1702;CS8002</NoWarn>
+		<NoWarn>1701;1702;CS8002;NETSDK1206;</NoWarn>
 		<PackageReleaseNotes>Updated to .NET 9.0 and latest packages</PackageReleaseNotes>
 	</PropertyGroup>
 

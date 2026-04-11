@@ -16,14 +16,8 @@
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 	</PropertyGroup>
-	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net6.0-windows10')) ">
-		<TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
-		<RootNamespace>System.Mvvm.Ui</RootNamespace>
-		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64;win10-arm</RuntimeIdentifiers>
-		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
-	</PropertyGroup>
 
-	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net8.0-windows10')) ">
+	<PropertyGroup Condition=" $(TargetFramework.Contains('windows10')) ">
 		<TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
 		<RootNamespace>System.Mvvm.Ui</RootNamespace>
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64;</RuntimeIdentifiers>
@@ -40,27 +34,12 @@
 		<Compile Include="**\*.shared.*.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net8.0-windows10')) ">
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+	<ItemGroup Condition=" $(TargetFramework.Contains('windows10')) ">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
 		<Compile Include="**\*.uwp.cs" />
 		<Compile Include="**\*.uwp.*.cs" />
 	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net9.0-windows10')) ">
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-		<Compile Include="**\*.uwp.cs" />
-		<Compile Include="**\*.uwp.*.cs" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net10.0-windows10')) ">
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-		<Compile Include="**\*.uwp.cs" />
-		<Compile Include="**\*.uwp.*.cs" />
-	</ItemGroup>
-
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
 		<Compile Include="**\*.uwp.cs" />
@@ -70,6 +49,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
 	</ItemGroup>
 </Project>

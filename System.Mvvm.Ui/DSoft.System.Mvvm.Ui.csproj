@@ -15,7 +15,7 @@
   <ItemGroup>
     <None Include="readme.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
   </ItemGroup>
 	<ItemGroup>
 	  <InternalsVisibleTo Include="System.Mvvm.UI.WinUI, PublicKey=002400000480000094000000060200000024000052534131000400000100010085529aa44bb5b76cfba9f8f376ec13c1503e7e38ee7b236b946df8c17b6f24d11609eea05229320dd531dc92211156f2b9b7843b7791a680221bd4a358fb785b180fcd35731dc1b7cfaf2fc314b102b20896af562662dacd08d7d2d830a4a4cb84c6df91d7af56a6e5b46f0b65db4259bcac25bc7828791d65dfcefaefac7aad" />
