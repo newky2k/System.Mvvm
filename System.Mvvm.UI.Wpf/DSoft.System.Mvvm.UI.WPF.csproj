@@ -5,6 +5,7 @@
 		<PackageId>DSoft.System.Mvvm.UI.WPF</PackageId>
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>WPF platform support for DSoft.System.Mvvm.UI for .NET Framework 4.6.2 and .NET 10+</Description>
+		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 		<PackageTags>WPF MVVM NetCore</PackageTags>
 		<AssemblyName>System.Mvvm.UI.WPF</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>

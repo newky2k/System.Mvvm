@@ -5,6 +5,7 @@
 		<Summary>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Summary>
 		<PackageTags>MVVM</PackageTags>
 		<Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
+		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.Hosting</AssemblyName>
 		<RootNamespace>System.Mvvm</RootNamespace>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>

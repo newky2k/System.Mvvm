@@ -14,7 +14,7 @@
 		<LangVersion>Latest</LangVersion>
 		<Configurations>Debug;Release</Configurations>
 		<NoWarn>1701;1702;CS8002;NETSDK1206;</NoWarn>
-		<PackageReleaseNotes>Updated to .NET 9.0 and latest packages</PackageReleaseNotes>
+		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>DSIcon.png</PackageIcon>
 	</PropertyGroup>

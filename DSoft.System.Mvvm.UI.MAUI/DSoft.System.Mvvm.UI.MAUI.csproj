@@ -12,6 +12,7 @@
 		<PackageId>DSoft.System.Mvvm.UI.MAUI</PackageId>
 		<Version>2.2.2102.142-prerelease</Version>
 		<Description>MAUI platform support for System.Mvvm.UI</Description>
+		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 		<PackageTags>MAUI NET</PackageTags>
 		<AssemblyName>System.Mvvm.UI.MAUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>

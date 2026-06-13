@@ -4,6 +4,7 @@
     <PackageId>DSoft.System.Mvvm.Ui</PackageId>
     <Version>2.2.2102.142-prerelease</Version>
     <Description>Core UI library for System.Mvvm.UI</Description>
+    <PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
     <PackageTags>UI MVVM</PackageTags>
     <AssemblyName>System.Mvvm.Ui</AssemblyName>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
