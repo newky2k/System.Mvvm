@@ -9,7 +9,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/*.slnx'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   netVersion: '10.x'
@@ -42,7 +42,7 @@ steps:
   displayName: dotnet restore
   inputs:
     command: 'restore'
-    projects: '*.sln'
+    projects: '$(solution)'
   
 - task: DotNetCoreCLI@2
   displayName: dotnet build

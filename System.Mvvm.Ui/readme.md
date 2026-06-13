@@ -1,15 +1,15 @@
 # System.Mvvm.UI
 
-Multi-platform UI Management for WPF (.NET Framework, .NET Core 3.1 and .NET 5.x), UWP and WinUI 3 (Windows Aop SDK 1.0 and above)(Experimental) and Xamarin.Forms and MAUI for Mobile.
+Multi-platform UI Management for WPF (.NET Framework and .NET 10), WinUI 3 (Windows App SDK 1.0 and above) and MAUI for Mobile.
 
 ### Functionality
 
 - UI
   - Core UI functions for Showing Alerts and Confirmation Dialogs (using platform specific implementations)
-     - UWP and WPF (.NET Framework, .NET Core 3.1, NET 5.0 and above) and Xamarin.Forms 5.x and MAUI for mobile
+     - WPF (.NET Framework and .NET 10), WinUI and MAUI for mobile
   - UI Thread execution
   - Dependency injection support with `IPlatformCoreUIProvider`
-  - .NET Standard 2.0 and above not dependecies other than `DSoft.System.Mvvm` so it can be used in shared code projects.
+  - .NET Standard 2.0 and .NET 10 with no dependecies other than `DSoft.System.Mvvm` so it can be used in shared code projects.
 
 # Version 3.0 - Breaking in Changes
 
@@ -56,18 +56,14 @@ Using DI instead of the `UI` does not require a call to `MvvmManager.Init` thoug
 ### Supported platforms
 
  - [WPF](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WPF)
-   - .NET Framework 4.6.1 and above
-   - .NET Core 3.1
-   - .NET 5.x and above
-     - Windows 10 is supported for both net5.0-windows7 and 10.0.18362.0 target framework monikers (TFMs) incase you want to use the Windows 10 SDK in your WPF app.
- - [UWP/WinUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WinUI)
-   - UWP Windows 10 version 1903 (18362) and above
-   - WinUI using Windows App SDK 1.0 or above using .NET 5.0 or above
-     - Windows 10 version 1903 (18362) and above
- - [Xamarin.Forms](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.Forms)
-   - Xamarin.Forms 5.x for .Net Standard 2.0 and above
-     - Use on the shared project containing the Xamarin Application not the platform specific mobile apps.
+   - .NET Framework 4.6.2 and above
+   - .NET 10 and above
+     - Windows 10 is supported for both net10.0-windows7.0 and net10.0-windows10.0.18362.0 target framework monikers (TFMs) incase you want to use the Windows 10 SDK in your WPF app.
+ - [WinUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WinUI)
+   - WinUI using Windows App SDK 1.0 or above on .NET 10
+     - Windows 10 version 2004 (19041) and above
  - [MAUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.MAUI)
+   - .NET 10 (net10.0, Android, iOS, MacCatalyst and Windows 10.0.19041.0)
 
 ### MvvmManager
 `MvvmManager` is a class that is found in the platform packages for `Dsoft.System.Mvvm.UI` and registers the standard UI implementation for each platform.
