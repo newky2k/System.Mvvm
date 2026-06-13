@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,8 +12,8 @@ namespace System.Mvvm;
 /// <summary>
 /// Base view model class for views
 /// </summary>
-/// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-/// <seealso cref="System.ComponentModel.INotifyDataErrorInfo" />
+/// <seealso cref="INotifyPropertyChanged" />
+/// <seealso cref="INotifyDataErrorInfo" />
 public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 {
 
@@ -26,6 +26,11 @@ public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
     private Dictionary<string, Action> _propertyChangeActions = new Dictionary<string, Action>();
     private Validator _validator;
     private string _status = string.Empty;
+
+    // Reflection results are per-Type and immutable for the life of the process, so cache them
+    // to avoid scanning GetRuntimeProperties()/GetRuntimeFields() on every NotifyPropertyChanged.
+    private static readonly ConcurrentDictionary<Type, PropertyInfo[]> _commandPropertiesCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
+    private static readonly ConcurrentDictionary<Type, FieldInfo[]> _commandFieldsCache = new ConcurrentDictionary<Type, FieldInfo[]>();
     #endregion
 
     #region Events
@@ -292,8 +297,8 @@ public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 
         PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 
-        if (_propertyChangeActions.ContainsKey(propertyName))
-            _propertyChangeActions[propertyName]?.Invoke();
+        if (_propertyChangeActions.TryGetValue(propertyName, out var action))
+            action?.Invoke();
 
         if (DelegateCommand.RequeryCommandsOnChange)
             RequeryCommands();
@@ -318,8 +323,8 @@ public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 
-            if (_propertyChangeActions.ContainsKey(propertyName))
-                _propertyChangeActions[propertyName]?.Invoke();
+            if (_propertyChangeActions.TryGetValue(propertyName, out var action))
+                action?.Invoke();
         }
 
 
@@ -338,9 +343,9 @@ public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 
         PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
 
-        foreach (var prop in _propertyChangeActions.Keys)
+        foreach (var action in _propertyChangeActions.Values)
         {
-            _propertyChangeActions[prop]?.Invoke();
+            action?.Invoke();
 
         }
 
@@ -678,14 +683,12 @@ public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
         if (aType == null)
             return;
 
-        var commands = aType.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand)));
+        var commands = _commandPropertiesCache.GetOrAdd(aType,
+            t => t.GetRuntimeProperties().Where(x => x.PropertyType.Equals(typeof(ICommand))).ToArray());
 
-        if (commands.Any())
+        foreach (var command in commands)
         {
-            foreach (var command in commands)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
-            }
+            PropertyChanged(this, new PropertyChangedEventArgs(command.Name));
         }
     }
 
@@ -699,24 +702,23 @@ public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
         if (aType == null)
             return;
 
-        var commandsField = aType.GetRuntimeFields().Where(x => x.FieldType.Equals(typeof(ICommand))).ToList();
+        var commandsField = _commandFieldsCache.GetOrAdd(aType,
+            t => t.GetRuntimeFields().Where(x => x.FieldType.Equals(typeof(ICommand))).ToArray());
 
-        if (commandsField.Any())
+        if (commandsField.Length == 0)
+            return;
+
+        var dCommands = new List<DelegateCommand>(commandsField.Length);
+
+        foreach (var command in commandsField)
         {
-            var dCommands = new List<DelegateCommand>();
-
-            foreach (var command in commandsField)
-            {
-                var actualObject = command.GetValue(this) as DelegateCommand;
-
-                if (actualObject != null)
-                    dCommands.Add(actualObject);
-            }
-
-            //notify in one go
-            if (dCommands.Any())
-                DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
+            if (command.GetValue(this) is DelegateCommand actualObject)
+                dCommands.Add(actualObject);
         }
+
+        //notify in one go
+        if (dCommands.Count > 0)
+            DelegateCommand.BulkNotifyRaiseCanExecuteChanged(dCommands);
     }
 
     #endregion
