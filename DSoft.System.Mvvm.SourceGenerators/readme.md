@@ -5,6 +5,7 @@ Source generator library for [DSoft.System.Mvvm](https://www.nuget.org/packages/
 ## Functionality
 - MVVMViewModelAttribute
   - Class attribute for converting class to a `ViewModel` and enabling notificaiton of ICommand CanExecute notifications
+- Built as a .NET Standard 2.0 analyzer (required for source generators)
 
 # MVVMViewModelAttribute
 

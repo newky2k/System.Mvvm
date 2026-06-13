@@ -6,7 +6,8 @@ Provides Win UI 3 platform implementations for [DSoft.System.Mvvm.UI](https://ww
  - Core UI functions for Showing Alerts and Confirmation Dialogs 
  - UI Thread execution
  - Dependency injection support with `IPlatformCoreUIProvider`
- - Works with Win UI 3 (Windows App SDK 1.0 and above)
+ - Works with Win UI 3 (Windows App SDK 1.0 and above) on .NET 10
+   - Windows 10 version 2004 (19041) and above
   
 # Using System.Mvvm.UI.WinUI
 
@@ -32,7 +33,7 @@ The standard `UI` functions can be called directly after adding the `DSoft.Mvvm.
     if (result)
         await UI.ShowAlertAsync("YAY!", "You confirmed that");
 
-In the shared UWP or WinUI application project that contains the `App` class(or other sub-class of `Application`) to the application, add the `DSoft.System.Mvvm.UI.WinUI` package.
+In the WinUI application project that contains the `App` class(or other sub-class of `Application`) to the application, add the `DSoft.System.Mvvm.UI.WinUI` package.
 
 Call the `MvvmManager.Init` method in the application code, such as `App` constructor.
 

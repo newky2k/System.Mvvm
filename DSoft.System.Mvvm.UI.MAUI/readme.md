@@ -8,6 +8,7 @@ Provides MAUI platform implementations for [DSoft.System.Mvvm.UI](https://www.nu
   - Core UI functions for Showing Alerts and Confirmation Dialogs 
   - UI Thread execution
   - Dependency injection support with `IPlatformCoreUIProvider`
+  - .NET 10 MAUI (net10.0, Android, iOS, MacCatalyst and Windows 10.0.19041.0)
 
 # Using System.Mvvm.UI.MAUI
 

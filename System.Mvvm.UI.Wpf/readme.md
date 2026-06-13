@@ -1,21 +1,21 @@
 # System.Mvvm.UI.WPF
 
-Provides WPF (.NET Framework, .NET Core 3.1 and .NET 5.0 and above) platform implementations for [DSoft.System.Mvvm.UI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI)
+Provides WPF (.NET Framework 4.6.2 and .NET 10 and above) platform implementations for [DSoft.System.Mvvm.UI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI)
 
 ## Functionality
  - Core UI functions for Showing Alerts and Confirmation Dialogs 
  - UI Thread execution
  - Dependency injection support with `IPlatformCoreUIProvider`
- - Works with (.NET Framework, .NET Core 3.1 and .NET 5.0 and above)
+ - Works with (.NET Framework 4.6.2 and .NET 10 and above)
    - Windows 7 and above
 
-## Support for .NET 5.0 and above with Windows 10/11
+## Support for .NET 10 and above with Windows 10/11
 
-There are two Target Framework Monikers (TFMs) that are supported for Windows 10 and above when using .NET 5.0 or above, depending on if your application is using the Windows 10/11 SDK.
+There are two Target Framework Monikers (TFMs) that are supported for Windows 10 and above when using .NET 10 or above, depending on if your application is using the Windows 10/11 SDK.
 
- - net5.0-windows7.0
+ - net10.0-windows7.0
    - Works with Windows 7, 8, 8.1, 10 and 11
- - net5.0-windows10.0.18362.0
+ - net10.0-windows10.0.18362.0
    - Works with Windows 10 1903 (18362) and above only to access the Windows 10/11 SDK
 
 # Using System.Mvvm.UI.WPF

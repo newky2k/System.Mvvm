@@ -7,7 +7,7 @@ Microsoft.Extensions.Hosting helper library and System.Mvvm extensions
   - Works with Web, Mobile and Desktop applications
   - Simplified initialisation methods for creating and configuring the ServiceProvider host
 - Extensions for `System.Mvvm.ViewModel` to make it easy to get Services from the ServiceProvider host
-- Support for .Net Standard 2.0 and .NET 5.0
+- Support for .NET Standard 2.0 and .NET 10
 
 # ServiceHost
 
