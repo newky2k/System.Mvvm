@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net462;net8.0-windows7.0;net8.0-windows10.0.18362.0;net9.0-windows7.0;net9.0-windows10.0.18362.0;net10.0-windows7.0;net10.0-windows10.0.18362.0;</TargetFrameworks>
+		<TargetFrameworks>net462;net10.0-windows7.0;net10.0-windows10.0.18362.0;</TargetFrameworks>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<PackageId>DSoft.System.Mvvm.UI.WPF</PackageId>
 		<Version>2.2.2102.142-prerelease</Version>
@@ -19,6 +19,6 @@
 		<None Include="readme.md" Pack="true" PackagePath="\" />
 		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.9" />
 	</ItemGroup>
 </Project>
