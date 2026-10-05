@@ -51,7 +51,7 @@ jobs:
         run: dotnet workload restore System.Mvvm.slnx
 
       - name: Restore
-        run: dotnet restore System.Mvvm.slnx
+        run: dotnet restore System.Mvvm.slnx -p:Configuration=Release
 
       - name: Build
         run: >
