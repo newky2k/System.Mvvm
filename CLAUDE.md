@@ -17,13 +17,13 @@ dotnet build System.Mvvm.slnx -c Release
 
 - No unit test project exists; `MVVMSample` (WPF) and `MauiSample` are the manual runnable samples.
 - Multi-targeted builds (especially MAUI/WinUI) require workloads: `dotnet workload restore`.
-- Azure pipelines (`azure-pipelines-*.yml`) build via the `solution: 'System.Mvvm.slnx'` variable.
+- CI is GitHub Actions (`.github/workflows/`): `ci.yml` builds Release for pull requests into `main` or `development` and publishes nothing; `release.yml` runs on every push to `main` (changes only to Markdown or workflow files are skipped; run it by hand to test a workflow change), builds Release as `3.6.<yyMM>.<run number>` plus `RELEASE_SUFFIX` (empty for a stable version, set it to `-prerelease` in the workflow to publish a prerelease), uploads the packages as the `drop` artifact, pushes them to nuget.org with Trusted Publishing (OIDC, `NUGET_USER` secret, `nuget` environment), then tags the commit `v<version>` and creates a GitHub release with the packages attached.
 - The core library targets `netstandard2.0;net10.0`. Platform UI libs add windows-specific TFMs (e.g. `net462;net10.0-windows7.0;net10.0-windows10.0.18362.0;...`).
 - Assemblies are strong-named/signed (`DSoft.snk`); `Release` builds enable SourceLink and pack symbols. `GeneratePackageOnBuild` is on, so building produces `.nupkg` files.
 
 ## Shared build configuration
 
-`Directory.Build.props` (root) centralizes versioning, signing, license, SourceLink, and `NoWarn` for **all** projects. Per-project `.csproj` files only set package id/description/TFMs. Change version/copyright/signing here, not per-project.
+`Directory.Build.props` (root) centralizes signing, license, SourceLink, and `NoWarn` for **all** projects. Per-project `.csproj` files only set package id/description/TFMs. Change copyright/signing here, not per-project. No project sets a version: the release workflow injects `/p:Version`, `/p:AssemblyVersion` and `/p:FileVersion`, so a local build produces `1.0.0` packages.
 
 ## Architecture
 
@@ -68,4 +68,4 @@ Platform projects use `<DefineConstants>` (e.g. `WPF`) and `.shared.cs` filename
 
 - Root namespace is `System.Mvvm` across most projects regardless of folder name (note folder/file names like `DSoft.System.Mvvm.UI.WPF.csproj` differ from assembly name `System.Mvvm.UI.WPF`).
 - DI registration extensions live in namespace `Microsoft.Extensions.DependencyInjection` so `AddCoreUI()` surfaces on `IServiceCollection` without extra usings.
-- Version numbers are duplicated across `.csproj` files and `Directory.Build.props` — keep them in sync when bumping.
+- Do not add `Version`/`AssemblyVersion`/`FileVersion` to a `.csproj`; the version comes from `.github/workflows/release.yml`. Bump the `3.6` prefix there.

@@ -10,9 +10,6 @@
 		<RootNamespace>System.Mvvm</RootNamespace>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
-		<Version>2.2.2102.142-prerelease</Version>
-		<FileVersion>2.2.2102.142</FileVersion>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -22,7 +19,7 @@
 		<Compile Include="**\*.shared.*.cs" />
 		<Compile Include="HostMode.cs" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Equals('netstandard2.0'))">

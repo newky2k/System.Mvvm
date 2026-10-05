@@ -10,14 +10,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<PackageId>DSoft.System.Mvvm.UI.MAUI</PackageId>
-		<Version>2.2.2102.142-prerelease</Version>
 		<Description>MAUI platform support for System.Mvvm.UI</Description>
 		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 		<PackageTags>MAUI NET</PackageTags>
 		<AssemblyName>System.Mvvm.UI.MAUI</AssemblyName>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
-		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
-		<FileVersion>2.2.2102.142</FileVersion>
 		<RootNamespace>System.Mvvm</RootNamespace>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -31,9 +28,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.71" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.71" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.110" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.110" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
 	</ItemGroup>
 
 	<ItemGroup>

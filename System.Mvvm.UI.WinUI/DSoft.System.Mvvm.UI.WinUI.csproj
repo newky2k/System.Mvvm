@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-windows10.0.19041;</TargetFrameworks>
 		<PackageId>DSoft.System.Mvvm.UI.WinUI</PackageId>
-		<Version>2.2.2102.142-prerelease</Version>
 		<Description>WinUI 3 platform support for System.Mvvm.UI for .NET 10+</Description>
 		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 		<PackageTags>WinUI .NET</PackageTags>
@@ -10,8 +9,6 @@
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 		<EnableDefaultPageItems>false</EnableDefaultPageItems>
-		<AssemblyVersion>2.2.2102.142</AssemblyVersion>
-		<FileVersion>2.2.2102.142</FileVersion>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<RootNamespace>System.Mvvm</RootNamespace>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
@@ -36,8 +33,8 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('windows10')) ">
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="2.5.1" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2705" />
 		<Compile Include="**\*.uwp.cs" />
 		<Compile Include="**\*.uwp.*.cs" />
 	</ItemGroup>
@@ -50,6 +47,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\System.Mvvm.Ui\DSoft.System.Mvvm.UI.csproj" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.12" />
 	</ItemGroup>
 </Project>
