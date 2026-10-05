@@ -93,3 +93,12 @@ To create a notifiable property create a property with a backing field using the
    - .NET 10 (net10.0, Android, iOS, MacCatalyst and Windows 10.0.19041.0)
  - [Visual Studio Extensibility](https://www.nuget.org/packages/DSoft.System.Mvvm.VisualStudio.Extensibility.UI)
    - VisualStudio.Extensibility SDK on .NET 8 (Windows)
+
+# Building and releasing
+
+Builds run on GitHub Actions:
+
+* `.github/workflows/ci.yml` validates every pull request into `main` or `development`: it builds Release and publishes nothing.
+* `.github/workflows/release.yml` runs on every push to `main` (or manually from the Actions tab). It builds and pushes the packages to nuget.org as `3.6.<yyMM>.<run number>`, then tags the commit and creates a GitHub release with the packages attached. Set `RELEASE_SUFFIX` (e.g. `-prerelease`) to publish a prerelease.
+
+Publishing uses [NuGet trusted publishing](https://learn.microsoft.com/nuget/nuget-org/trusted-publishing), so no API key is stored: the nuget.org policy trusts workflow `release.yml` in environment `nuget`, and the `NUGET_USER` secret holds the nuget.org profile name.

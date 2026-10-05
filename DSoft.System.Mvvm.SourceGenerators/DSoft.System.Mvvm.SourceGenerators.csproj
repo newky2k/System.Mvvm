@@ -10,9 +10,6 @@
 	  <PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
 	  <AssemblyName>System.Mvvm.SourceGenerators</AssemblyName>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>
-	  <AssemblyVersion>2.2.2102.142</AssemblyVersion>
-	  <Version>2.2.2102.142-prerelease</Version>
-	  <FileVersion>2.2.2102.142</FileVersion>
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
 	  <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
