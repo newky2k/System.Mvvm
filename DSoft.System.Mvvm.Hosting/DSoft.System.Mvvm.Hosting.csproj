@@ -5,7 +5,7 @@
 		<Summary>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Summary>
 		<PackageTags>MVVM</PackageTags>
 		<Description>Microsoft.Extensions.Hosting helper library and System.Mvvm extensions</Description>
-		<PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added .NET 11 support alongside .NET 10 and updated packages.</PackageReleaseNotes>
 		<AssemblyName>System.Mvvm.Hosting</AssemblyName>
 		<RootNamespace>System.Mvvm</RootNamespace>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
@@ -19,7 +19,14 @@
 		<Compile Include="**\*.shared.*.cs" />
 		<Compile Include="HostMode.cs" />
 		<ProjectReference Include="..\System.Mvvm\DSoft.System.Mvvm.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.Equals('net11.0'))">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="11.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" !$(TargetFramework.Equals('net11.0'))">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.15" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Equals('netstandard2.0'))">
@@ -27,7 +34,7 @@
 		<Compile Include="**\*.netstandard.*.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework.Equals('net10.0'))">
+	<ItemGroup Condition=" $(TargetFramework.Equals('net10.0')) Or $(TargetFramework.Equals('net11.0'))">
 		<Compile Include="**\*.net.cs" />
 		<Compile Include="**\*.net.*.cs" />
 	</ItemGroup>

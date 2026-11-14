@@ -23,7 +23,7 @@ dotnet build System.Mvvm.slnx -c Release
 - No unit test project exists; `MVVMSample` (WPF) and `MauiSample` are the manual runnable samples.
 - Multi-targeted builds (especially MAUI/WinUI) require workloads: `dotnet workload restore`.
 - CI is GitHub Actions (`.github/workflows/`): `ci.yml` builds Release for pull requests into `main` or `development` and publishes nothing; `release.yml` runs on every push to `main` (changes only to Markdown or workflow files are skipped; run it by hand to test a workflow change), builds Release as `3.6.<yyMM>.<run number>` plus `RELEASE_SUFFIX` (empty for a stable version, set it to `-prerelease` in the workflow to publish a prerelease), uploads the packages as the `drop` artifact, pushes them to nuget.org with Trusted Publishing (OIDC, `NUGET_USER` secret, `nuget` environment), then tags the commit `v<version>` and creates a GitHub release with the packages attached.
-- The core library targets `netstandard2.0;net10.0`. Platform UI libs add windows-specific TFMs (e.g. `net462;net10.0-windows7.0;net10.0-windows10.0.18362.0;...`).
+- The core library targets `netstandard2.0;net10.0;net11.0`. Platform UI libs add windows-specific TFMs (e.g. `net462;net10.0-windows7.0;net10.0-windows10.0.18362.0;net11.0-windows7.0;net11.0-windows10.0.18362.0;...`). Install both the .NET 10 and .NET 11 SDKs.
 - Assemblies are strong-named/signed (`DSoft.snk`); `Release` builds enable SourceLink and pack symbols. `GeneratePackageOnBuild` is on, so building produces `.nupkg` files.
 
 ## Shared build configuration

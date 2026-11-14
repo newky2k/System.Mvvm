@@ -7,7 +7,7 @@
 	  <Summary>Source generators library for DSoft.System.Mvvm</Summary>
 	  <PackageTags>MVVM SourceGenerators</PackageTags>
 	  <Description>Source generators for DSoft.System.Mvvm</Description>
-	  <PackageReleaseNotes>Updated to .NET 10 and latest packages. Removed .NET 8 and .NET 9 support. Performance improvements.</PackageReleaseNotes>
+	  <PackageReleaseNotes>Added .NET 11 support alongside .NET 10 and updated packages.</PackageReleaseNotes>
 	  <AssemblyName>System.Mvvm.SourceGenerators</AssemblyName>
 	  <Product>$(AssemblyName) ($(TargetFramework))</Product>
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>

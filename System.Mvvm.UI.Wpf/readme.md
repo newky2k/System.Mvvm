@@ -14,8 +14,10 @@ Provides WPF (.NET Framework 4.6.2 and .NET 10 and above) platform implementatio
 There are two Target Framework Monikers (TFMs) that are supported for Windows 10 and above when using .NET 10 or above, depending on if your application is using the Windows 10/11 SDK.
 
  - net10.0-windows7.0
+ - net11.0-windows7.0
    - Works with Windows 7, 8, 8.1, 10 and 11
  - net10.0-windows10.0.18362.0
+ - net11.0-windows10.0.18362.0
    - Works with Windows 10 1903 (18362) and above only to access the Windows 10/11 SDK
 
 # Using System.Mvvm.UI.WPF
