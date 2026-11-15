@@ -58,12 +58,12 @@ Using DI instead of the `UI` does not require a call to `MvvmManager.Init` thoug
  - [WPF](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WPF)
    - .NET Framework 4.6.2 and above
    - .NET 10 and above
-     - Windows 10 is supported for both net10.0-windows7.0 and net10.0-windows10.0.18362.0 target framework monikers (TFMs) incase you want to use the Windows 10 SDK in your WPF app.
+     - Windows 10 is supported for both net10.0/net11.0-windows7.0 and net10.0/net11.0-windows10.0.18362.0 target framework monikers (TFMs) incase you want to use the Windows 10 SDK in your WPF app.
  - [WinUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.WinUI)
    - WinUI using Windows App SDK 1.0 or above on .NET 10
      - Windows 10 version 2004 (19041) and above
  - [MAUI](https://www.nuget.org/packages/DSoft.System.Mvvm.UI.MAUI)
-   - .NET 10 (net10.0, Android, iOS, MacCatalyst and Windows 10.0.19041.0)
+   - .NET 10 and .NET 11 (net10.0/net11.0, Android, iOS, MacCatalyst and Windows 10.0.19041.0)
 
 ### MvvmManager
 `MvvmManager` is a class that is found in the platform packages for `Dsoft.System.Mvvm.UI` and registers the standard UI implementation for each platform.
